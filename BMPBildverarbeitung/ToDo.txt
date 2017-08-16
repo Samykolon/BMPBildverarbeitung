@@ -1,0 +1,11 @@
+Algorithmen:
+
+Sobel
+Gauﬂ-Filter
+Helligkeit
+S‰ttigung
+Skalieren
+
+....
+
+Verschwimmen lassen
