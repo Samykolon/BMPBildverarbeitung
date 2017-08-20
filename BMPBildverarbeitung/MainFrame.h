@@ -15,7 +15,7 @@ namespace BMPBildverarbeitung {
 	using namespace System::Drawing;
 	using namespace System::Resources;
 	using namespace System::Reflection;
-	
+
 
 	/// <summary>
 	/// Zusammenfassung für MainFrame
@@ -25,8 +25,8 @@ namespace BMPBildverarbeitung {
 		Assembly^ assembly = Assembly::GetExecutingAssembly();
 		AssemblyName^ assemblyName = assembly->GetName();
 
-		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name+".ImageResources", assembly);
-		String^ FilePath;		
+		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
+		String^ FilePath;
 
 	public:
 		MainFrame(void)
@@ -59,15 +59,13 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::ToolStripMenuItem^  beendenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  bearbeitenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  hilfeToolStripMenuItem;
+
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
+
 	private: System::Windows::Forms::Button^  BSobel;
 	private: System::Windows::Forms::Button^  BGauss;
 	private: System::Windows::Forms::Button^  BHelligkeit;
 	private: System::Windows::Forms::Button^  BSaettigung;
-
-
-
-
 	private: System::Windows::Forms::Button^  BSkalierung;
 
 	private: System::Windows::Forms::GroupBox^  groupBox1;
@@ -279,11 +277,11 @@ namespace BMPBildverarbeitung {
 
 		}
 #pragma endregion
-private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
-};
+	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
+	};
 }

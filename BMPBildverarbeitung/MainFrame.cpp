@@ -24,7 +24,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 
 	groupBox1->Text = "Sobel-Filter";
 	BApply->Enabled = true;
-	Filter::ChangeBrightness("InitialImage.bmp");
+	Filters::ChangeBrightness("InitialImage.bmp");
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) {

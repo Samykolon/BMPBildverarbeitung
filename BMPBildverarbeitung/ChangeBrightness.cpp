@@ -5,7 +5,7 @@ typedef unsigned char BYTE;
 #pragma unmanaged
 
 
-void Filter::ChangeBrightness(char* fp)
+void Filters::ChangeBrightness(char* fp)
 {
 	//Copied from EasyBMP example, just a test
 

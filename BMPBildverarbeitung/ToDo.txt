@@ -12,4 +12,9 @@ Verschwimmen lassen
 
 Funktionen:
 Laden per Drag-n-Drop
-Marshalling von EasyBMP-Bitmap zu .NET-Bitmap
+GUI-Textfeld, das es ermöglicht, den Speicherpfad festzulegen
+(?)Möglichkeit, Bildspeicherpfad im Explorer zu öffnen
+
+Implementierung:
+Marshalling von EasyBMP-Bitmap zu .NET-Bitmap (eher schwer)
+SIMD (auch schwer)

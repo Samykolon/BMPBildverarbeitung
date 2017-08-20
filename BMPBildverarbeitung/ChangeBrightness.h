@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 
-namespace Filter {
-	
+namespace Filters {
+
 	void ChangeBrightness(char* fp);
- }
+}
