@@ -9,3 +9,7 @@ Skalieren
 ....
 
 Verschwimmen lassen
+
+Funktionen:
+Laden per Drag-n-Drop
+Marshalling von EasyBMP-Bitmap zu .NET-Bitmap

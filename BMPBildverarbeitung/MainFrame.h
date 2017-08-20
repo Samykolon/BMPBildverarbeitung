@@ -1,5 +1,10 @@
 #pragma once
 
+#include "ChangeBrightness.h"
+
+#pragma managed
+#include <iostream>
+
 namespace BMPBildverarbeitung {
 
 	using namespace System;
@@ -21,6 +26,7 @@ namespace BMPBildverarbeitung {
 		AssemblyName^ assemblyName = assembly->GetName();
 
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name+".ImageResources", assembly);
+		String^ FilePath;		
 
 	public:
 		MainFrame(void)
@@ -273,35 +279,11 @@ namespace BMPBildverarbeitung {
 
 		}
 #pragma endregion
-	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		this->Close();
-
-	}
-private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	groupBox1->Text = "Sobel-Filter";
-	BApply->Enabled = true;
-}
-private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	groupBox1->Text = "Gauß-Filter";
-	BApply->Enabled = true;
-}
-private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	groupBox1->Text = "Helligkeit";
-	BApply->Enabled = true;
-}
-private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	groupBox1->Text = "Skalierung";
-	BApply->Enabled = true;
-}
-private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	groupBox1->Text = "Sättigung";
-	BApply->Enabled = true;
-}
+private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
