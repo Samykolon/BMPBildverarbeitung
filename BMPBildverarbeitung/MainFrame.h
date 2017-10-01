@@ -33,7 +33,7 @@ namespace BMPBildverarbeitung {
 		{
 			InitializeComponent();
 			pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
-
+			FilePath = L"Initialimage.bmp";
 			//
 			//TODO: Konstruktorcode hier hinzufügen.
 			//

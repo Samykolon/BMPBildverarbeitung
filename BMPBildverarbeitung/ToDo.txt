@@ -12,7 +12,7 @@ Verschwimmen lassen
 
 Funktionen:
 Laden per Drag-n-Drop
-GUI-Textfeld, das es ermöglicht, den Speicherpfad festzulegen
+GUI-Textfeld/Filepicker, das es ermöglicht, den Speicherpfad festzulegen
 (?)Möglichkeit, Bildspeicherpfad im Explorer zu öffnen
 
 Implementierung:

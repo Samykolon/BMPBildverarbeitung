@@ -1,4 +1,5 @@
 #include "MainFrame.h"
+#include <msclr\marshal.h>
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -16,7 +17,8 @@ void Main(array<String^>^ args)
 
 void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	Filters::ChangeBrightness("Initialimage.bmp");	
+	msclr::interop::marshal_context context;
+	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath));
 }
 
 void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {

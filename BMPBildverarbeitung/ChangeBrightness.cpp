@@ -5,7 +5,7 @@ typedef unsigned char BYTE;
 #pragma unmanaged
 
 
-void Filters::ChangeBrightness(char* filePath)
+void Filters::ChangeBrightness(const char* filePath)
 {
 	//Copied from EasyBMP example, just a test
 
