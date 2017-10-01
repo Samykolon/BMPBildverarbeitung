@@ -9,6 +9,7 @@ Skalieren
 ....
 
 Verschwimmen lassen
+Negativ erstellen
 
 Funktionen:
 Laden per Drag-n-Drop

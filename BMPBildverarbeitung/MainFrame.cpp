@@ -15,13 +15,13 @@ void Main(array<String^>^ args)
 	Application::Run(%form);
 }
 
-void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+inline void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	msclr::interop::marshal_context context;
 	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath));
 }
 
-void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
+inline void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
 	FilePath = "Test.bmp";
 	UpdatePicture();
 }
@@ -67,7 +67,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 	BApply->Enabled = true;
 }
 
-Void BMPBildverarbeitung::MainFrame::UpdatePicture()
+inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
 	pictureBox1->Image = Image::FromFile(FilePath);	
 }
