@@ -6,5 +6,5 @@
 
 namespace Filters {
 
-	void ChangeBrightness(char* fp);
+	void ChangeBrightness(char* filePath);
 }

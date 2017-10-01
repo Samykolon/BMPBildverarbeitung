@@ -277,11 +277,17 @@ namespace BMPBildverarbeitung {
 
 		}
 #pragma endregion
+
+	//BrightnessWorker
+	private: void bwBrightness_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwBrightness_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
+	private: Void UpdatePicture();
 	};
 }

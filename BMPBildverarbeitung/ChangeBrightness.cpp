@@ -5,12 +5,12 @@ typedef unsigned char BYTE;
 #pragma unmanaged
 
 
-void Filters::ChangeBrightness(char* fp)
+void Filters::ChangeBrightness(char* filePath)
 {
 	//Copied from EasyBMP example, just a test
 
 	BMP Image;
-	Image.ReadFromFile(fp);
+	Image.ReadFromFile(filePath);
 	for (int i = 0; i < Image.TellWidth(); i++)
 	{
 		for (int j = 0; j < Image.TellHeight(); j++)
