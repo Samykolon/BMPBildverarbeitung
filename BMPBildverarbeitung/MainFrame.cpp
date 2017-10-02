@@ -27,6 +27,7 @@ inline void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::Comp
 inline void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
 	FilePath = "Test.bmp";
 	UpdatePicture();
+	IsProcessing = false;
 }
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
@@ -56,11 +57,14 @@ inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Cli
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) {
-	BackgroundWorker^ bw = gcnew BackgroundWorker();
-	bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwBrightness_DoWork);
-	bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwBrightness_RunWorkerCompleted);
-	bw->RunWorkerAsync();
 	
+	if (!IsProcessing) {
+		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwBrightness_DoWork);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwBrightness_RunWorkerCompleted);
+		bw->RunWorkerAsync();
+		IsProcessing = true;
+	}
 	groupBox1->Text = "Sobel-Filter";
 	BApply->Enabled = true;
 		

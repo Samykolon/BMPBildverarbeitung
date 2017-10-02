@@ -1,9 +1,10 @@
 #pragma once
 
 #include "TurnBlackAndWhite.h"
-
+#include "HSVPixel.h"
 #pragma managed
 #include <iostream>
+
 
 namespace BMPBildverarbeitung {
 
@@ -26,8 +27,8 @@ namespace BMPBildverarbeitung {
 		AssemblyName^ assemblyName = assembly->GetName();
 
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
-
-			 String^ FilePath;
+		String^ FilePath;
+		Boolean IsProcessing;
 
 	public:
 		MainFrame(void)
@@ -35,6 +36,7 @@ namespace BMPBildverarbeitung {
 			InitializeComponent();
 			pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
 			FilePath = L"Initialimage.bmp";
+			IsProcessing = false;
 			//
 			//TODO: Konstruktorcode hier hinzufügen.
 			//
