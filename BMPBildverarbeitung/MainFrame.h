@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ChangeBrightness.h"
+#include "TurnBlackAndWhite.h"
 
 #pragma managed
 #include <iostream>
@@ -26,7 +26,8 @@ namespace BMPBildverarbeitung {
 		AssemblyName^ assemblyName = assembly->GetName();
 
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
-		String^ FilePath;
+
+			 String^ FilePath;
 
 	public:
 		MainFrame(void)
@@ -281,7 +282,14 @@ namespace BMPBildverarbeitung {
 	//BrightnessWorker
 	private: void bwBrightness_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwBrightness_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
-	
+	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+	//private: void bwd_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	//private: void bwd_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+
+
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);

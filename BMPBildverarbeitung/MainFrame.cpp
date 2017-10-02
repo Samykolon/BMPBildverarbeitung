@@ -1,9 +1,12 @@
 #include "MainFrame.h"
 #include <msclr\marshal.h>
+#include <chrono>
 
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace BMPBildverarbeitung;
+using namespace System::Diagnostics;
+using namespace std::chrono;
 
 [STAThread]
 void Main(array<String^>^ args)
@@ -18,12 +21,32 @@ void Main(array<String^>^ args)
 inline void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	msclr::interop::marshal_context context;
-	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath));
+	Filters::TurnBlackAndWhite(context.marshal_as<const char*>(FilePath));
 }
 
 inline void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
 	FilePath = "Test.bmp";
 	UpdatePicture();
+}
+
+void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	throw gcnew System::NotImplementedException();
+}
+
+void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+{
+	throw gcnew System::NotImplementedException();
+}
+
+void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	throw gcnew System::NotImplementedException();
+}
+
+void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+{
+	throw gcnew System::NotImplementedException();
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e) {
@@ -53,6 +76,14 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 
 	groupBox1->Text = "Helligkeit";
 	BApply->Enabled = true;
+	//Test to measure method time
+	
+	msclr::interop::marshal_context context;
+	auto watch = Stopwatch::StartNew();
+	Filters::TurnBlackAndWhite(context.marshal_as<const char*>(FilePath));
+	watch->Stop();
+
+	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {

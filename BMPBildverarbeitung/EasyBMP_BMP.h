@@ -17,7 +17,7 @@
 * description: Defines BMP class                 *
 *                                                *
 *************************************************/
-
+#include "EasyBMP_DataStructures.h"
 #ifndef _EasyBMP_BMP_h_
 #define _EasyBMP_BMP_h_
 

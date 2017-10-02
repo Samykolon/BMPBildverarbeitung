@@ -1,14 +1,14 @@
-#include "ChangeBrightness.h"
+#include "TurnBlackAndWhite.h"
 #include <iostream>
 typedef unsigned char BYTE;
 
 #pragma unmanaged
 
 
-void Filters::ChangeBrightness(const char* filePath)
+void Filters::TurnBlackAndWhite(const char* filePath)
 {
 	//Copied from EasyBMP example, just a test
-
+	
 	BMP Image;
 	Image.ReadFromFile(filePath);
 	for (int i = 0; i < Image.TellWidth(); i++)
