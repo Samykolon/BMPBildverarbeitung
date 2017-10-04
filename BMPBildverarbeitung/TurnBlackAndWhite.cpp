@@ -2,7 +2,7 @@
 #include <iostream>
 typedef unsigned char BYTE;
 
-#pragma unmanaged
+
 
 
 void Filters::TurnBlackAndWhite(const char* filePath)

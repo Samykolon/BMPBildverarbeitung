@@ -4,7 +4,8 @@
 #include "TurnBlackAndWhite.h"
 #include "HSVPixel.h"
 #include <iostream>
-#pragma managed
+
+
 
 namespace BMPBildverarbeitung {
 

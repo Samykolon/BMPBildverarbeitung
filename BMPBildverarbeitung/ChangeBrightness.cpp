@@ -1,6 +1,6 @@
 #include "ChangeBrightness.h"
 #include <iostream>
-#pragma unmanaged
+
 void Filters::ChangeBrightness(const char * filePath)
 {
 	double factor = 0.8;

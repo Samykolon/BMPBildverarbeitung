@@ -125,11 +125,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChangeBrightness.cpp" />
-    <ClCompile Include="HSVPixel.cpp" />
-    <ClCompile Include="TurnBlackAndWhite.cpp" />
+    <ClCompile Include="ChangeBrightness.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile Include="HSVPixel.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile Include="TurnBlackAndWhite.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="Convert.cpp" />
-    <ClCompile Include="EasyBMP.cpp" />
+    <ClCompile Include="EasyBMP.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="MainFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
