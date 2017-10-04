@@ -1,6 +1,8 @@
 #include "MainFrame.h"
 #include <msclr\marshal.h>
 #include <chrono>
+#include "HSVPixel.h"
+#include "ChangeBrightness.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -74,6 +76,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 
 	groupBox1->Text = "Gauß-Filter";
 	BApply->Enabled = true;
+	msclr::interop::marshal_context context;
+	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath));
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) {

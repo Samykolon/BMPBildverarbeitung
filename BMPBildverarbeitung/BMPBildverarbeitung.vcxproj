@@ -125,12 +125,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeBrightness.cpp" />
+    <ClCompile Include="HSVPixel.cpp" />
     <ClCompile Include="TurnBlackAndWhite.cpp" />
     <ClCompile Include="Convert.cpp" />
     <ClCompile Include="EasyBMP.cpp" />
     <ClCompile Include="MainFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeBrightness.h" />
     <ClInclude Include="TurnBlackAndWhite.h" />
     <ClInclude Include="Convert.h" />
     <ClInclude Include="EasyBMP.h" />

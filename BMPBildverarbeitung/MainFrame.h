@@ -1,10 +1,10 @@
 #pragma once
 
+
 #include "TurnBlackAndWhite.h"
 #include "HSVPixel.h"
-#pragma managed
 #include <iostream>
-
+#pragma managed
 
 namespace BMPBildverarbeitung {
 
