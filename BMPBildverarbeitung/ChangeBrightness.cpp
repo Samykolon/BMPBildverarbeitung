@@ -19,7 +19,6 @@ void Filters::ChangeBrightness(const char * filePath)
 			
 		}
 	}
-	Image.SetBitDepth(8);
 	Image.WriteToFile("Test.bmp");
 
 }
