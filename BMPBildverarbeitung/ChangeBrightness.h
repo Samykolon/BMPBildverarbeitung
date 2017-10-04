@@ -4,8 +4,6 @@
 #include "HSVPixel.h"
 #include "TurnBlackAndWhite.h"
 
-
-
 namespace Filters {
-	void ChangeBrightness(const char* filePath);
+	void ChangeBrightness(const char* filePath, double factor);
 }

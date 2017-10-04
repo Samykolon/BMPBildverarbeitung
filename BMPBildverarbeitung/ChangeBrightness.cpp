@@ -1,9 +1,8 @@
 #include "ChangeBrightness.h"
 #include <iostream>
 
-void Filters::ChangeBrightness(const char * filePath)
-{
-	double factor = 0.8;
+void Filters::ChangeBrightness(const char * filePath, double factor)
+{	
 	BMP Image;
 	Image.ReadFromFile(filePath);
 	HSVpixel hsvPixel;
@@ -13,6 +12,13 @@ void Filters::ChangeBrightness(const char * filePath)
 				
 			startPixel = Image.GetPixel(i, j);
 			hsvPixel = RgbToHsv(startPixel);
+			double newValue = hsvPixel.Value * factor;
+			if (newValue > 255) {
+				hsvPixel.Value = 255;
+			}
+			else {
+				hsvPixel.Value = newValue;
+			}
 						
 			RGBApixel finalPixel = HsvToRgb(hsvPixel);
 			*Image(i, j) = finalPixel;

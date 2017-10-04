@@ -77,7 +77,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 	groupBox1->Text = "Gauß-Filter";
 	BApply->Enabled = true;
 	msclr::interop::marshal_context context;
-	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath));
+	Filters::ChangeBrightness(context.marshal_as<const char*>(FilePath), 2);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) {
