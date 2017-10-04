@@ -5,6 +5,7 @@
 #include "TurnBlackAndWhite.h"
 
 
+
 namespace Filters {
 	void ChangeBrightness(const char* filePath);
 }
