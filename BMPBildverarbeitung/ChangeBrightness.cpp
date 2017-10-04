@@ -6,7 +6,7 @@ void Filters::ChangeBrightness(const char * filePath)
 	double factor = 0.8;
 	BMP Image;
 	Image.ReadFromFile(filePath);
-	HsvColor hsvPixel;
+	HSVpixel hsvPixel;
 	RGBApixel startPixel;
 	for (int i = 0; i < Image.TellWidth(); i++) {
 		for (int j = 0; j < Image.TellHeight(); j++) {

@@ -1,16 +1,15 @@
 #include "HSVPixel.h"
 
-RGBApixel HsvToRgb(HsvColor hsv)
+RGBApixel HsvToRgb(HSVpixel hsv)
 {
 	RGBApixel rgb;
 	unsigned char region, remainder, p, q, t;
-
+	rgb.Alpha = hsv.Alpha;
 	if (hsv.Saturation == 0)
 	{
 		rgb.Red = hsv.Value;
 		rgb.Green = hsv.Value;
 		rgb.Blue = hsv.Value;
-		rgb.Alpha = 1;
 		return rgb;
 	}
 
@@ -46,9 +45,10 @@ RGBApixel HsvToRgb(HsvColor hsv)
 	return rgb;
 }
 
-HsvColor RgbToHsv(RGBApixel rgb)
+HSVpixel RgbToHsv(RGBApixel rgb)
 {
-	HsvColor hsv;
+	HSVpixel hsv;
+	hsv.Alpha = rgb.Alpha;
 	unsigned char rgbMin, rgbMax;
 
 	rgbMin = rgb.Red < rgb.Green ? (rgb.Red < rgb.Blue ? rgb.Red : rgb.Blue) : (rgb.Green < rgb.Blue ? rgb.Green : rgb.Blue);

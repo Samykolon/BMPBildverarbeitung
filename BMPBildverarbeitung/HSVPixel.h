@@ -1,13 +1,14 @@
 #pragma once
 #include "EasyBMP.h"
 
-typedef struct HsvColor
+typedef struct HSVpixel
 {
 	unsigned char Hue;
 	unsigned char Saturation;
 	unsigned char Value;
-} HsvColor;
+	unsigned char Alpha;
+} HSVpixel;
 
-RGBApixel HsvToRgb(HsvColor hsv);
+RGBApixel HsvToRgb(HSVpixel hsv);
 
-HsvColor RgbToHsv(RGBApixel rgb);
+HSVpixel RgbToHsv(RGBApixel rgb);
