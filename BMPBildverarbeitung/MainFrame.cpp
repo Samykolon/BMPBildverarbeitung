@@ -3,6 +3,7 @@
 #include <chrono>
 #include "HSVPixel.h"
 #include "ChangeBrightness.h"
+#include "ChangeHSVValue.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -98,6 +99,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 	groupBox1->Text = "Skalierung";
 	BApply->Enabled = true;
+	msclr::interop::marshal_context context;
+	Filters::ChangeHSVValue(context.marshal_as<const char*>(FilePath), 1.5, 1, 2);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
