@@ -2,8 +2,26 @@
 #include <iostream>
 typedef unsigned char BYTE;
 
+void Filters::TurnToGrayScale(BMP& in)
+{
+	
+	for (int i = 0; i < in.TellWidth(); i++)
+	{
+		for (int j = 0; j < in.TellHeight(); j++)
+		{
+			double Temp = 0.30*(in(i, j)->Red) +
+				0.59*(in(i, j)->Green) +
+				0.11*(in(i, j)->Blue);
+			in(i, j)->Red = (BYTE)Temp;
+			in(i, j)->Green = (BYTE)Temp;
+			in(i, j)->Blue = (BYTE)Temp;
+		}
+	}
 
-
+	in.SetBitDepth(8);
+	
+	CreateGrayscaleColorTable(in);
+}
 
 void Filters::TurnBlackAndWhite(const char* filePath)
 {
@@ -11,23 +29,8 @@ void Filters::TurnBlackAndWhite(const char* filePath)
 	
 	BMP Image;
 	Image.ReadFromFile(filePath);
-	for (int i = 0; i < Image.TellWidth(); i++)
-	{
-		for (int j = 0; j < Image.TellHeight(); j++)
-		{
-			double Temp = 0.30*(Image(i, j)->Red) +
-				0.59*(Image(i, j)->Green) +
-				0.11*(Image(i, j)->Blue);
-			Image(i, j)->Red = (BYTE)Temp;
-			Image(i, j)->Green = (BYTE)Temp;
-			Image(i, j)->Blue = (BYTE)Temp;
-		}
-	}
-
-	Image.SetBitDepth(8);
-
-	// Create a greyscale color table
-	CreateGrayscaleColorTable(Image);
+	
+	TurnToGrayScale(Image);
 
 	// write the output file
 	Image.WriteToFile("Test.bmp");

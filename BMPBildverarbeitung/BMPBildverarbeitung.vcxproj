@@ -125,10 +125,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplySobel.cpp" />
     <ClCompile Include="ChangeBrightness.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="ChangeHSVValue.cpp" />
+    <ClCompile Include="ChangeHSVValue.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="HSVandBack.cpp" />
     <ClCompile Include="HSVPixel.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -146,6 +149,7 @@
     <ClInclude Include="ChangeBrightness.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="HSVandBack.h" />
+    <ClInclude Include="ApplySobel.h" />
     <ClInclude Include="TurnBlackAndWhite.h" />
     <ClInclude Include="Convert.h" />
     <ClInclude Include="EasyBMP.h" />

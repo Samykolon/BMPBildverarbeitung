@@ -39,6 +39,9 @@
     <ClCompile Include="ChangeHSVValue.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ApplySobel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyBMP.h">
@@ -72,6 +75,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ChangeHSVValue.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplySobel.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
