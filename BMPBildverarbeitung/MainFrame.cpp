@@ -114,3 +114,30 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
 	pictureBox1->Image = Image::FromFile(FilePath);	
 }
+
+System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	msclr::interop::marshal_context context;
+	double value = THelligkeit->Value;
+	double s = TSaturation->Value;
+	if (value < 20) {
+		value /= 20;
+	}
+	else if (value > 20) {
+		value = 1 + (value / 20);
+	}
+	else {
+		value = 1;
+	}
+	if (s < 20) {
+		s /= 20;
+	}
+	else if (s > 20) {
+		s = 1 + (s / 20);
+	}
+	else {
+		s = 1;
+	}
+	Filters::ChangeHSVValue(context.marshal_as<const char*>(FilePath), 1, value, s);
+	UpdatePicture();
+}

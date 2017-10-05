@@ -29,7 +29,18 @@ namespace BMPBildverarbeitung {
 
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
 		String^ FilePath;
-		Boolean IsProcessing;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::TrackBar^  THelligkeit;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::TrackBar^  TSaturation;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Button^  BApply2;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Label^  label8;
+			 Boolean IsProcessing;
 
 	public:
 		MainFrame(void)
@@ -105,9 +116,22 @@ namespace BMPBildverarbeitung {
 			this->BSkalierung = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->BApply = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->THelligkeit = (gcnew System::Windows::Forms::TrackBar());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->TSaturation = (gcnew System::Windows::Forms::TrackBar());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->BApply2 = (gcnew System::Windows::Forms::Button());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->THelligkeit))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TSaturation))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -255,11 +279,124 @@ namespace BMPBildverarbeitung {
 			this->BApply->Text = L"Anwenden";
 			this->BApply->UseVisualStyleBackColor = true;
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(1150, 141);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(50, 13);
+			this->label1->TabIndex = 8;
+			this->label1->Text = L"Helligkeit";
+			// 
+			// THelligkeit
+			// 
+			this->THelligkeit->Location = System::Drawing::Point(1153, 157);
+			this->THelligkeit->Maximum = 40;
+			this->THelligkeit->Name = L"THelligkeit";
+			this->THelligkeit->Size = System::Drawing::Size(194, 45);
+			this->THelligkeit->TabIndex = 9;
+			this->THelligkeit->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->THelligkeit->Value = 20;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(1150, 225);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(52, 13);
+			this->label2->TabIndex = 10;
+			this->label2->Text = L"Sättigung";
+			// 
+			// TSaturation
+			// 
+			this->TSaturation->Location = System::Drawing::Point(1153, 241);
+			this->TSaturation->Maximum = 40;
+			this->TSaturation->Name = L"TSaturation";
+			this->TSaturation->Size = System::Drawing::Size(193, 45);
+			this->TSaturation->TabIndex = 11;
+			this->TSaturation->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->TSaturation->Value = 20;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(1150, 185);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(36, 13);
+			this->label3->TabIndex = 12;
+			this->label3->Text = L"-100%";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(1242, 185);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(21, 13);
+			this->label4->TabIndex = 13;
+			this->label4->Text = L"0%";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(1313, 185);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(39, 13);
+			this->label5->TabIndex = 14;
+			this->label5->Text = L"+100%";
+			// 
+			// BApply2
+			// 
+			this->BApply2->Location = System::Drawing::Point(1153, 331);
+			this->BApply2->Name = L"BApply2";
+			this->BApply2->Size = System::Drawing::Size(193, 23);
+			this->BApply2->TabIndex = 15;
+			this->BApply2->Text = L"Anwenden";
+			this->BApply2->UseVisualStyleBackColor = true;
+			this->BApply2->Click += gcnew System::EventHandler(this, &MainFrame::BApply2_Click);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(1150, 273);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(36, 13);
+			this->label6->TabIndex = 16;
+			this->label6->Text = L"-100%";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(1242, 273);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(21, 13);
+			this->label7->TabIndex = 17;
+			this->label7->Text = L"0%";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(1313, 273);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(39, 13);
+			this->label8->TabIndex = 18;
+			this->label8->Text = L"+100%";
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->label6);
+			this->Controls->Add(this->BApply2);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->TSaturation);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->THelligkeit);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->BSkalierung);
 			this->Controls->Add(this->BSaettigung);
@@ -276,6 +413,8 @@ namespace BMPBildverarbeitung {
 			this->menuStrip1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->groupBox1->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->THelligkeit))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TSaturation))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -300,5 +439,6 @@ namespace BMPBildverarbeitung {
 	private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
 	private: Void UpdatePicture();
-	};
+	private: System::Void BApply2_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }
