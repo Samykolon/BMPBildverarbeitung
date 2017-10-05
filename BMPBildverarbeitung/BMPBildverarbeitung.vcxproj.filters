@@ -42,6 +42,9 @@
     <ClCompile Include="ApplySobel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ApplyConvolution.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyBMP.h">
@@ -78,6 +81,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ApplySobel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplyConvolution.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

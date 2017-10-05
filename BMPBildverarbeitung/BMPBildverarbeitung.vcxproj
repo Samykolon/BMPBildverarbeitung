@@ -125,6 +125,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplyConvolution.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="ApplySobel.cpp" />
     <ClCompile Include="ChangeBrightness.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -146,6 +149,7 @@
     <ClCompile Include="MainFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApplyConvolution.h" />
     <ClInclude Include="ChangeBrightness.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="HSVandBack.h" />

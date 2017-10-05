@@ -5,6 +5,7 @@
 #include "ChangeBrightness.h"
 #include "ChangeHSVValue.h"
 #include "ApplySobel.h"
+#include "ApplyConvolution.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -22,37 +23,38 @@ void Main(array<String^>^ args)
 	Application::Run(%form);
 }
 
-inline void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
-{
-	msclr::interop::marshal_context context;
-	Filters::ApplySobel(context.marshal_as<const char*>(FilePath));
-}
-
-inline void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
-	FilePath = "Test.bmp";
-	UpdatePicture();
-	IsProcessing = false;
-}
-
-void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
-{
-	throw gcnew System::NotImplementedException();
-}
-
-void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
-{
-	throw gcnew System::NotImplementedException();
-}
-
-void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
-{
-	throw gcnew System::NotImplementedException();
-}
-
-void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
-{
-	throw gcnew System::NotImplementedException();
-}
+//inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+//{
+//	IsProcessing = true;
+//	msclr::interop::marshal_context context;
+//	Filters::ApplySobel(context.marshal_as<const char*>(FilePath));
+//}
+//
+//inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
+//	FilePath = "Test.bmp";
+//	UpdatePicture();
+//	IsProcessing = false;
+//}
+//
+//void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+//{
+//	throw gcnew System::NotImplementedException();
+//}
+//
+//void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+//{
+//	throw gcnew System::NotImplementedException();
+//}
+//
+//void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+//{
+//	throw gcnew System::NotImplementedException();
+//}
+//
+//void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+//{
+//	throw gcnew System::NotImplementedException();
+//}
 
 inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
@@ -62,13 +64,13 @@ inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Cli
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) {
 	
-	if (!IsProcessing) {
+	/*if (!IsProcessing) {
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwBrightness_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwBrightness_RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		IsProcessing = true;
-	}
+	}*/
 	groupBox1->Text = "Sobel-Filter";
 	BApply->Enabled = true;
 		
@@ -108,6 +110,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
+	Filters::ApplyConvolution("BestesBild.bmp", new double*, 3);
 }
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
@@ -117,6 +120,14 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 
 System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
+	//if (!IsProcessing) {
+	//	BackgroundWorker^ bw = gcnew BackgroundWorker();
+	//	bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
+	//	bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwHSV_RunWorkerCompleted);
+	//	bw->RunWorkerAsync();
+	//	IsProcessing = true;
+	//}
+
 	msclr::interop::marshal_context context;
 	double value = THelligkeit->Value;
 	double s = TSaturation->Value;

@@ -28,7 +28,7 @@ namespace BMPBildverarbeitung {
 		AssemblyName^ assemblyName = assembly->GetName();
 
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
-		String^ FilePath;
+
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::TrackBar^  THelligkeit;
 	private: System::Windows::Forms::Label^  label2;
@@ -40,7 +40,10 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
+
+			 String^ FilePath;
 			 Boolean IsProcessing;
+
 
 	public:
 		MainFrame(void)
@@ -421,15 +424,13 @@ namespace BMPBildverarbeitung {
 		}
 #pragma endregion
 
-	//BrightnessWorker
-	private: void bwBrightness_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwBrightness_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+	
+	/*private: void bwHSV_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwHSV_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
-	//private: void bwd_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	//private: void bwd_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
+	private: void bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);*/
 
 
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -438,7 +439,9 @@ namespace BMPBildverarbeitung {
 	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
-	private: Void UpdatePicture();
 	private: System::Void BApply2_Click(System::Object^  sender, System::EventArgs^  e);
-};
+
+	private: Void UpdatePicture();
+
+	};
 }
