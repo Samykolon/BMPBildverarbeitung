@@ -118,6 +118,14 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 	pictureBox1->Image = Image::FromFile(FilePath);	
 }
 
+inline System::Void BMPBildverarbeitung::MainFrame::backgroundWorker1_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
+	
+}
+
+inline System::Void BMPBildverarbeitung::MainFrame::applyWorker_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
+
+}
+
 System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	//if (!IsProcessing) {
@@ -127,6 +135,11 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	//	bw->RunWorkerAsync();
 	//	IsProcessing = true;
 	//}
+
+	if (!IsProcessing) {
+		applyWorker->RunWorkerAsync();
+	}
+
 
 	msclr::interop::marshal_context context;
 	double value = THelligkeit->Value;

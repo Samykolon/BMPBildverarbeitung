@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplyConvolution.h" />
+    <ClInclude Include="ApplyGaussFilter.h" />
     <ClInclude Include="ChangeBrightness.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="HSVandBack.h" />
