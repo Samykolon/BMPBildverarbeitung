@@ -4,6 +4,7 @@
 #include "HSVPixel.h"
 #include "ChangeBrightness.h"
 #include "ChangeHSVValue.h"
+#include "ApplySobel.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -24,7 +25,7 @@ void Main(array<String^>^ args)
 inline void MainFrame::bwBrightness_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	msclr::interop::marshal_context context;
-	Filters::TurnBlackAndWhite(context.marshal_as<const char*>(FilePath));
+	Filters::ApplySobel(context.marshal_as<const char*>(FilePath));
 }
 
 inline void MainFrame::bwBrightness_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {

@@ -1,5 +1,5 @@
 #pragma once
 namespace Filters {
-	void ApplySobel(char* filePath);
+	void ApplySobel(const char* filePath);
 	
 }
