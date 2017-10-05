@@ -8,8 +8,7 @@ void Filters::ChangeHSVValue(const char * filePath, double hueFactor, double sat
 {
 	BMP Image;
 	Image.ReadFromFile(filePath);
-	TurnToGrayScale(Image);
-
+	
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
 	for (int i = 0; i < Image.TellWidth(); i++) {

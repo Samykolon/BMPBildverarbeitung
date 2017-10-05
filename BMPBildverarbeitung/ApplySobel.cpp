@@ -39,8 +39,13 @@ void Filters::ApplySobel(const char * filePath)
 						1 * Image(i - 1, j + 1)->Blue + 2 * Image(i, j + 1)->Blue + Image(i + 1, j + 1)->Blue;
 					
 					int grad = sqrt(yPixel * yPixel + xPixel * xPixel );
-					unsigned char newValue = grad / 2;
-					out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = newValue;
+					int newValue = grad / 2;
+					if (newValue > 255) {
+						out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = 255;
+					}
+					else {
+						out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = newValue;
+					}
 
 				}
 			}
