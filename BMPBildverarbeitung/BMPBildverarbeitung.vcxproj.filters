@@ -42,7 +42,13 @@
     <ClCompile Include="ApplySobel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ApplyConvolution.cpp">
+    <ClCompile Include="ApplyGaussFilter.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleWithNN.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplyGausRGB.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,10 +89,19 @@
     <ClInclude Include="ApplySobel.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ApplyConvolution.h">
+    <ClInclude Include="ApplyConvolutionBW.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ApplyGaussFilter.h">
+    <ClInclude Include="ApplyGaussFilterBW.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleWithNN.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplyConvolutionRGB.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplyGausRGB.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -125,7 +125,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ApplyConvolution.cpp">
+    <ClCompile Include="ApplyGausRGB.cpp" />
+    <ClCompile Include="ApplyGaussFilter.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="ApplySobel.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="HSVPixel.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="ScaleWithNN.cpp" />
     <ClCompile Include="TurnBlackAndWhite.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
@@ -149,12 +151,15 @@
     <ClCompile Include="MainFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ApplyConvolution.h" />
-    <ClInclude Include="ApplyGaussFilter.h" />
+    <ClInclude Include="ApplyConvolutionBW.h" />
+    <ClInclude Include="ApplyConvolutionRGB.h" />
+    <ClInclude Include="ApplyGausRGB.h" />
+    <ClInclude Include="ApplyGaussFilterBW.h" />
     <ClInclude Include="ChangeBrightness.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="HSVandBack.h" />
     <ClInclude Include="ApplySobel.h" />
+    <ClInclude Include="ScaleWithNN.h" />
     <ClInclude Include="TurnBlackAndWhite.h" />
     <ClInclude Include="Convert.h" />
     <ClInclude Include="EasyBMP.h" />

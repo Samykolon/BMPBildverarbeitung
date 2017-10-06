@@ -5,7 +5,9 @@
 #include "ChangeBrightness.h"
 #include "ChangeHSVValue.h"
 #include "ApplySobel.h"
-#include "ApplyConvolution.h"
+
+#include "ApplyGaussFilterBW.h"
+
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -110,7 +112,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
-	Filters::ApplyConvolution("BestesBild.bmp", new double*, 3);
+	Filters::ApplyGaussFilterBW("BestesBild.bmp");
 }
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
