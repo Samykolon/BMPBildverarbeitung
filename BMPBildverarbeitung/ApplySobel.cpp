@@ -8,7 +8,7 @@ void Filters::ApplySobel(const char * filePath)
 {
 	BMP Image;
 
-	Image.ReadFromFile("BestesBild.bmp");
+	Image.ReadFromFile(filePath);
 	TurnToGrayScale(Image);
 	BMP out(Image);
 

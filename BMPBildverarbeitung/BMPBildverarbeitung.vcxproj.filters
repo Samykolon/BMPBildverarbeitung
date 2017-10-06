@@ -48,7 +48,7 @@
     <ClCompile Include="ScaleWithNN.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ApplyGausRGB.cpp">
+    <ClCompile Include="ApplyGaussRGB.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,7 +101,7 @@
     <ClInclude Include="ApplyConvolutionRGB.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ApplyGausRGB.h">
+    <ClInclude Include="ApplyGaussRGB.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

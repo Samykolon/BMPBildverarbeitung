@@ -33,21 +33,21 @@ namespace Filters {
 					out(i, j)->Red = 255;
 				}
 				else {					 
-					out(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
+					out(i, j)->Red = unsigned char(newRed + 0.5); //round newPixel correctly
 				}
 				
 				if (newGreen > 255) {
 					out(i, j)->Green = 255;
 				}
 				else {
-					out(i, j)->Green = unsigned char(newPixel + 0.5); //round newPixel correctly
+					out(i, j)->Green = unsigned char(newGreen + 0.5); //round newPixel correctly
 				}
 
 				if (newBlue > 255) {
 					out(i, j)->Blue = 255;
 				}
 				else {
-					out(i, j)->Blue = unsigned char(newPixel + 0.5); //round newPixel correctly
+					out(i, j)->Blue = unsigned char(newBlue + 0.5); //round newPixel correctly
 				}
 			}
 

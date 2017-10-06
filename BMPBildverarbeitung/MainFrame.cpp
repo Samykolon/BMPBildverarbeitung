@@ -5,9 +5,8 @@
 #include "ChangeBrightness.h"
 #include "ChangeHSVValue.h"
 #include "ApplySobel.h"
-
 #include "ApplyGaussFilterBW.h"
-
+#include "ApplyGaussRGB.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -112,7 +111,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
-	Filters::ApplyGaussFilterBW("BestesBild.bmp");
+	Filters::ApplyGaussFilterRGB("BestesBild.bmp");
+	Filters::ApplySobel("Test.bmp");
 }
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
