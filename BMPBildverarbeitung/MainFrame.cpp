@@ -7,6 +7,7 @@
 #include "ApplySobel.h"
 #include "ApplyGaussFilterBW.h"
 #include "ApplyGaussRGB.h"
+#include "ScaleWithNN.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -111,8 +112,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
-	Filters::ApplyGaussFilterRGB("BestesBild.bmp");
-	Filters::ApplySobel("Test.bmp");
+	Filters::ScaleWithNN("BestesBild.bmp", 300, 300);
 }
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
