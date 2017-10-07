@@ -12,9 +12,12 @@ namespace Filters {
 
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
-		for (int i = edgeGap; i < Image.TellWidth() - edgeGap; i++) //Iterate through all image pixels without edges
+		const unsigned int width = Image.TellWidth();
+		const unsigned int height = Image.TellHeight();
+
+		for (int i = edgeGap; i < width - edgeGap; i++) //Iterate through all image pixels without edges
 		{
-			for (int j = edgeGap; j < Image.TellHeight() - edgeGap; j++)
+			for (int j = edgeGap; j < height - edgeGap; j++)
 			{
 				double newRed = 0;
 				double newGreen = 0;

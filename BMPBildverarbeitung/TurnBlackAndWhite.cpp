@@ -5,9 +5,12 @@ typedef unsigned char BYTE;
 void Filters::TurnToGrayScale(BMP& in)
 {
 	
-	for (int i = 0; i < in.TellWidth(); i++)
+	const int width = in.TellWidth();
+	const int height = in.TellHeight();
+
+	for (int i = 0; i < width; i++)
 	{
-		for (int j = 0; j < in.TellHeight(); j++)
+		for (int j = 0; j < height; j++)
 		{
 			double Temp = 0.30*(in(i, j)->Red) +
 				0.59*(in(i, j)->Green) +
