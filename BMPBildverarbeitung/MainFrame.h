@@ -44,6 +44,7 @@ namespace BMPBildverarbeitung {
 	private: System::ComponentModel::BackgroundWorker^  applyWorker;
 
 			 Boolean IsProcessing;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 			 BMP *BMPimage;
 
 	public:
@@ -137,6 +138,7 @@ namespace BMPBildverarbeitung {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->applyWorker = (gcnew System::ComponentModel::BackgroundWorker());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -146,13 +148,15 @@ namespace BMPBildverarbeitung {
 			// 
 			// menuStrip1
 			// 
+			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->dateiToolStripMenuItem,
 					this->bearbeitenToolStripMenuItem, this->hilfeToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1359, 24);
+			this->menuStrip1->Padding = System::Windows::Forms::Padding(8, 2, 0, 2);
+			this->menuStrip1->Size = System::Drawing::Size(1812, 28);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -163,44 +167,45 @@ namespace BMPBildverarbeitung {
 					this->bMPSpeichernToolStripMenuItem, this->schließenToolStripMenuItem, this->beendenToolStripMenuItem
 			});
 			this->dateiToolStripMenuItem->Name = L"dateiToolStripMenuItem";
-			this->dateiToolStripMenuItem->Size = System::Drawing::Size(46, 20);
+			this->dateiToolStripMenuItem->Size = System::Drawing::Size(57, 24);
 			this->dateiToolStripMenuItem->Text = L"Datei";
 			// 
 			// bMPLadenToolStripMenuItem
 			// 
 			this->bMPLadenToolStripMenuItem->Name = L"bMPLadenToolStripMenuItem";
-			this->bMPLadenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->bMPLadenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->bMPLadenToolStripMenuItem->Text = L"BMP laden";
+			this->bMPLadenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::bMPLadenToolStripMenuItem_Click);
 			// 
 			// bMPSpeichernToolStripMenuItem
 			// 
 			this->bMPSpeichernToolStripMenuItem->Name = L"bMPSpeichernToolStripMenuItem";
-			this->bMPSpeichernToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->bMPSpeichernToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->bMPSpeichernToolStripMenuItem->Text = L"BMP speichern";
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			// 
 			// beendenToolStripMenuItem
 			// 
 			this->beendenToolStripMenuItem->Name = L"beendenToolStripMenuItem";
-			this->beendenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->beendenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->beendenToolStripMenuItem->Text = L"Beenden";
 			this->beendenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::beendenToolStripMenuItem_Click);
 			// 
 			// bearbeitenToolStripMenuItem
 			// 
 			this->bearbeitenToolStripMenuItem->Name = L"bearbeitenToolStripMenuItem";
-			this->bearbeitenToolStripMenuItem->Size = System::Drawing::Size(75, 20);
+			this->bearbeitenToolStripMenuItem->Size = System::Drawing::Size(93, 24);
 			this->bearbeitenToolStripMenuItem->Text = L"Bearbeiten";
 			// 
 			// hilfeToolStripMenuItem
 			// 
 			this->hilfeToolStripMenuItem->Name = L"hilfeToolStripMenuItem";
-			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
+			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(53, 24);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
 			// 
 			// pictureBox1
@@ -208,18 +213,20 @@ namespace BMPBildverarbeitung {
 			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->pictureBox1->Location = System::Drawing::Point(13, 28);
+			this->pictureBox1->Location = System::Drawing::Point(17, 34);
+			this->pictureBox1->Margin = System::Windows::Forms::Padding(4);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(1127, 691);
+			this->pictureBox1->Size = System::Drawing::Size(1503, 850);
 			this->pictureBox1->TabIndex = 1;
 			this->pictureBox1->TabStop = false;
 			// 
 			// BSobel
 			// 
 			this->BSobel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BSobel->Location = System::Drawing::Point(1146, 28);
+			this->BSobel->Location = System::Drawing::Point(1528, 34);
+			this->BSobel->Margin = System::Windows::Forms::Padding(4);
 			this->BSobel->Name = L"BSobel";
-			this->BSobel->Size = System::Drawing::Size(100, 23);
+			this->BSobel->Size = System::Drawing::Size(133, 28);
 			this->BSobel->TabIndex = 2;
 			this->BSobel->Text = L"Sobel";
 			this->BSobel->UseVisualStyleBackColor = true;
@@ -228,9 +235,10 @@ namespace BMPBildverarbeitung {
 			// BGauss
 			// 
 			this->BGauss->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BGauss->Location = System::Drawing::Point(1252, 27);
+			this->BGauss->Location = System::Drawing::Point(1669, 33);
+			this->BGauss->Margin = System::Windows::Forms::Padding(4);
 			this->BGauss->Name = L"BGauss";
-			this->BGauss->Size = System::Drawing::Size(100, 23);
+			this->BGauss->Size = System::Drawing::Size(133, 28);
 			this->BGauss->TabIndex = 3;
 			this->BGauss->Text = L"Gauß-Filter";
 			this->BGauss->UseVisualStyleBackColor = true;
@@ -239,9 +247,10 @@ namespace BMPBildverarbeitung {
 			// BHelligkeit
 			// 
 			this->BHelligkeit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BHelligkeit->Location = System::Drawing::Point(1146, 57);
+			this->BHelligkeit->Location = System::Drawing::Point(1528, 70);
+			this->BHelligkeit->Margin = System::Windows::Forms::Padding(4);
 			this->BHelligkeit->Name = L"BHelligkeit";
-			this->BHelligkeit->Size = System::Drawing::Size(100, 23);
+			this->BHelligkeit->Size = System::Drawing::Size(133, 28);
 			this->BHelligkeit->TabIndex = 4;
 			this->BHelligkeit->Text = L"Helligkeit";
 			this->BHelligkeit->UseVisualStyleBackColor = true;
@@ -250,9 +259,10 @@ namespace BMPBildverarbeitung {
 			// BSaettigung
 			// 
 			this->BSaettigung->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BSaettigung->Location = System::Drawing::Point(1146, 86);
+			this->BSaettigung->Location = System::Drawing::Point(1528, 106);
+			this->BSaettigung->Margin = System::Windows::Forms::Padding(4);
 			this->BSaettigung->Name = L"BSaettigung";
-			this->BSaettigung->Size = System::Drawing::Size(100, 23);
+			this->BSaettigung->Size = System::Drawing::Size(133, 28);
 			this->BSaettigung->TabIndex = 5;
 			this->BSaettigung->Text = L"Sättigung";
 			this->BSaettigung->UseVisualStyleBackColor = true;
@@ -261,9 +271,10 @@ namespace BMPBildverarbeitung {
 			// BSkalierung
 			// 
 			this->BSkalierung->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BSkalierung->Location = System::Drawing::Point(1252, 56);
+			this->BSkalierung->Location = System::Drawing::Point(1669, 69);
+			this->BSkalierung->Margin = System::Windows::Forms::Padding(4);
 			this->BSkalierung->Name = L"BSkalierung";
-			this->BSkalierung->Size = System::Drawing::Size(100, 23);
+			this->BSkalierung->Size = System::Drawing::Size(133, 28);
 			this->BSkalierung->TabIndex = 6;
 			this->BSkalierung->Text = L"Skalierung";
 			this->BSkalierung->UseVisualStyleBackColor = true;
@@ -273,18 +284,21 @@ namespace BMPBildverarbeitung {
 			// 
 			this->groupBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->groupBox1->Controls->Add(this->BApply);
-			this->groupBox1->Location = System::Drawing::Point(1146, 543);
+			this->groupBox1->Location = System::Drawing::Point(1528, 668);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(206, 176);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
+			this->groupBox1->Size = System::Drawing::Size(275, 217);
 			this->groupBox1->TabIndex = 7;
 			this->groupBox1->TabStop = false;
 			// 
 			// BApply
 			// 
 			this->BApply->Enabled = false;
-			this->BApply->Location = System::Drawing::Point(7, 147);
+			this->BApply->Location = System::Drawing::Point(9, 181);
+			this->BApply->Margin = System::Windows::Forms::Padding(4);
 			this->BApply->Name = L"BApply";
-			this->BApply->Size = System::Drawing::Size(193, 23);
+			this->BApply->Size = System::Drawing::Size(257, 28);
 			this->BApply->TabIndex = 0;
 			this->BApply->Text = L"Anwenden";
 			this->BApply->UseVisualStyleBackColor = true;
@@ -292,18 +306,20 @@ namespace BMPBildverarbeitung {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(1150, 141);
+			this->label1->Location = System::Drawing::Point(1533, 174);
+			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(50, 13);
+			this->label1->Size = System::Drawing::Size(65, 17);
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Helligkeit";
 			// 
 			// THelligkeit
 			// 
-			this->THelligkeit->Location = System::Drawing::Point(1153, 157);
+			this->THelligkeit->Location = System::Drawing::Point(1537, 193);
+			this->THelligkeit->Margin = System::Windows::Forms::Padding(4);
 			this->THelligkeit->Maximum = 40;
 			this->THelligkeit->Name = L"THelligkeit";
-			this->THelligkeit->Size = System::Drawing::Size(194, 45);
+			this->THelligkeit->Size = System::Drawing::Size(259, 56);
 			this->THelligkeit->TabIndex = 9;
 			this->THelligkeit->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->THelligkeit->Value = 20;
@@ -311,18 +327,20 @@ namespace BMPBildverarbeitung {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(1150, 225);
+			this->label2->Location = System::Drawing::Point(1533, 277);
+			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(52, 13);
+			this->label2->Size = System::Drawing::Size(68, 17);
 			this->label2->TabIndex = 10;
 			this->label2->Text = L"Sättigung";
 			// 
 			// TSaturation
 			// 
-			this->TSaturation->Location = System::Drawing::Point(1153, 241);
+			this->TSaturation->Location = System::Drawing::Point(1537, 297);
+			this->TSaturation->Margin = System::Windows::Forms::Padding(4);
 			this->TSaturation->Maximum = 40;
 			this->TSaturation->Name = L"TSaturation";
-			this->TSaturation->Size = System::Drawing::Size(193, 45);
+			this->TSaturation->Size = System::Drawing::Size(257, 56);
 			this->TSaturation->TabIndex = 11;
 			this->TSaturation->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->TSaturation->Value = 20;
@@ -330,35 +348,39 @@ namespace BMPBildverarbeitung {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(1150, 185);
+			this->label3->Location = System::Drawing::Point(1533, 228);
+			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(36, 13);
+			this->label3->Size = System::Drawing::Size(49, 17);
 			this->label3->TabIndex = 12;
 			this->label3->Text = L"-100%";
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(1242, 185);
+			this->label4->Location = System::Drawing::Point(1656, 228);
+			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(21, 13);
+			this->label4->Size = System::Drawing::Size(28, 17);
 			this->label4->TabIndex = 13;
 			this->label4->Text = L"0%";
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(1313, 185);
+			this->label5->Location = System::Drawing::Point(1751, 228);
+			this->label5->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(39, 13);
+			this->label5->Size = System::Drawing::Size(52, 17);
 			this->label5->TabIndex = 14;
 			this->label5->Text = L"+100%";
 			// 
 			// BApply2
 			// 
-			this->BApply2->Location = System::Drawing::Point(1153, 331);
+			this->BApply2->Location = System::Drawing::Point(1537, 407);
+			this->BApply2->Margin = System::Windows::Forms::Padding(4);
 			this->BApply2->Name = L"BApply2";
-			this->BApply2->Size = System::Drawing::Size(193, 23);
+			this->BApply2->Size = System::Drawing::Size(257, 28);
 			this->BApply2->TabIndex = 15;
 			this->BApply2->Text = L"Anwenden";
 			this->BApply2->UseVisualStyleBackColor = true;
@@ -367,27 +389,30 @@ namespace BMPBildverarbeitung {
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(1150, 273);
+			this->label6->Location = System::Drawing::Point(1533, 336);
+			this->label6->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(36, 13);
+			this->label6->Size = System::Drawing::Size(49, 17);
 			this->label6->TabIndex = 16;
 			this->label6->Text = L"-100%";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(1242, 273);
+			this->label7->Location = System::Drawing::Point(1656, 336);
+			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(21, 13);
+			this->label7->Size = System::Drawing::Size(28, 17);
 			this->label7->TabIndex = 17;
 			this->label7->Text = L"0%";
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(1313, 273);
+			this->label8->Location = System::Drawing::Point(1751, 336);
+			this->label8->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(39, 13);
+			this->label8->Size = System::Drawing::Size(52, 17);
 			this->label8->TabIndex = 18;
 			this->label8->Text = L"+100%";
 			// 
@@ -395,11 +420,17 @@ namespace BMPBildverarbeitung {
 			// 
 			this->applyWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainFrame::applyWorker_DoWork);
 			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			this->openFileDialog1->Filter = L"Bitmap |*.bmp";
+			this->openFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MainFrame::openFileDialog1_FileOk);
+			// 
 			// MainFrame
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->ClientSize = System::Drawing::Size(1812, 900);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
@@ -420,6 +451,7 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"BMP - Bildverarbeitung";
@@ -456,5 +488,7 @@ namespace BMPBildverarbeitung {
 
 	private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
 private: System::Void applyWorker_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
+private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e);
 };
 }

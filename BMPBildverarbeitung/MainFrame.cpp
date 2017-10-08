@@ -168,3 +168,17 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	Filters::ChangeHSVValue(context.marshal_as<const char*>(FilePath), 1, value, s);
 	UpdatePicture();
 }
+
+System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	openFileDialog1->ShowDialog();
+}
+
+System::Void BMPBildverarbeitung::MainFrame::openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
+	FilePath = openFileDialog1->FileName;
+
+	msclr::interop::marshal_context context;
+	BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
+
+	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+
+}
