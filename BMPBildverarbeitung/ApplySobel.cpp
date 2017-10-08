@@ -12,8 +12,8 @@ void Filters::ApplySobel(const char * filePath)
 	TurnToGrayScale(Image);
 	BMP out(Image);
 	
-	const unsigned int width = Image.TellWidth();
-	const unsigned int height = Image.TellHeight();
+	int width = Image.TellWidth();
+	int height = Image.TellHeight();
 
 	for (int i = 1; i < width - 1; i++) //Iterate through all image pixels without edges
 	{
@@ -26,7 +26,7 @@ void Filters::ApplySobel(const char * filePath)
 			int yPixel = -1 * Image(i - 1, j - 1)->Blue - 2 * Image(i, j - 1)->Blue - 1 * Image(i + 1, j - 1)->Blue +
 				1 * Image(i - 1, j + 1)->Blue + 2 * Image(i, j + 1)->Blue + Image(i + 1, j + 1)->Blue;
 
-			int grad = sqrt(yPixel * yPixel + xPixel * xPixel);
+			int grad = std::round(sqrt(yPixel * yPixel + xPixel * xPixel));
 			int newValue = grad / 2;
 			if (newValue > 255) {
 				out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = 255;

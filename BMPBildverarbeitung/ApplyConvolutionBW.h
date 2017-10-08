@@ -11,10 +11,12 @@ namespace Filters {
 		TurnToGrayScale(Image);
 		BMP out(Image);
 
+		
+		
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
-		const unsigned int width = Image.TellWidth();
-		const unsigned int height = Image.TellHeight();
+		const int width = Image.TellWidth();
+		const int height = Image.TellHeight();
 
 		for (int i = edgeGap; i < width - edgeGap; i++) //Iterate through all image pixels without edges
 		{
@@ -37,6 +39,9 @@ namespace Filters {
 			}
 
 		}
+
+		
+
 
 		out.WriteToFile("Test.bmp");
 

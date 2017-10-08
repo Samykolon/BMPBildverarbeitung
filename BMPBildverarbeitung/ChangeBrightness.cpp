@@ -7,8 +7,8 @@ void Filters::ChangeBrightness(const char * filePath, double factor)
 	Image.ReadFromFile(filePath);
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
-	const unsigned int width = Image.TellWidth();
-	const unsigned int height = Image.TellHeight();
+	const int width = Image.TellWidth();
+	const int height = Image.TellHeight();
 
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
