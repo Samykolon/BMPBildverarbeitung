@@ -74,6 +74,7 @@ namespace BMPBildverarbeitung {
 			{
 				delete components;
 			}
+			delete BMPimage;
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	protected:

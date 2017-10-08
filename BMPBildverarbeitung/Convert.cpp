@@ -17,7 +17,7 @@ System::Drawing::Bitmap ^ ConvertBitmap::ToBitmap(BMP *bmp)
 	return bitmap;
 }
 
-BMP ConvertBitmap::ToBMP(System::Drawing::Bitmap ^ bitmap)
+BMP ConvertBitmap::ToBMP(System::Drawing::Bitmap ^ bitmap) //We might not need this
 {
 	//Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height);
 	//BitmapData^ bmpData = bitmap->LockBits(rect, ImageLockMode::ReadOnly, bitmap->PixelFormat);

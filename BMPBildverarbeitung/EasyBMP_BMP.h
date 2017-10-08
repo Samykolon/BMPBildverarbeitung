@@ -30,7 +30,9 @@ class BMP
  int BitDepth;
  int Width;
  int Height;
- RGBApixel** Pixels;
+public:
+ RGBApixel** Pixels; //Make public for better optimization
+private:
  RGBApixel* Colors;
  int XPelsPerMeter;
  int YPelsPerMeter;

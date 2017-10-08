@@ -1,5 +1,6 @@
 #pragma once
+#include "EasyBMP.h"
 
 namespace Filters {
-	void ChangeHSVValue(const char * filePath, double hueFactor, double valueFactor, double saturationFactor);
+	void ChangeHSVValue(BMP* Image, double hueFactor, double valueFactor, double saturationFactor);
 }

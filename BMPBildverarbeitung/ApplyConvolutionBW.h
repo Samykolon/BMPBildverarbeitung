@@ -4,10 +4,8 @@
 
 namespace Filters {
 	template<size_t rows>
-	void ApplyConvolutionBW(const char * filePath, double (&convolution)[rows][rows] ) {
+	void ApplyConvolutionBW(BMP* Image, double (&convolution)[rows][rows] ) {
 
-		BMP Image;
-		Image.ReadFromFile("BestesBild.bmp");
 		TurnToGrayScale(Image);
 		BMP out(Image);
 
@@ -39,10 +37,7 @@ namespace Filters {
 			}
 
 		}
-
 		
-
-
 		out.WriteToFile("Test.bmp");
 
 	}

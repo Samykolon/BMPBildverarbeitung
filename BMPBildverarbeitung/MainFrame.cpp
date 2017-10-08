@@ -104,9 +104,9 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	groupBox1->Text = "Skalierung";
-	BApply->Enabled = true;
-	msclr::interop::marshal_context context;
-	Filters::ChangeHSVValue(context.marshal_as<const char*>(FilePath), 1, 1, 1);
+	BApply->Enabled = true;	
+	Filters::ChangeHSVValue(BMPimage, 1, 1, 1);
+	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
@@ -118,7 +118,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
-	pictureBox1->Image = Image::FromFile(FilePath);	
+	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::backgroundWorker1_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
@@ -165,7 +165,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	else {
 		s = 1;
 	}
-	Filters::ChangeHSVValue(context.marshal_as<const char*>(FilePath), 1, value, s);
+	Filters::ChangeHSVValue(BMPimage, 1, value, s);
 	UpdatePicture();
 }
 

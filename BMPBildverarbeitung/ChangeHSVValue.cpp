@@ -4,19 +4,17 @@
 #include "HSVandBack.h"
 #include "TurnBlackAndWhite.h"
 
-void Filters::ChangeHSVValue(const char * filePath, double hueFactor, double saturationFactor, double valueFactor)
+void Filters::ChangeHSVValue(BMP * Image, double hueFactor, double saturationFactor, double valueFactor)
 {
-	BMP Image;
-	Image.ReadFromFile(filePath);
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
-	const unsigned int width = Image.TellWidth();
-	const unsigned int height = Image.TellHeight();
+	const unsigned int width = Image->TellWidth();
+	const unsigned int height = Image->TellHeight();
 
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 
-			startPixel = Image.GetPixel(i, j);
+			startPixel = Image->GetPixel(i, j);
 			hsvPixel = RgbToHsv(startPixel);
 			
 			double newHue = hsvPixel.Hue * hueFactor;
@@ -45,9 +43,8 @@ void Filters::ChangeHSVValue(const char * filePath, double hueFactor, double sat
 					
 
 			RGBApixel finalPixel = HsvToRgb(hsvPixel);
-			*Image(i, j) = finalPixel;
+			*(*Image)(i, j) = finalPixel;
 
 		}
-	}
-	Image.WriteToFile("Test.bmp");
+	}	
 }
