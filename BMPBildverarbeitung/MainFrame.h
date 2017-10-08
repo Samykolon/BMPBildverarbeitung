@@ -4,7 +4,7 @@
 #include "TurnBlackAndWhite.h"
 #include "HSVPixel.h"
 #include <iostream>
-
+#include "Convert.h"
 
 
 namespace BMPBildverarbeitung {
@@ -44,13 +44,18 @@ namespace BMPBildverarbeitung {
 	private: System::ComponentModel::BackgroundWorker^  applyWorker;
 
 			 Boolean IsProcessing;
-
+			 BMP *BMPimage;
 
 	public:
 		MainFrame(void)
 		{
 			InitializeComponent();
-			pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
+			//pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
+
+			BMPimage = new BMP();
+			BMPimage->ReadFromFile("Initialimage.bmp");
+			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+
 			FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
 			//

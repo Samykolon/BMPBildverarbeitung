@@ -4,13 +4,20 @@ using namespace System::Drawing;
 using namespace System::Drawing::Imaging;
 using namespace System::Runtime::InteropServices;
 
-System::Drawing::Bitmap ^ Convert::ToBitmap(BMP bmp)
+System::Drawing::Bitmap ^ ConvertBitmap::ToBitmap(BMP *bmp)
 {
-
-	return gcnew Bitmap(1, 1);
+	System::Drawing::Bitmap ^bitmap = gcnew Bitmap(bmp->TellWidth(), bmp->TellHeight());
+	for(int x = 0; x < bmp->TellWidth(); x++)
+		for (int y = 0; y < bmp->TellHeight(); y++)
+		{
+			RGBApixel pixel = bmp->GetPixel(x, y);
+			// alpha channel is inverted?
+			bitmap->SetPixel(x, y, Color::FromArgb(255 - pixel.Alpha, pixel.Red, pixel.Green, pixel.Blue));
+		}
+	return bitmap;
 }
 
-BMP Convert::ToBMP(System::Drawing::Bitmap ^ bitmap)
+BMP ConvertBitmap::ToBMP(System::Drawing::Bitmap ^ bitmap)
 {
 	//Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height);
 	//BitmapData^ bmpData = bitmap->LockBits(rect, ImageLockMode::ReadOnly, bitmap->PixelFormat);
