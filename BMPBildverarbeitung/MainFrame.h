@@ -52,8 +52,7 @@ namespace BMPBildverarbeitung {
 		{
 			InitializeComponent();
 			//pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
-
-			BMPimage = new BMP();
+			BMPimage = new BMP();			
 			BMPimage->ReadFromFile("Initialimage.bmp");
 			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 
@@ -69,12 +68,11 @@ namespace BMPBildverarbeitung {
 		/// Verwendete Ressourcen bereinigen.
 		/// </summary>
 		~MainFrame()
-		{
+		{			
 			if (components)
 			{
 				delete components;
-			}
-			delete BMPimage;
+			}			
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	protected:

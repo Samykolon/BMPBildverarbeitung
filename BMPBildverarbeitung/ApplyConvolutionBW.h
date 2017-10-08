@@ -4,17 +4,17 @@
 
 namespace Filters {
 	template<size_t rows>
-	void ApplyConvolutionBW(BMP* Image, double (&convolution)[rows][rows] ) {
+	void ApplyConvolutionBW(BMP* image, double (&convolution)[rows][rows] ) {
 
-		TurnToGrayScale(Image);
-		BMP out(Image);
+		TurnToGrayScale(*image);
+		auto out = new BMP(*image);
 
 		
 		
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
-		const int width = Image.TellWidth();
-		const int height = Image.TellHeight();
+		const int width = image->TellWidth();
+		const int height = image->TellHeight();
 
 		for (int i = edgeGap; i < width - edgeGap; i++) //Iterate through all image pixels without edges
 		{
@@ -25,20 +25,21 @@ namespace Filters {
 				{
 					for (int b = 0; b < rows; b++)
 					{						
-						newPixel += convolution[a][b] * Image(i + a - edgeGap, j + b - edgeGap)->Red;
+						newPixel += convolution[a][b] * (*image)(i + a - edgeGap, j + b - edgeGap)->Red;
 					}
 				}
 				if (newPixel > 255) {
-					out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = 255;
+					(*out)(i, j)->Blue = (*out)(i, j)->Green = (*out)(i, j)->Red = 255;
 				}
 				else {					
-					out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
+					(*out)(i, j)->Blue = (*out)(i, j)->Green = (*out)(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
 				}
 			}
 
 		}
 		
-		out.WriteToFile("Test.bmp");
+		delete image;
+		image = out;
 
 	}
 }

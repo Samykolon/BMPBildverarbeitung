@@ -6,7 +6,7 @@
 
 using namespace std::chrono;
 
-void Filters::ApplyGaussFilterBW(const char * filePath)
+void Filters::ApplyGaussFilterBW(BMP* image)
 {
 	//std::ofstream out("log.txt");
 	//high_resolution_clock::time_point t1 = high_resolution_clock::now();
@@ -16,7 +16,7 @@ void Filters::ApplyGaussFilterBW(const char * filePath)
 								{0.015019,	0.059912,	0.094907,	0.059912,	0.015019},
 								{0.003765,	0.015019,	0.023792,	0.015019,	0.003765}};
 
-	//Filters::ApplyConvolutionBW<(size_t) 5>(filePath, gaussKernel);
+	Filters::ApplyConvolutionBW<(size_t) 5>(image, gaussKernel);
 	//high_resolution_clock::time_point t2 = high_resolution_clock::now();
 	//auto duration = duration_cast<microseconds>(t2 - t1).count();
 

@@ -5,5 +5,5 @@
 #include "TurnBlackAndWhite.h"
 
 namespace Filters {
-	void ChangeBrightness(BMP * Image, double factor);
+	void ChangeBrightness(BMP * image, double factor);
 }
