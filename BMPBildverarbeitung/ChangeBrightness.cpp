@@ -5,13 +5,10 @@ void Filters::ChangeBrightness(BMP * Image, double factor)
 {	
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
-<<<<<<< HEAD
-	const int width = Image.TellWidth();
-	const int height = Image.TellHeight();
-=======
-	const unsigned int width = Image->TellWidth();
-	const unsigned int height = Image->TellHeight();
->>>>>>> 06160d8a38db30e12b402a42190f9983fc827af3
+
+	const int width = Image->TellWidth();
+	const int height = Image->TellHeight();
+
 
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
