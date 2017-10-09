@@ -158,7 +158,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
-	Filters::TurnToGrayScale(*BMPimage);
+	Filters::TurnToGrayScaleOptimized(*BMPimage);
 	UpdatePicture();
 	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
 }

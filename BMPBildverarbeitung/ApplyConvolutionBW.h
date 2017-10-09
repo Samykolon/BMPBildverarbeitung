@@ -6,12 +6,9 @@ namespace Filters {
 	template<size_t rows>
 	void ApplyConvolutionBW(BMP& image, double (&convolution)[rows][rows] ) {
 
-
 		TurnToGrayScale(image);
 		BMP out(image);		
-
-
-		
+				
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
 		const int width = image.TellWidth();

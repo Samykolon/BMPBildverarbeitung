@@ -4,5 +4,6 @@
 #include <fstream>
 
 namespace Filters {
-	void TurnToGrayScale(BMP& in);	
+	void TurnToGrayScale(BMP& in);
+	void TurnToGrayScaleOptimized(BMP & in);
 }
