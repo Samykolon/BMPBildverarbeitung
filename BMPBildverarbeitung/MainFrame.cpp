@@ -148,10 +148,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 		UpdatePicture();
 				
 	}
-	/*groupBox1->Text = "Skalierung";
-	BApply->Enabled = true;	
-	Filters::ChangeHSVValue(*BMPimage, 1, 1, 1);
-	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);*/
+
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
@@ -207,7 +204,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 		s /= 20;
 	}
 	else if (s > 20) {
-		s = 1 + (s / 20);
+		s /= 20;
+
 	}
 	else {
 		s = 1;
