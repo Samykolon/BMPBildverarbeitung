@@ -72,10 +72,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwBrightness_RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		IsProcessing = true;
-	}*/	
-	Filters::ApplySobel(BMPimage);
-	BMP neu(*BMPimage);
-	UpdatePicture();
+	}*/
 	groupBox1->Text = "Sobel-Filter";
 	BApply->Enabled = true;
 		
@@ -108,7 +105,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 	groupBox1->Text = "Skalierung";
 	BApply->Enabled = true;	
-	Filters::ScaleWithNN(BMPimage, 300, 300);
+	Filters::ChangeHSVValue(BMPimage, 1, 1, 1);
 	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 

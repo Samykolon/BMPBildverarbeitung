@@ -1,7 +1,5 @@
 #pragma once
-#include "EasyBMP.h"
-
 namespace Filters {
-	void ApplySobel(BMP* image);
+	void ApplySobel(const char* filePath);
 	
 }
