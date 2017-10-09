@@ -221,6 +221,7 @@ namespace BMPBildverarbeitung {
 			this->pictureBox1->Location = System::Drawing::Point(13, 28);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(1127, 691);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->pictureBox1->TabIndex = 1;
 			this->pictureBox1->TabStop = false;
 			// 
@@ -301,6 +302,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label1
 			// 
+			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(1150, 141);
 			this->label1->Name = L"label1";
@@ -310,6 +312,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// THelligkeit
 			// 
+			this->THelligkeit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->THelligkeit->Location = System::Drawing::Point(1153, 157);
 			this->THelligkeit->Maximum = 40;
 			this->THelligkeit->Name = L"THelligkeit";
@@ -320,6 +323,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label2
 			// 
+			this->label2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label2->AutoSize = true;
 			this->label2->Location = System::Drawing::Point(1150, 225);
 			this->label2->Name = L"label2";
@@ -329,6 +333,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// TSaturation
 			// 
+			this->TSaturation->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->TSaturation->Location = System::Drawing::Point(1153, 241);
 			this->TSaturation->Maximum = 40;
 			this->TSaturation->Name = L"TSaturation";
@@ -339,6 +344,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label3
 			// 
+			this->label3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(1150, 185);
 			this->label3->Name = L"label3";
@@ -348,6 +354,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label4
 			// 
+			this->label4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label4->AutoSize = true;
 			this->label4->Location = System::Drawing::Point(1242, 185);
 			this->label4->Name = L"label4";
@@ -357,6 +364,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label5
 			// 
+			this->label5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label5->AutoSize = true;
 			this->label5->Location = System::Drawing::Point(1313, 185);
 			this->label5->Name = L"label5";
@@ -366,6 +374,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// BApply2
 			// 
+			this->BApply2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->BApply2->Location = System::Drawing::Point(1153, 331);
 			this->BApply2->Name = L"BApply2";
 			this->BApply2->Size = System::Drawing::Size(193, 23);
@@ -376,6 +385,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label6
 			// 
+			this->label6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label6->AutoSize = true;
 			this->label6->Location = System::Drawing::Point(1150, 273);
 			this->label6->Name = L"label6";
@@ -385,6 +395,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label7
 			// 
+			this->label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label7->AutoSize = true;
 			this->label7->Location = System::Drawing::Point(1242, 273);
 			this->label7->Name = L"label7";
@@ -394,6 +405,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// label8
 			// 
+			this->label8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label8->AutoSize = true;
 			this->label8->Location = System::Drawing::Point(1313, 273);
 			this->label8->Name = L"label8";
