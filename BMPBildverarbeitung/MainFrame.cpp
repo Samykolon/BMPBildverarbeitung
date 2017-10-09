@@ -167,7 +167,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	else {
 		s = 1;
 	}
-	Filters::ChangeHSVValue(*BMPimage, 1, value, s);
+	Filters::ChangeHSVValue(*BMPimage, 1, s, value);
 	UpdatePicture();
 }
 
