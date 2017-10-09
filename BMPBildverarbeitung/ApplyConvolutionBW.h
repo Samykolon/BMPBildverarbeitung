@@ -7,7 +7,7 @@ namespace Filters {
 	void ApplyConvolutionBW(BMP* image, double (&convolution)[rows][rows] ) {
 
 		TurnToGrayScale(*image);
-		auto out = new BMP(*image);
+		class BMP* tempImage = new BMP(*image);
 
 		
 		
@@ -25,21 +25,18 @@ namespace Filters {
 				{
 					for (int b = 0; b < rows; b++)
 					{						
-						newPixel += convolution[a][b] * (*image)(i + a - edgeGap, j + b - edgeGap)->Red;
+						newPixel += convolution[a][b] * (*tempImage)(i + a - edgeGap, j + b - edgeGap)->Red;
 					}
 				}
 				if (newPixel > 255) {
-					(*out)(i, j)->Blue = (*out)(i, j)->Green = (*out)(i, j)->Red = 255;
+					(*image)(i, j)->Blue = (*image)(i, j)->Green = (*image)(i, j)->Red = 255;
 				}
 				else {					
-					(*out)(i, j)->Blue = (*out)(i, j)->Green = (*out)(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
+					(*image)(i, j)->Blue = (*image)(i, j)->Green = (*image)(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
 				}
 			}
 
 		}
-		
-		delete image;
-		image = out;
-
+		delete tempImage;
 	}
 }

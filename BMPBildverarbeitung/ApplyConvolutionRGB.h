@@ -6,7 +6,7 @@ namespace Filters {
 	template<size_t rows>
 	void ApplyConvolutionRGB(BMP * image, double(&convolution)[rows][rows]) {
 
-		BMP* out = new BMP(*image);
+		BMP* tempImage = new BMP(*image);
 
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
@@ -25,37 +25,35 @@ namespace Filters {
 				{
 					for (int b = 0; b < rows; b++)
 					{
-						newRed += convolution[a][b] * (*image)(i + a - edgeGap, j + b - edgeGap)->Red;
-						newGreen += convolution[a][b] * (*image)(i + a - edgeGap, j + b - edgeGap)->Green;
-						newBlue += convolution[a][b] * (*image)(i + a - edgeGap, j + b - edgeGap)->Blue;
+						newRed += convolution[a][b] * (*tempImage)(i + a - edgeGap, j + b - edgeGap)->Red;
+						newGreen += convolution[a][b] * (*tempImage)(i + a - edgeGap, j + b - edgeGap)->Green;
+						newBlue += convolution[a][b] * (*tempImage)(i + a - edgeGap, j + b - edgeGap)->Blue;
 					}
 				}
 				if (newRed > 255) {
-					(*out)(i, j)->Red = 255;
+					(*image)(i, j)->Red = 255;
 				}
 				else {					 
-					(*out)(i, j)->Red = unsigned char(newRed + 0.5); //round newPixel correctly
+					(*image)(i, j)->Red = unsigned char(newRed + 0.5); //round newPixel correctly
 				}
 				
 				if (newGreen > 255) {
-					(*out)(i, j)->Green = 255;
+					(*image)(i, j)->Green = 255;
 				}
 				else {
-					(*out)(i, j)->Green = unsigned char(newGreen + 0.5); //round newPixel correctly
+					(*image)(i, j)->Green = unsigned char(newGreen + 0.5); //round newPixel correctly
 				}
 
 				if (newBlue > 255) {
-					(*out)(i, j)->Blue = 255;
+					(*image)(i, j)->Blue = 255;
 				}
 				else {
-					(*out)(i, j)->Blue = unsigned char(newBlue + 0.5); //round newPixel correctly
+					(*image)(i, j)->Blue = unsigned char(newBlue + 0.5); //round newPixel correctly
 				}
 			}
 
 		}
 
-		delete image;
-		image = out;
-
+		delete tempImage;
 	}
 }

@@ -4,21 +4,18 @@
 
 void Filters::ScaleWithNN(BMP* image, int newHeight, int newWidth)
 {
-	BMP* out = new BMP();
-	out->SetSize(newWidth, newHeight);
+	BMP* tempImage = new BMP(*image);
+	image->SetSize(newWidth, newHeight);
 
-	double xMult = newWidth / (double)image->TellWidth();
-	double yMult = newHeight / (double)image->TellHeight();
+	double xMult = newWidth / (double)tempImage->TellWidth();
+	double yMult = newHeight / (double)tempImage->TellHeight();
 
 	for (int i = 0; i < newWidth; i++)
 	{
 		for (int j = 0; j < newHeight; j++)
 		{
-			*(*out)(i, j) = *(*image)(i / xMult + 0.5, j / yMult + 0.5);
-
+			*(*image)(i, j) = *(*tempImage)(i / xMult + 0.5, j / yMult + 0.5);
 		}
 	}
-	delete image;
-	image = out;
-
+	delete tempImage;
 }
