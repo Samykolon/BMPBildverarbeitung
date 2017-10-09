@@ -7,6 +7,7 @@
 #include "Convert.h"
 
 
+
 namespace BMPBildverarbeitung {
 
 	using namespace System;
@@ -27,6 +28,7 @@ namespace BMPBildverarbeitung {
 		Assembly^ assembly = Assembly::GetExecutingAssembly();
 		AssemblyName^ assemblyName = assembly->GetName();
 		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
+		
 
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::TrackBar^  THelligkeit;
@@ -47,6 +49,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
 			 BMP *BMPimage;
+			 
 
 	public:
 		MainFrame(void)
@@ -57,7 +60,7 @@ namespace BMPBildverarbeitung {
 			BMPimage = new BMP();
 			BMPimage->ReadFromFile("Initialimage.bmp");
 			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
-
+			
 			FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
 			//

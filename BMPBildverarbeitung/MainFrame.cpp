@@ -7,6 +7,8 @@
 #include "ApplyGaussFilterBW.h"
 #include "ApplyGaussRGB.h"
 #include "ScaleWithNN.h"
+#include "BMPScale.h"
+#include <math.h>
 
 
 using namespace System;
@@ -133,17 +135,25 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
-	groupBox1->Text = "Skalierung";
+	BMPScale^ sc = gcnew BMPScale((BMPimage->TellWidth()).ToString(), (BMPimage->TellHeight()).ToString());
+	double breite, hoehe;
+	if (sc->ShowDialog(this) == ::DialogResult::OK)
+	{
+		breite = floor(sc->breite);
+		hoehe = floor(sc->hoehe);	
+				
+	}
+	/*groupBox1->Text = "Skalierung";
 	BApply->Enabled = true;	
 	Filters::ChangeHSVValue(*BMPimage, 1, 1, 1);
-	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);*/
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	groupBox1->Text = "Sättigung";
 	BApply->Enabled = true;
-	Filters::TurnToGrayScaleOptimized(*BMPimage);
+	Filters::TurnToGrayScale(*BMPimage);
 	UpdatePicture();
 	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
 }
