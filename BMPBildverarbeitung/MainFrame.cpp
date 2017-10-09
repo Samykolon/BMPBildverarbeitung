@@ -172,15 +172,41 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 }
 
 System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	openFileDialog1->ShowDialog();
+	openFileDialog1->FileName = "";
+	openFileDialog1->DefaultExt = L".bmp";
+	openFileDialog1->AddExtension;
+	openFileDialog1->Filter = L"BMP-Datei (*.bmp)|*.bmp|DIP-Datei (*.dip)|*.dip";
+	try {
+		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			FilePath = openFileDialog1->FileName;
+
+			msclr::interop::marshal_context context;
+			BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
+
+			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+		}
+	}
+	catch (Exception^ ex)
+	{
+		MessageBox::Show("Ungültiges Dateiformat/Datei konnte nicht gelesen werden");
+	}
+	
+}
+System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	saveFileDialog1->DefaultExt = L".bmp";
+	saveFileDialog1->AddExtension;
+	saveFileDialog1->Filter = L"BMP-Datei (*.bmp)|*.bmp";
+	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		if (BMPimage != nullptr)
+		{
+			FilePath = saveFileDialog1->FileName;
+			msclr::interop::marshal_context context;
+			BMPimage->WriteToFile(context.marshal_as<const char*>(FilePath));
+		}
+
+	}
 }
 
-System::Void BMPBildverarbeitung::MainFrame::openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
-	FilePath = openFileDialog1->FileName;
-
-	msclr::interop::marshal_context context;
-	BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
-
-	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
-
-}
