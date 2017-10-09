@@ -177,27 +177,27 @@ namespace BMPBildverarbeitung {
 			// bMPLadenToolStripMenuItem
 			// 
 			this->bMPLadenToolStripMenuItem->Name = L"bMPLadenToolStripMenuItem";
-			this->bMPLadenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
-			this->bMPLadenToolStripMenuItem->Text = L"BMP laden";
+			this->bMPLadenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
+			this->bMPLadenToolStripMenuItem->Text = L"BMP laden...";
 			this->bMPLadenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::bMPLadenToolStripMenuItem_Click);
 			// 
 			// bMPSpeichernToolStripMenuItem
 			// 
 			this->bMPSpeichernToolStripMenuItem->Name = L"bMPSpeichernToolStripMenuItem";
-			this->bMPSpeichernToolStripMenuItem->Size = System::Drawing::Size(153, 22);
-			this->bMPSpeichernToolStripMenuItem->Text = L"BMP speichern";
+			this->bMPSpeichernToolStripMenuItem->Size = System::Drawing::Size(162, 22);
+			this->bMPSpeichernToolStripMenuItem->Text = L"BMP speichern...";
 			this->bMPSpeichernToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::bMPSpeichernToolStripMenuItem_Click);
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			// 
 			// beendenToolStripMenuItem
 			// 
 			this->beendenToolStripMenuItem->Name = L"beendenToolStripMenuItem";
-			this->beendenToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->beendenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
 			this->beendenToolStripMenuItem->Text = L"Beenden";
 			this->beendenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::beendenToolStripMenuItem_Click);
 			// 
