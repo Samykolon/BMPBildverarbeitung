@@ -2,5 +2,5 @@
 #include "EasyBMP.h"
 
 namespace Filters {
-	void ChangeHSVValue(BMP* Image, double hueFactor, double valueFactor, double saturationFactor);
+	void ChangeHSVValue(BMP& image, double hueFactor, double valueFactor, double saturationFactor);
 }

@@ -2,12 +2,12 @@
 #include <msclr\marshal.h>
 #include <chrono>
 #include "HSVPixel.h"
-#include "ChangeBrightness.h"
 #include "ChangeHSVValue.h"
 #include "ApplySobel.h"
 #include "ApplyGaussFilterBW.h"
 #include "ApplyGaussRGB.h"
 #include "ScaleWithNN.h"
+
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -73,6 +73,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		bw->RunWorkerAsync();
 		IsProcessing = true;
 	}*/
+	Filters::ApplySobel(*BMPimage);
+	UpdatePicture();
 	groupBox1->Text = "Sobel-Filter";
 	BApply->Enabled = true;
 		
@@ -83,7 +85,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 	groupBox1->Text = "Gauß-Filter";
 	BApply->Enabled = true;
 	msclr::interop::marshal_context context;
-	Filters::ChangeBrightness(BMPimage, 2);
+	Filters::ApplyGaussFilterRGB(*BMPimage);
 	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
@@ -95,7 +97,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 	
 	msclr::interop::marshal_context context;
 	auto watch = Stopwatch::StartNew();
-	Filters::TurnBlackAndWhite(context.marshal_as<const char*>(FilePath));
+	Filters::TurnToGrayScale(*BMPimage);
 	watch->Stop();
 
 	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
@@ -105,7 +107,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 	groupBox1->Text = "Skalierung";
 	BApply->Enabled = true;	
-	Filters::ChangeHSVValue(BMPimage, 1, 1, 1);
+	Filters::ChangeHSVValue(*BMPimage, 1, 1, 1);
 	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
@@ -165,7 +167,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	else {
 		s = 1;
 	}
-	Filters::ChangeHSVValue(BMPimage, 1, value, s);
+	Filters::ChangeHSVValue(*BMPimage, 1, value, s);
 	UpdatePicture();
 }
 

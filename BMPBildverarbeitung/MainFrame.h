@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "TurnBlackAndWhite.h"
+#include "TurnGrayScale.h"
 #include "HSVPixel.h"
 #include <iostream>
 #include "Convert.h"
@@ -73,8 +73,7 @@ namespace BMPBildverarbeitung {
 			if (components)
 			{
 				delete components;
-			}
-			delete BMPimage;
+			}			
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	protected:

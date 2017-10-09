@@ -24,12 +24,6 @@
     <ClCompile Include="Convert.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="TurnBlackAndWhite.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="ChangeBrightness.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="HSVPixel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -49,6 +43,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ApplyGaussRGB.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnGrayScale.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,12 +71,6 @@
     <ClInclude Include="HSVPixel.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="TurnBlackAndWhite.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="ChangeBrightness.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="HSVandBack.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -102,6 +93,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ApplyGaussRGB.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnGrayScale.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

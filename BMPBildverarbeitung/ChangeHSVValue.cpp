@@ -2,19 +2,19 @@
 #include "EasyBMP.h"
 #include "HSVPixel.h"
 #include "HSVandBack.h"
-#include "TurnBlackAndWhite.h"
+#include "TurnGrayScale.h"
 
-void Filters::ChangeHSVValue(BMP * Image, double hueFactor, double saturationFactor, double valueFactor)
+void Filters::ChangeHSVValue(BMP& image, double hueFactor, double saturationFactor, double valueFactor)
 {
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
-	const unsigned int width = Image->TellWidth();
-	const unsigned int height = Image->TellHeight();
+	const int width = image.TellWidth();
+	const int height = image.TellHeight();
 
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 
-			startPixel = Image->GetPixel(i, j);
+			startPixel = image.GetPixel(i, j);
 			hsvPixel = RgbToHsv(startPixel);
 			
 			double newHue = hsvPixel.Hue * hueFactor;
@@ -43,7 +43,7 @@ void Filters::ChangeHSVValue(BMP * Image, double hueFactor, double saturationFac
 					
 
 			RGBApixel finalPixel = HsvToRgb(hsvPixel);
-			*(*Image)(i, j) = finalPixel;
+			*image(i, j) = finalPixel;
 
 		}
 	}	

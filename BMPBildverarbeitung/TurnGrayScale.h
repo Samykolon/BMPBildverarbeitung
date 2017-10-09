@@ -4,7 +4,5 @@
 #include <fstream>
 
 namespace Filters {
-	void TurnToGrayScale(BMP& in);
-
-	void TurnBlackAndWhite(const char* filePath);
+	void TurnToGrayScale(BMP& in);	
 }

@@ -1,4 +1,4 @@
-#include "TurnBlackAndWhite.h"
+#include "TurnGrayScale.h"
 #include <iostream>
 typedef unsigned char BYTE;
 
@@ -24,17 +24,4 @@ void Filters::TurnToGrayScale(BMP& in)
 	in.SetBitDepth(8);
 	
 	CreateGrayscaleColorTable(in);
-}
-
-void Filters::TurnBlackAndWhite(const char* filePath)
-{
-	//Copied from EasyBMP example, just a test
-	
-	BMP Image;
-	Image.ReadFromFile(filePath);
-	
-	TurnToGrayScale(Image);
-
-	// write the output file
-	Image.WriteToFile("Test.bmp");
 }
