@@ -6,9 +6,9 @@
 
 void Filters::ApplySobel(BMP& image)
 {
+
 	TurnToGrayScale(image);
 	BMP out(image);
-	
 	int width = image.TellWidth();
 	int height = image.TellHeight();
 
@@ -22,10 +22,11 @@ void Filters::ApplySobel(BMP& image)
 
 			int yPixel = -1 * image(i - 1, j - 1)->Blue - 2 * image(i, j - 1)->Blue - 1 * image(i + 1, j - 1)->Blue +
 				1 * image(i - 1, j + 1)->Blue + 2 * image(i, j + 1)->Blue + image(i + 1, j + 1)->Blue;
-
+			
 			int grad = std::round(sqrt(yPixel * yPixel + xPixel * xPixel));
 			int newValue = grad / 2;
 			if (newValue > 255) {
+
 				out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = 255;
 			}
 			else {
@@ -35,5 +36,5 @@ void Filters::ApplySobel(BMP& image)
 	}
 	image.~BMP(); //Thanks goes out to EasyBMP for not having a copy constructor
 	new(&image) BMP(out);	
-
+	
 }

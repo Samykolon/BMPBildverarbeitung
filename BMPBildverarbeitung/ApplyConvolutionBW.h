@@ -6,8 +6,11 @@ namespace Filters {
 	template<size_t rows>
 	void ApplyConvolutionBW(BMP& image, double (&convolution)[rows][rows] ) {
 
+
 		TurnToGrayScale(image);
 		BMP out(image);		
+
+
 		
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
@@ -31,10 +34,12 @@ namespace Filters {
 				}
 				else {					
 					out(i, j)->Blue = out(i, j)->Green = out(i, j)->Red = unsigned char(newPixel + 0.5); //round newPixel correctly
+
 				}
 			}
 
 		}
+
 		
 		image.~BMP();
 		new(&image) BMP(out);

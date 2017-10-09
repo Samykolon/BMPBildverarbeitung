@@ -6,9 +6,10 @@ namespace Filters {
 	template<size_t rows>
 	void ApplyConvolutionRGB(BMP& image, double(&convolution)[rows][rows]) {
 
+
 	
 		BMP out(image);
-
+		
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered
 
 		const int width = image.TellWidth();
@@ -26,6 +27,7 @@ namespace Filters {
 				{
 					for (int b = 0; b < rows; b++)
 					{
+
 						newRed += convolution[a][b] * image(i + a - edgeGap, j + b - edgeGap)->Red;
 						newGreen += convolution[a][b] * image(i + a - edgeGap, j + b - edgeGap)->Green;
 						newBlue += convolution[a][b] * image(i + a - edgeGap, j + b - edgeGap)->Blue;
@@ -50,10 +52,12 @@ namespace Filters {
 				}
 				else {
 					out(i, j)->Blue = unsigned char(newBlue + 0.5); //round newPixel correctly
+
 				}
 			}
 
 		}
+
 
 		image.~BMP();
 		new(&image) BMP(out);
