@@ -137,10 +137,15 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 	BMPScale^ sc = gcnew BMPScale((BMPimage->TellWidth()).ToString(), (BMPimage->TellHeight()).ToString());
 	double breite, hoehe;
+	int nbreite, nhoehe;
 	if (sc->ShowDialog(this) == ::DialogResult::OK)
 	{
 		breite = floor(sc->breite);
-		hoehe = floor(sc->hoehe);	
+		hoehe = floor(sc->hoehe);
+		nbreite = System::Convert::ToInt32(breite);
+		nhoehe = System::Convert::ToInt32(hoehe);
+		Filters::ScaleWithNN(*BMPimage, nhoehe, nbreite);
+		UpdatePicture();
 				
 	}
 	/*groupBox1->Text = "Skalierung";
