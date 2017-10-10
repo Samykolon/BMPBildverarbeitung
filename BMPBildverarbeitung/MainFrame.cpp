@@ -133,21 +133,6 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 	}
 }
 
-// Button-Click-Event for the Button "Helligkeit"
-
-inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) 
-{
-	// Test to measure method time
-	Utilities::Benchmark bench = Utilities::Benchmark();
-	bench.StartTimer("TurnGrayScale");
-
-	//auto watch = Stopwatch::StartNew();
-	Filters::TurnToGrayScale(*BMPimage);
-	bench.StopTimer();
-
-	//MessageBox::Show(watch->ElapsedMilliseconds.ToString());
-}
-
 // Button-Click-Event for the Button "Skalierung"
 
 inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object ^ sender, System::EventArgs ^ e) {

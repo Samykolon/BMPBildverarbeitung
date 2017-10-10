@@ -103,7 +103,7 @@ namespace BMPBildverarbeitung {
 
 	private: System::Windows::Forms::Button^  BSobel;
 	private: System::Windows::Forms::Button^  BGauss;
-	private: System::Windows::Forms::Button^  BHelligkeit;
+
 	private: System::Windows::Forms::Button^  BGreyScale;
 	private: System::Windows::Forms::Button^  BScale;
 
@@ -135,7 +135,6 @@ namespace BMPBildverarbeitung {
 			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
-			this->BHelligkeit = (gcnew System::Windows::Forms::Button());
 			this->BGreyScale = (gcnew System::Windows::Forms::Button());
 			this->BScale = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -258,21 +257,10 @@ namespace BMPBildverarbeitung {
 			this->BGauss->UseVisualStyleBackColor = true;
 			this->BGauss->Click += gcnew System::EventHandler(this, &MainFrame::BGauss_Click);
 			// 
-			// BHelligkeit
-			// 
-			this->BHelligkeit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BHelligkeit->Location = System::Drawing::Point(1146, 57);
-			this->BHelligkeit->Name = L"BHelligkeit";
-			this->BHelligkeit->Size = System::Drawing::Size(100, 23);
-			this->BHelligkeit->TabIndex = 4;
-			this->BHelligkeit->Text = L"Helligkeit";
-			this->BHelligkeit->UseVisualStyleBackColor = true;
-			this->BHelligkeit->Click += gcnew System::EventHandler(this, &MainFrame::BHelligkeit_Click);
-			// 
 			// BGreyScale
 			// 
 			this->BGreyScale->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BGreyScale->Location = System::Drawing::Point(1146, 86);
+			this->BGreyScale->Location = System::Drawing::Point(1145, 57);
 			this->BGreyScale->Name = L"BGreyScale";
 			this->BGreyScale->Size = System::Drawing::Size(100, 23);
 			this->BGreyScale->TabIndex = 5;
@@ -473,7 +461,6 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->BScale);
 			this->Controls->Add(this->BGreyScale);
-			this->Controls->Add(this->BHelligkeit);
 			this->Controls->Add(this->BGauss);
 			this->Controls->Add(this->BSobel);
 			this->Controls->Add(this->PBMain);
@@ -505,7 +492,6 @@ namespace BMPBildverarbeitung {
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGreyScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
