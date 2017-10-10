@@ -31,7 +31,8 @@ namespace BMPBildverarbeitung {
 		
 
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::TrackBar^  THelligkeit;
+	private: System::Windows::Forms::TrackBar^  TBrightness;
+
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::TrackBar^  TSaturation;
 	private: System::Windows::Forms::Label^  label3;
@@ -46,11 +47,11 @@ namespace BMPBildverarbeitung {
 	private: System::ComponentModel::BackgroundWorker^  applyWorker;
 
 			 Boolean IsProcessing;
-	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
-	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
-	private: System::Windows::Forms::PictureBox^  POriginal;
+	private: System::Windows::Forms::OpenFileDialog^  OpenFileDialog;
+	private: System::Windows::Forms::SaveFileDialog^  SaveFileDialog;
+	private: System::Windows::Forms::PictureBox^  PBOriginal;
 	private: System::Windows::Forms::Label^  label9;
-	private: System::Windows::Forms::ProgressBar^  progressBar1;
+	private: System::Windows::Forms::ProgressBar^  ProgressBar;
 			 BMP *BMPimage;
 			 
 
@@ -58,19 +59,17 @@ namespace BMPBildverarbeitung {
 		MainFrame(void)
 		{
 			InitializeComponent();
-			//pictureBox1->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
+			//PBMain->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
 
 			BMPimage = new BMP();
 			BMPimage->ReadFromFile("Initialimage.bmp");
-			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
-			POriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
+			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
+			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 			
 			FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
-			progressBar1->Visible = false;
-			//
-			//TODO: Konstruktorcode hier hinzufügen.
-			//
+			ProgressBar->Visible = false;
+
 		}
 
 	protected:
@@ -94,7 +93,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::ToolStripMenuItem^  bearbeitenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  hilfeToolStripMenuItem;
 
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  PBMain;
 
 	private: System::Windows::Forms::Button^  BSobel;
 	private: System::Windows::Forms::Button^  BGauss;
@@ -127,14 +126,14 @@ namespace BMPBildverarbeitung {
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bearbeitenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hilfeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
 			this->BHelligkeit = (gcnew System::Windows::Forms::Button());
 			this->BSaettigung = (gcnew System::Windows::Forms::Button());
 			this->BSkalierung = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->THelligkeit = (gcnew System::Windows::Forms::TrackBar());
+			this->TBrightness = (gcnew System::Windows::Forms::TrackBar());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->TSaturation = (gcnew System::Windows::Forms::TrackBar());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -145,16 +144,16 @@ namespace BMPBildverarbeitung {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->applyWorker = (gcnew System::ComponentModel::BackgroundWorker());
-			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
-			this->POriginal = (gcnew System::Windows::Forms::PictureBox());
+			this->OpenFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->SaveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->PBOriginal = (gcnew System::Windows::Forms::PictureBox());
 			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
+			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->menuStrip1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->THelligkeit))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TSaturation))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->POriginal))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBOriginal))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -219,17 +218,17 @@ namespace BMPBildverarbeitung {
 			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
 			// 
-			// pictureBox1
+			// PBMain
 			// 
-			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+			this->PBMain->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->pictureBox1->Location = System::Drawing::Point(13, 28);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(1127, 691);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->pictureBox1->TabIndex = 1;
-			this->pictureBox1->TabStop = false;
+			this->PBMain->Location = System::Drawing::Point(13, 28);
+			this->PBMain->Name = L"PBMain";
+			this->PBMain->Size = System::Drawing::Size(1127, 691);
+			this->PBMain->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->PBMain->TabIndex = 1;
+			this->PBMain->TabStop = false;
 			// 
 			// BSobel
 			// 
@@ -296,16 +295,16 @@ namespace BMPBildverarbeitung {
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Helligkeit";
 			// 
-			// THelligkeit
+			// TBrightness
 			// 
-			this->THelligkeit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->THelligkeit->Location = System::Drawing::Point(1153, 157);
-			this->THelligkeit->Maximum = 40;
-			this->THelligkeit->Name = L"THelligkeit";
-			this->THelligkeit->Size = System::Drawing::Size(194, 45);
-			this->THelligkeit->TabIndex = 9;
-			this->THelligkeit->TickStyle = System::Windows::Forms::TickStyle::None;
-			this->THelligkeit->Value = 20;
+			this->TBrightness->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->TBrightness->Location = System::Drawing::Point(1153, 157);
+			this->TBrightness->Maximum = 40;
+			this->TBrightness->Name = L"TBrightness";
+			this->TBrightness->Size = System::Drawing::Size(194, 45);
+			this->TBrightness->TabIndex = 9;
+			this->TBrightness->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->TBrightness->Value = 20;
 			// 
 			// label2
 			// 
@@ -403,19 +402,19 @@ namespace BMPBildverarbeitung {
 			// 
 			this->applyWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainFrame::applyWorker_DoWork);
 			// 
-			// openFileDialog1
+			// OpenFileDialog
 			// 
-			this->openFileDialog1->FileName = L"openFileDialog1";
+			this->OpenFileDialog->FileName = L"OpenFileDialog";
 			// 
-			// POriginal
+			// PBOriginal
 			// 
-			this->POriginal->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->POriginal->Location = System::Drawing::Point(1145, 512);
-			this->POriginal->Name = L"POriginal";
-			this->POriginal->Size = System::Drawing::Size(206, 169);
-			this->POriginal->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->POriginal->TabIndex = 19;
-			this->POriginal->TabStop = false;
+			this->PBOriginal->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->PBOriginal->Location = System::Drawing::Point(1145, 512);
+			this->PBOriginal->Name = L"PBOriginal";
+			this->PBOriginal->Size = System::Drawing::Size(206, 169);
+			this->PBOriginal->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->PBOriginal->TabIndex = 19;
+			this->PBOriginal->TabStop = false;
 			// 
 			// label9
 			// 
@@ -427,25 +426,25 @@ namespace BMPBildverarbeitung {
 			this->label9->TabIndex = 20;
 			this->label9->Text = L"Originales Bild";
 			// 
-			// progressBar1
+			// ProgressBar
 			// 
-			this->progressBar1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->progressBar1->Location = System::Drawing::Point(1153, 360);
-			this->progressBar1->MarqueeAnimationSpeed = 20;
-			this->progressBar1->Name = L"progressBar1";
-			this->progressBar1->Size = System::Drawing::Size(193, 21);
-			this->progressBar1->Style = System::Windows::Forms::ProgressBarStyle::Marquee;
-			this->progressBar1->TabIndex = 21;
-			this->progressBar1->Value = 50;
+			this->ProgressBar->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->ProgressBar->Location = System::Drawing::Point(1153, 360);
+			this->ProgressBar->MarqueeAnimationSpeed = 20;
+			this->ProgressBar->Name = L"ProgressBar";
+			this->ProgressBar->Size = System::Drawing::Size(193, 21);
+			this->ProgressBar->Style = System::Windows::Forms::ProgressBarStyle::Marquee;
+			this->ProgressBar->TabIndex = 21;
+			this->ProgressBar->Value = 50;
 			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
-			this->Controls->Add(this->progressBar1);
+			this->Controls->Add(this->ProgressBar);
 			this->Controls->Add(this->label9);
-			this->Controls->Add(this->POriginal);
+			this->Controls->Add(this->PBOriginal);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
@@ -455,14 +454,14 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->TSaturation);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->THelligkeit);
+			this->Controls->Add(this->TBrightness);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->BSkalierung);
 			this->Controls->Add(this->BSaettigung);
 			this->Controls->Add(this->BHelligkeit);
 			this->Controls->Add(this->BGauss);
 			this->Controls->Add(this->BSobel);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->PBMain);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MainFrame";
@@ -470,10 +469,10 @@ namespace BMPBildverarbeitung {
 			this->Text = L"BMP - Bildverarbeitung";
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->THelligkeit))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TSaturation))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->POriginal))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBOriginal))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

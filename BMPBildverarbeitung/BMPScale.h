@@ -1,3 +1,5 @@
+// Header-File for the Scaling-Window
+
 #pragma once
 #include <math.h>
 
@@ -14,35 +16,31 @@ namespace BMPBildverarbeitung {
 	/// Zusammenfassung für Scale
 	/// </summary>
 	public ref class BMPScale : public System::Windows::Forms::Form
-	{
-
-		
+	{		
 
 	public:
 		property Boolean CheckBoxChecked;
-		property double breite;
-		property double hoehe;
-		property double properties;
-		property Boolean Loaded;
+		property double Width;
+		property double Height;
+		property double Proportions;
+		property Boolean IsLoaded;
+		
 		BMPScale(void)
 		{
-			InitializeComponent();
-			
+			InitializeComponent();			
 		}
 
-		BMPScale(String^ b, String^ h)
+		BMPScale(String^ _width, String^ _height)
 		{
-			Loaded = false;
+			IsLoaded = false;
 			InitializeComponent();
 			CheckBoxChecked = true;
-			textBox1->Text = b;
-			textBox2->Text = h;
-			breite = System::Convert::ToDouble(textBox1->Text);
-			hoehe = System::Convert::ToDouble(textBox2->Text);
-			properties = breite / hoehe; 
-			Loaded = true;
-			
-			
+			TBWidth->Text = _width;
+			TBHeight->Text = _height;
+			Width = System::Convert::ToDouble(TBWidth->Text);
+			Height = System::Convert::ToDouble(TBHeight->Text);
+			Proportions = Width / Height; 
+			IsLoaded = true;			
 		}
 
 	protected:
@@ -59,9 +57,9 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Button^  button1;
 	protected:
 	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::CheckBox^  checkBox1;
+	private: System::Windows::Forms::TextBox^  TBWidth;
+	private: System::Windows::Forms::TextBox^  TBHeight;
+	private: System::Windows::Forms::CheckBox^  CBProportions;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  label2;
 
@@ -80,9 +78,9 @@ namespace BMPBildverarbeitung {
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->TBWidth = (gcnew System::Windows::Forms::TextBox());
+			this->TBHeight = (gcnew System::Windows::Forms::TextBox());
+			this->CBProportions = (gcnew System::Windows::Forms::CheckBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
@@ -107,34 +105,34 @@ namespace BMPBildverarbeitung {
 			this->button2->Text = L"OK";
 			this->button2->UseVisualStyleBackColor = true;
 			// 
-			// textBox1
+			// TBWidth
 			// 
-			this->textBox1->Location = System::Drawing::Point(13, 12);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 20);
-			this->textBox1->TabIndex = 2;
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &BMPScale::textBox1_TextChanged);
+			this->TBWidth->Location = System::Drawing::Point(13, 12);
+			this->TBWidth->Name = L"TBWidth";
+			this->TBWidth->Size = System::Drawing::Size(100, 20);
+			this->TBWidth->TabIndex = 2;
+			this->TBWidth->TextChanged += gcnew System::EventHandler(this, &BMPScale::TBWidth_TextChanged);
 			// 
-			// textBox2
+			// TBHeight
 			// 
-			this->textBox2->Location = System::Drawing::Point(119, 12);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(100, 20);
-			this->textBox2->TabIndex = 3;
-			this->textBox2->TextChanged += gcnew System::EventHandler(this, &BMPScale::textBox2_TextChanged);
+			this->TBHeight->Location = System::Drawing::Point(119, 12);
+			this->TBHeight->Name = L"TBHeight";
+			this->TBHeight->Size = System::Drawing::Size(100, 20);
+			this->TBHeight->TabIndex = 3;
+			this->TBHeight->TextChanged += gcnew System::EventHandler(this, &BMPScale::TBHeight_TextChanged);
 			// 
-			// checkBox1
+			// CBProportions
 			// 
-			this->checkBox1->AutoSize = true;
-			this->checkBox1->Checked = true;
-			this->checkBox1->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->checkBox1->Location = System::Drawing::Point(46, 59);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(144, 17);
-			this->checkBox1->TabIndex = 4;
-			this->checkBox1->Text = L"Proportionen beibehalten";
-			this->checkBox1->UseVisualStyleBackColor = true;
-			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &BMPScale::checkBox1_CheckedChanged);
+			this->CBProportions->AutoSize = true;
+			this->CBProportions->Checked = true;
+			this->CBProportions->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->CBProportions->Location = System::Drawing::Point(46, 59);
+			this->CBProportions->Name = L"CBProportions";
+			this->CBProportions->Size = System::Drawing::Size(144, 17);
+			this->CBProportions->TabIndex = 4;
+			this->CBProportions->Text = L"Proportionen beibehalten";
+			this->CBProportions->UseVisualStyleBackColor = true;
+			this->CBProportions->CheckedChanged += gcnew System::EventHandler(this, &BMPScale::CBProportions_CheckedChanged);
 			// 
 			// label1
 			// 
@@ -161,9 +159,9 @@ namespace BMPBildverarbeitung {
 			this->ClientSize = System::Drawing::Size(233, 143);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->checkBox1);
-			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->CBProportions);
+			this->Controls->Add(this->TBHeight);
+			this->Controls->Add(this->TBWidth);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
@@ -176,50 +174,9 @@ namespace BMPBildverarbeitung {
 
 		}
 #pragma endregion
-	private: System::Void checkBox1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-		if (checkBox1->Checked == true)
-			CheckBoxChecked = true;
-		else
-			CheckBoxChecked = false;
-	}
-private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-
-	if (Loaded) {
-
-		try
-		{
-			if (CheckBoxChecked)
-			{
-				breite = System::Convert::ToDouble(textBox1->Text);
-				hoehe = breite / properties;
-				hoehe = floor(hoehe);
-				textBox2->Text = hoehe.ToString();
-			}
-			else
-				breite = System::Convert::ToDouble(textBox1->Text);
-		}
-		catch (Exception^ ex) {}
-	}
-
-}
-private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-
-	if (Loaded) {
-		try
-		{
-			if (CheckBoxChecked)
-			{
-				hoehe = System::Convert::ToDouble(textBox2->Text);
-				breite = hoehe * properties;
-				breite = floor(breite);
-				textBox1->Text = breite.ToString();
-			}
-			else
-				hoehe = System::Convert::ToDouble(textBox2->Text);
-		}
-		catch (Exception^ ex) {}
-	}
-		 }
+	private: System::Void CBProportions_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TBWidth_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TBHeight_TextChanged(System::Object^  sender, System::EventArgs^  e);
 
 };
 }

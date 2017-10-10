@@ -13,7 +13,7 @@
 #include "ScaleWithNN.h"
 #include "BMPScale.h"
 
-//Utilities
+// Utilities
 #include "Utilities.h"
 
 
@@ -36,16 +36,16 @@ void Main(array<String^>^ args)
 inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	IsProcessing = true;
-	double value = THelligkeit->Value;
+	double v = TBrightness->Value;
 	double s = TSaturation->Value;
-	if (value < 20) {
-		value /= 20;
+	if (v < 20) {
+		v /= 20;
 	}
-	else if (value > 20) {
-		value = 1 + (value / 20);
+	else if (v > 20) {
+		v /= 20;
 	}
 	else {
-		value = 1;
+		v = 1;
 	}
 	if (s < 20) {
 		s /= 20;
@@ -56,30 +56,31 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 	else {
 		s = 1;
 	}
-	Filters::ChangeHSVValue(*BMPimage, 1, value, s);	
+	Filters::ChangeHSVValue(*BMPimage, 1, v, s);
+	TBrightness->Value = 20;
+	TSaturation->Value = 20;
 }
 
-inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) {
+inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) 
+{
 	UpdatePicture();
 	IsProcessing = false;
 }
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	Filters::ApplySobel(*BMPimage);
-	
+	Filters::ApplySobel(*BMPimage);	
 }
 
 void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
 	UpdatePicture();
 	IsProcessing = false;
-	progressBar1->Visible = false;
+	ProgressBar->Visible = false;
 }
 
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-
 	Filters::ApplyGaussFilterRGB(*BMPimage);
 }
 
@@ -89,51 +90,41 @@ void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender,
 	IsProcessing = false;
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e) {
-
+inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
 	this->Close();
-
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) {
-	
+inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
+{	
 	if (!IsProcessing) {
 		IsProcessing = true;
-		progressBar1->Visible = true;
+		ProgressBar->Visible = true;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted);
 		bw->RunWorkerAsync();	
-		
-
-	}	
-	
-		
+	}			
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) {
-
+inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) 
+{
 	if (!IsProcessing) {
 		IsProcessing = true;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted);
 		bw->RunWorkerAsync();
-
 	}
-
-	
-	
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) {
-
-
-	//Test to measure method time
+inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) 
+{
+	// Test to measure method time
 	Utilities::Benchmark bench = Utilities::Benchmark();
 	bench.StartTimer("TurnGrayScale");
 
-//	auto watch = Stopwatch::StartNew();
+	// auto watch = Stopwatch::StartNew();
 	Filters::TurnToGrayScale(*BMPimage);
 	bench.StopTimer();
 
@@ -143,19 +134,17 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	BMPScale^ sc = gcnew BMPScale((BMPimage->TellWidth()).ToString(), (BMPimage->TellHeight()).ToString());
-	double breite, hoehe;
-	int nbreite, nhoehe;
+	double oldWidth, oldHeight;
+	int newWidth, newHeight;
 	if (sc->ShowDialog(this) == ::DialogResult::OK)
 	{
-		breite = floor(sc->breite);
-		hoehe = floor(sc->hoehe);
-		nbreite = System::Convert::ToInt32(breite);
-		nhoehe = System::Convert::ToInt32(hoehe);
-		Filters::ScaleWithNN(*BMPimage, nhoehe, nbreite);
-		UpdatePicture();
-				
+		oldWidth = floor(sc->Width);
+		oldHeight = floor(sc->Height);
+		newWidth = System::Convert::ToInt32(oldWidth);
+		newHeight = System::Convert::ToInt32(oldHeight);
+		Filters::ScaleWithNN(*BMPimage, newHeight, newWidth);
+		UpdatePicture();				
 	}
-
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
@@ -167,10 +156,11 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
-	pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::backgroundWorker1_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
+
 	
 }
 
@@ -194,16 +184,16 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 
 
 	msclr::interop::marshal_context context;
-	double value = THelligkeit->Value;
+	double v = TBrightness->Value;
 	double s = TSaturation->Value;
-	if (value < 20) {
-		value /= 20;
+	if (v < 20) {
+		v /= 20;
 	}
-	else if (value > 20) {
-		value /= 20;
+	else if (v > 20) {
+		v /= 20;
 	}
 	else {
-		value = 1;
+		v = 1;
 	}
 	if (s < 20) {
 		s /= 20;
@@ -215,27 +205,28 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	else {
 		s = 1;
 	}
-	Filters::ChangeHSVValue(*BMPimage, 1, s, value);
-	THelligkeit->Value = 20;
+	Filters::ChangeHSVValue(*BMPimage, 1, s, v);
+	TBrightness->Value = 20;
 	TSaturation->Value = 20;
 	UpdatePicture();
 }
 
 System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	openFileDialog1->FileName = "";
-	openFileDialog1->DefaultExt = L".bmp";
-	openFileDialog1->AddExtension;
-	openFileDialog1->Filter = L"BMP-Datei (*.bmp)|*.bmp|DIP-Datei (*.dip)|*.dip";
+	
+	OpenFileDialog->FileName = "";
+	OpenFileDialog->DefaultExt = L".bmp";
+	OpenFileDialog->AddExtension;
+	OpenFileDialog->Filter = L"BMP-Datei (*.bmp)|*.bmp|DIP-Datei (*.dip)|*.dip";
 	try {
-		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		if (OpenFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
-			FilePath = openFileDialog1->FileName;
+			FilePath = OpenFileDialog->FileName;
 
 			msclr::interop::marshal_context context;
 			BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
 
-			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
-			POriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
+			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
+			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 		}
 	}
 	catch (Exception^ ex)
@@ -246,14 +237,14 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 }
 System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	saveFileDialog1->DefaultExt = L".bmp";
-	saveFileDialog1->AddExtension;
-	saveFileDialog1->Filter = L"BMP-Datei (*.bmp)|*.bmp";
-	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	SaveFileDialog->DefaultExt = L".bmp";
+	SaveFileDialog->AddExtension;
+	SaveFileDialog->Filter = L"BMP-Datei (*.bmp)|*.bmp";
+	if (SaveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
 		if (BMPimage != nullptr)
 		{
-			FilePath = saveFileDialog1->FileName;
+			FilePath = SaveFileDialog->FileName;
 			msclr::interop::marshal_context context;
 			BMPimage->WriteToFile(context.marshal_as<const char*>(FilePath));
 		}
