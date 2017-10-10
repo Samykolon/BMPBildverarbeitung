@@ -51,11 +51,14 @@ namespace BMPBildverarbeitung {
 			
 			 String^ FilePath;
 			 Boolean IsProcessing;
+	private: System::Windows::Forms::Button^  BUndo;
 			 BMP *BMPimage;
+			 BMP *UndoImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
 			 property double ValueFactor;
 			 property double SaturationFactor;
+			 
 			 
 
 	public:
@@ -151,6 +154,7 @@ namespace BMPBildverarbeitung {
 			this->PBOriginal = (gcnew System::Windows::Forms::PictureBox());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
+			this->BUndo = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -435,11 +439,24 @@ namespace BMPBildverarbeitung {
 			this->ProgressBar->TabIndex = 21;
 			this->ProgressBar->Value = 50;
 			// 
+			// BUndo
+			// 
+			this->BUndo->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BUndo->Enabled = false;
+			this->BUndo->Location = System::Drawing::Point(1153, 302);
+			this->BUndo->Name = L"BUndo";
+			this->BUndo->Size = System::Drawing::Size(193, 23);
+			this->BUndo->TabIndex = 22;
+			this->BUndo->Text = L"Rückgängig";
+			this->BUndo->UseVisualStyleBackColor = true;
+			this->BUndo->Click += gcnew System::EventHandler(this, &MainFrame::BUndo_Click);
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->Controls->Add(this->BUndo);
 			this->Controls->Add(this->ProgressBar);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->PBOriginal);
@@ -492,10 +509,12 @@ namespace BMPBildverarbeitung {
 	private: System::Void BScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGreyScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BUndo_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 
 	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+
 };
 }

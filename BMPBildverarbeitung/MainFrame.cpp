@@ -88,6 +88,7 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {	
 	if (!IsProcessing) {
+		BUndo->Enabled = true;
 		IsProcessing = true;		
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
@@ -104,11 +105,13 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {
 	if (!IsProcessing) {
+		BUndo->Enabled = true;
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		// Copy BMPimage in UndoImage
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
@@ -141,6 +144,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 
 		if (sc->ShowDialog(this) == ::DialogResult::OK)
 		{
+			BUndo->Enabled = true;
 			oldWidth = floor(sc->Width);
 			oldHeight = floor(sc->Height);
 			ScaleNewWidth = System::Convert::ToInt32(oldWidth);
@@ -149,6 +153,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
+			// Copy BMPimage in UndoImage
 			BackgroundWorker^ bw = gcnew BackgroundWorker();
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -163,11 +168,13 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	if (!IsProcessing) {
+		BUndo->Enabled = true;
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		// Copy BMPimage in UndoImage
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGreyScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
@@ -191,11 +198,14 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
+
+
 // Button-Click-Event for the Button "Anwenden"
 
 System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
+		BUndo->Enabled = true;
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
@@ -222,6 +232,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 			SaturationFactor = 1;
 		}
 
+		// Copy BMPimage in UndoImage
+
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -231,6 +243,13 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 		TSaturation->Value = 20;
 		
 	}	
+}
+
+System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	// Copy UndoBMP in BMPimage
+	UpdatePicture();
+	BUndo->Enabled = false;
 }
 
 // Loading an image
