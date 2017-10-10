@@ -119,7 +119,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
-		new(UndoImage) BMP(*BMPimage);
+		UndoImage = new BMP(*BMPimage);
+
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -137,7 +138,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
-		new(UndoImage) BMP(*BMPimage);
+		UndoImage = new BMP(*BMPimage);
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -186,7 +187,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Obj
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
-		new(UndoImage) BMP(*BMPimage);
+		UndoImage = new BMP(*BMPimage);
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGreyScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
@@ -244,7 +245,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 			SaturationFactor = 1;
 		}
 
-		new(UndoImage) BMP(*BMPimage);
+		UndoImage = new BMP(*BMPimage);
 
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);

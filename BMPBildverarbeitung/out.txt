@@ -12,3 +12,8 @@ Undo-Process: 00:00:00.0357533
 Scaling: 00:00:00.0027017
 Undo-Process: 00:00:00.0352981
 HSV-Change: 00:00:00.1410026
+Sobel: 00:00:00.3507546
+Scaling: 00:00:00.0022853
+Undo-Process: 00:00:00.0362573
+Sobel: 00:00:00.3443242
+Undo-Process: 00:00:00.0394323
