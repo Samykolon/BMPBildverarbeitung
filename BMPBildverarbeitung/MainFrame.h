@@ -42,17 +42,18 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
-
-			 String^ FilePath;
 	private: System::ComponentModel::BackgroundWorker^  applyWorker;
-
-			 Boolean IsProcessing;
 	private: System::Windows::Forms::OpenFileDialog^  OpenFileDialog;
 	private: System::Windows::Forms::SaveFileDialog^  SaveFileDialog;
 	private: System::Windows::Forms::PictureBox^  PBOriginal;
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::ProgressBar^  ProgressBar;
+			
+			 String^ FilePath;
+			 Boolean IsProcessing;
 			 BMP *BMPimage;
+			 property int ScaleNewWidth;
+			 property int ScaleNewHeight;
 			 
 
 	public:
@@ -98,8 +99,8 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Button^  BSobel;
 	private: System::Windows::Forms::Button^  BGauss;
 	private: System::Windows::Forms::Button^  BHelligkeit;
-	private: System::Windows::Forms::Button^  BSaettigung;
-	private: System::Windows::Forms::Button^  BSkalierung;
+	private: System::Windows::Forms::Button^  BGreyScale;
+	private: System::Windows::Forms::Button^  BScale;
 
 
 
@@ -130,8 +131,8 @@ namespace BMPBildverarbeitung {
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
 			this->BHelligkeit = (gcnew System::Windows::Forms::Button());
-			this->BSaettigung = (gcnew System::Windows::Forms::Button());
-			this->BSkalierung = (gcnew System::Windows::Forms::Button());
+			this->BGreyScale = (gcnew System::Windows::Forms::Button());
+			this->BScale = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->TBrightness = (gcnew System::Windows::Forms::TrackBar());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -263,27 +264,27 @@ namespace BMPBildverarbeitung {
 			this->BHelligkeit->UseVisualStyleBackColor = true;
 			this->BHelligkeit->Click += gcnew System::EventHandler(this, &MainFrame::BHelligkeit_Click);
 			// 
-			// BSaettigung
+			// BGreyScale
 			// 
-			this->BSaettigung->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BSaettigung->Location = System::Drawing::Point(1146, 86);
-			this->BSaettigung->Name = L"BSaettigung";
-			this->BSaettigung->Size = System::Drawing::Size(100, 23);
-			this->BSaettigung->TabIndex = 5;
-			this->BSaettigung->Text = L"Sättigung";
-			this->BSaettigung->UseVisualStyleBackColor = true;
-			this->BSaettigung->Click += gcnew System::EventHandler(this, &MainFrame::BSaettigung_Click);
+			this->BGreyScale->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BGreyScale->Location = System::Drawing::Point(1146, 86);
+			this->BGreyScale->Name = L"BGreyScale";
+			this->BGreyScale->Size = System::Drawing::Size(100, 23);
+			this->BGreyScale->TabIndex = 5;
+			this->BGreyScale->Text = L"Graustufe";
+			this->BGreyScale->UseVisualStyleBackColor = true;
+			this->BGreyScale->Click += gcnew System::EventHandler(this, &MainFrame::BGreyScale_Click);
 			// 
-			// BSkalierung
+			// BScale
 			// 
-			this->BSkalierung->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BSkalierung->Location = System::Drawing::Point(1252, 56);
-			this->BSkalierung->Name = L"BSkalierung";
-			this->BSkalierung->Size = System::Drawing::Size(100, 23);
-			this->BSkalierung->TabIndex = 6;
-			this->BSkalierung->Text = L"Skalierung";
-			this->BSkalierung->UseVisualStyleBackColor = true;
-			this->BSkalierung->Click += gcnew System::EventHandler(this, &MainFrame::BSkalierung_Click);
+			this->BScale->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BScale->Location = System::Drawing::Point(1252, 56);
+			this->BScale->Name = L"BScale";
+			this->BScale->Size = System::Drawing::Size(100, 23);
+			this->BScale->TabIndex = 6;
+			this->BScale->Text = L"Skalierung";
+			this->BScale->UseVisualStyleBackColor = true;
+			this->BScale->Click += gcnew System::EventHandler(this, &MainFrame::BScale_Click);
 			// 
 			// label1
 			// 
@@ -456,8 +457,8 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->TBrightness);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->BSkalierung);
-			this->Controls->Add(this->BSaettigung);
+			this->Controls->Add(this->BScale);
+			this->Controls->Add(this->BGreyScale);
 			this->Controls->Add(this->BHelligkeit);
 			this->Controls->Add(this->BGauss);
 			this->Controls->Add(this->BSobel);
@@ -485,20 +486,21 @@ namespace BMPBildverarbeitung {
 	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGreyScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void BSkalierung_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void BSaettigung_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BScale_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BGreyScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BApply2_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 
 	private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
-private: System::Void applyWorker_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
-private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void applyWorker_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
+	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

@@ -88,14 +88,15 @@ void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, Sys
 void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::TurnToGrayScaleOptimized(*BMPimage);
+	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
 	UpdatePicture();
 }
 
-
-
-inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	this->Close();
+	Filters::ScaleWithNN(*BMPimage, ScaleNewHeight, ScaleNewWidth);
+	UpdatePicture();
+	
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
@@ -139,23 +140,33 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 //	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {
+inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	BMPScale^ sc = gcnew BMPScale((BMPimage->TellWidth()).ToString(), (BMPimage->TellHeight()).ToString());
 	double oldWidth, oldHeight;
-	int newWidth, newHeight;
-	if (sc->ShowDialog(this) == ::DialogResult::OK)
-	{
-		oldWidth = floor(sc->Width);
-		oldHeight = floor(sc->Height);
-		newWidth = System::Convert::ToInt32(oldWidth);
-		newHeight = System::Convert::ToInt32(oldHeight);
-		Filters::ScaleWithNN(*BMPimage, newHeight, newWidth);
-		UpdatePicture();				
+		
+	if (!IsProcessing) {
+
+		if (sc->ShowDialog(this) == ::DialogResult::OK)
+		{
+			oldWidth = floor(sc->Width);
+			oldHeight = floor(sc->Height);
+			ScaleNewWidth = System::Convert::ToInt32(oldWidth);
+			ScaleNewHeight = System::Convert::ToInt32(oldHeight);
+			IsProcessing = true;
+			ProgressBar->Visible = true;
+			ProgressBar->Style = ProgressBarStyle::Continuous;
+			ProgressBar->Style = ProgressBarStyle::Marquee;
+			BackgroundWorker^ bw = gcnew BackgroundWorker();
+			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
+			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+			bw->RunWorkerAsync();
+		}	
 	}
+	
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
+inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	if (!IsProcessing) {
 		IsProcessing = true;
@@ -167,16 +178,24 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Ob
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 	}
-	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
 }
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
+	int PBWidht = PBMain->Size.Width;
+	int PBHeight = PBMain->Size.Height;
+	int PictureWidth = BMPimage->TellWidth();
+	int PictureHeight = BMPimage->TellHeight();
+
+	if ((PictureWidth > PBWidht) || (PictureHeight > PBHeight))
+		PBMain->SizeMode = PictureBoxSizeMode::Zoom;
+	else
+		PBMain->SizeMode = PictureBoxSizeMode::Normal;
+
 	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::backgroundWorker1_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
-
 	
 }
 
@@ -241,7 +260,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 			msclr::interop::marshal_context context;
 			BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
 
-			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
+			UpdatePicture();
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 		}
 	}
@@ -268,3 +287,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click
 	}
 }
 
+inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	this->Close();
+}
