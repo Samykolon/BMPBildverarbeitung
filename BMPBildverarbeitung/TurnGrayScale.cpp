@@ -34,10 +34,10 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 
 	//SIMD test
 	RGBApixel pixel2;
-	pixel2.Red = 111;
-	pixel2.Green = 112;
-	pixel2.Blue = 113;
-	pixel2.Alpha = 114;
+	pixel2.Red = 'r';
+	pixel2.Green = 'g';
+	pixel2.Blue = 'b';
+	pixel2.Alpha = 'a';
 				
 	const __m128i singlePixel = _mm_set1_epi32(*(const int*)&pixel2); //Set entire register to pixel2
 	

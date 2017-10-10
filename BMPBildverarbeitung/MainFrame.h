@@ -465,6 +465,7 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->PBMain);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
+			this->MinimumSize = System::Drawing::Size(600, 700);
 			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"BMP - Bildverarbeitung";
