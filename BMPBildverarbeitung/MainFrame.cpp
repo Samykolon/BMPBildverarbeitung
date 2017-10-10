@@ -61,6 +61,12 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 	TSaturation->Value = 20;
 }
 
+void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+{
+	IsProcessing = false;
+	ProgressBar->Visible = false;
+}
+
 inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) 
 {
 	UpdatePicture();
@@ -73,23 +79,19 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 	UpdatePicture();
 }
 
-void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
-{
-	IsProcessing = false;
-	ProgressBar->Visible = false;
-}
-
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::ApplyGaussFilterRGB(*BMPimage);
 	UpdatePicture();
 }
 
-void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
+void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	ProgressBar->Visible = false;
-	IsProcessing = false;
+	Filters::TurnToGrayScaleOptimized(*BMPimage);
+	UpdatePicture();
 }
+
+
 
 inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
@@ -105,7 +107,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
-		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();	
 	}			
 }
@@ -119,7 +121,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
-		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 	}
 }
@@ -155,8 +157,16 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
-	Filters::TurnToGrayScaleOptimized(*BMPimage);
-	UpdatePicture();
+	if (!IsProcessing) {
+		IsProcessing = true;
+		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
+		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGreyScale_DoWork);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+		bw->RunWorkerAsync();
+	}
 	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
 }
 

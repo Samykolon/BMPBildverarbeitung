@@ -479,15 +479,13 @@ namespace BMPBildverarbeitung {
 		}
 #pragma endregion
 
-	
+	private: void RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwHSV_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwHSV_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
-
-
+	private: void bwGreyScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
