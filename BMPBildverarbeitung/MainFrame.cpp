@@ -1,6 +1,10 @@
 #include "MainFrame.h"
+
 #include <msclr\marshal.h>
 #include <chrono>
+#include <math.h>
+
+// Filter
 #include "HSVPixel.h"
 #include "ChangeHSVValue.h"
 #include "ApplySobel.h"
@@ -8,7 +12,9 @@
 #include "ApplyGaussRGB.h"
 #include "ScaleWithNN.h"
 #include "BMPScale.h"
-#include <math.h>
+
+//Utilities
+#include "Utilities.h"
 
 
 using namespace System;
@@ -124,13 +130,14 @@ inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Ob
 	groupBox1->Text = "Helligkeit";
 	BApply->Enabled = true;
 	//Test to measure method time
-	
-	msclr::interop::marshal_context context;
-	auto watch = Stopwatch::StartNew();
-	Filters::TurnToGrayScale(*BMPimage);
-	watch->Stop();
+	Utilities::Benchmark bench = Utilities::Benchmark();
+	bench.StartTimer("TurnGrayScale");
 
-	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
+//	auto watch = Stopwatch::StartNew();
+	Filters::TurnToGrayScale(*BMPimage);
+	bench.StopTimer();
+
+//	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
 }
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Object ^ sender, System::EventArgs ^ e) {
