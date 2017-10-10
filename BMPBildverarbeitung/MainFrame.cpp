@@ -61,17 +61,15 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 	TSaturation->Value = 20;
 }
 
+// BackgroundWorker-Completed-Event
+
 void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
 	IsProcessing = false;
 	ProgressBar->Visible = false;
 }
 
-inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerCompletedEventArgs^ e) 
-{
-	UpdatePicture();
-	IsProcessing = false;
-}
+// BackgroundWorker for the Sobel-Filter-Process
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
@@ -79,11 +77,15 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 	UpdatePicture();
 }
 
+// BackgroundWorker for the Gauss-Filter-Process
+
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::ApplyGaussFilterRGB(*BMPimage);
 	UpdatePicture();
 }
+
+// BackgroundWorker for the GreyScale-Process
 
 void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
@@ -92,12 +94,16 @@ void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender,
 	UpdatePicture();
 }
 
+// BackgroundWorker for the Scaling-Process
+
 void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::ScaleWithNN(*BMPimage, ScaleNewHeight, ScaleNewWidth);
 	UpdatePicture();
 	
 }
+
+// Button-Click-Event for the Button "Sobel-Filter"
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {	
@@ -113,6 +119,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 	}			
 }
 
+// Button-Click-Event for the Button "Gauß-Filter"
+
 inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {
 	if (!IsProcessing) {
@@ -127,18 +135,22 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 	}
 }
 
+// Button-Click-Event for the Button "Helligkeit"
+
 inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {
 	// Test to measure method time
 	Utilities::Benchmark bench = Utilities::Benchmark();
 	bench.StartTimer("TurnGrayScale");
 
-	// auto watch = Stopwatch::StartNew();
+	//auto watch = Stopwatch::StartNew();
 	Filters::TurnToGrayScale(*BMPimage);
 	bench.StopTimer();
 
-//	MessageBox::Show(watch->ElapsedMilliseconds.ToString());
+	//MessageBox::Show(watch->ElapsedMilliseconds.ToString());
 }
+
+// Button-Click-Event for the Button "Skalierung"
 
 inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
@@ -166,6 +178,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 	
 }
 
+// Button-Click-Event for the Button "Graustufe"
+
 inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	if (!IsProcessing) {
@@ -180,14 +194,16 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Obj
 	}
 }
 
+// Updates the Main Picture-Box
+
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
-	int PBWidht = PBMain->Size.Width;
+	int PBWidht = PBMain->Size.Width;                                 
 	int PBHeight = PBMain->Size.Height;
 	int PictureWidth = BMPimage->TellWidth();
 	int PictureHeight = BMPimage->TellHeight();
 
-	if ((PictureWidth > PBWidht) || (PictureHeight > PBHeight))
+	if ((PictureWidth > PBWidht) || (PictureHeight > PBHeight))             // Preventing the PictureBox-Zoom from zooming an image smaller than the PictureBox itself
 		PBMain->SizeMode = PictureBoxSizeMode::Zoom;
 	else
 		PBMain->SizeMode = PictureBoxSizeMode::Normal;
@@ -203,12 +219,12 @@ inline System::Void BMPBildverarbeitung::MainFrame::applyWorker_DoWork(System::O
 
 }
 
-System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ sender, System::EventArgs ^ e)
+System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	//if (!IsProcessing) {
 	//	BackgroundWorker^ bw = gcnew BackgroundWorker();
 	//	bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
-	//	bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwHSV_RunWorkerCompleted);
+	//	bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 	//	bw->RunWorkerAsync();
 	//	IsProcessing = true;
 	//}
@@ -216,7 +232,6 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	if (!IsProcessing) {
 		applyWorker->RunWorkerAsync();
 	}
-
 
 	msclr::interop::marshal_context context;
 	double v = TBrightness->Value;
@@ -246,6 +261,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 	UpdatePicture();
 }
 
+// Loading an image
+
 System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	
 	OpenFileDialog->FileName = "";
@@ -270,6 +287,9 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 	}
 	
 }
+
+// Saving an image
+
 System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	SaveFileDialog->DefaultExt = L".bmp";
@@ -286,6 +306,8 @@ System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click
 
 	}
 }
+
+// Closing form
 
 inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 {

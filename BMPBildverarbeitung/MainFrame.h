@@ -38,7 +38,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::Label^  label5;
-	private: System::Windows::Forms::Button^  BApply2;
+	private: System::Windows::Forms::Button^  BApply;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
@@ -140,7 +140,7 @@ namespace BMPBildverarbeitung {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->BApply2 = (gcnew System::Windows::Forms::Button());
+			this->BApply = (gcnew System::Windows::Forms::Button());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
@@ -238,7 +238,7 @@ namespace BMPBildverarbeitung {
 			this->BSobel->Name = L"BSobel";
 			this->BSobel->Size = System::Drawing::Size(100, 23);
 			this->BSobel->TabIndex = 2;
-			this->BSobel->Text = L"Sobel";
+			this->BSobel->Text = L"Sobel-Filter";
 			this->BSobel->UseVisualStyleBackColor = true;
 			this->BSobel->Click += gcnew System::EventHandler(this, &MainFrame::BSobel_Click);
 			// 
@@ -358,16 +358,16 @@ namespace BMPBildverarbeitung {
 			this->label5->TabIndex = 14;
 			this->label5->Text = L"+100%";
 			// 
-			// BApply2
+			// BApply
 			// 
-			this->BApply2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BApply2->Location = System::Drawing::Point(1153, 331);
-			this->BApply2->Name = L"BApply2";
-			this->BApply2->Size = System::Drawing::Size(193, 23);
-			this->BApply2->TabIndex = 15;
-			this->BApply2->Text = L"Anwenden";
-			this->BApply2->UseVisualStyleBackColor = true;
-			this->BApply2->Click += gcnew System::EventHandler(this, &MainFrame::BApply2_Click);
+			this->BApply->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BApply->Location = System::Drawing::Point(1153, 331);
+			this->BApply->Name = L"BApply";
+			this->BApply->Size = System::Drawing::Size(193, 23);
+			this->BApply->TabIndex = 15;
+			this->BApply->Text = L"Anwenden";
+			this->BApply->UseVisualStyleBackColor = true;
+			this->BApply->Click += gcnew System::EventHandler(this, &MainFrame::BApply_Click);
 			// 
 			// label6
 			// 
@@ -449,7 +449,7 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
-			this->Controls->Add(this->BApply2);
+			this->Controls->Add(this->BApply);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
@@ -482,7 +482,6 @@ namespace BMPBildverarbeitung {
 
 	private: void RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwHSV_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwHSV_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e);
 	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGreyScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
@@ -494,7 +493,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void BHelligkeit_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGreyScale_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void BApply2_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 
