@@ -70,11 +70,11 @@ inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerComplet
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::ApplySobel(*BMPimage);	
+	UpdatePicture();
 }
 
 void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
-	UpdatePicture();
 	IsProcessing = false;
 	ProgressBar->Visible = false;
 }
@@ -82,11 +82,12 @@ void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender,
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	Filters::ApplyGaussFilterRGB(*BMPimage);
+	UpdatePicture();
 }
 
 void BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
-	UpdatePicture();
+	ProgressBar->Visible = false;
 	IsProcessing = false;
 }
 
@@ -98,8 +99,10 @@ inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Cli
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
 {	
 	if (!IsProcessing) {
-		IsProcessing = true;
+		IsProcessing = true;		
 		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted);
@@ -111,6 +114,9 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 {
 	if (!IsProcessing) {
 		IsProcessing = true;
+		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted);
