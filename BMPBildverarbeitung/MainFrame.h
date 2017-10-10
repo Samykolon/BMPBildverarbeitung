@@ -42,7 +42,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
-	private: System::ComponentModel::BackgroundWorker^  applyWorker;
+
 	private: System::Windows::Forms::OpenFileDialog^  OpenFileDialog;
 	private: System::Windows::Forms::SaveFileDialog^  SaveFileDialog;
 	private: System::Windows::Forms::PictureBox^  PBOriginal;
@@ -54,6 +54,8 @@ namespace BMPBildverarbeitung {
 			 BMP *BMPimage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
+			 property double ValueFactor;
+			 property double SaturationFactor;
 			 
 
 	public:
@@ -144,7 +146,6 @@ namespace BMPBildverarbeitung {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->applyWorker = (gcnew System::ComponentModel::BackgroundWorker());
 			this->OpenFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->SaveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->PBOriginal = (gcnew System::Windows::Forms::PictureBox());
@@ -399,10 +400,6 @@ namespace BMPBildverarbeitung {
 			this->label8->TabIndex = 18;
 			this->label8->Text = L"+100%";
 			// 
-			// applyWorker
-			// 
-			this->applyWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainFrame::applyWorker_DoWork);
-			// 
 			// OpenFileDialog
 			// 
 			this->OpenFileDialog->FileName = L"OpenFileDialog";
@@ -497,8 +494,6 @@ namespace BMPBildverarbeitung {
 
 	private: Void UpdatePicture();
 
-	private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
-	private: System::Void applyWorker_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e);
 	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };

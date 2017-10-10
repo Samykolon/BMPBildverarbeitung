@@ -33,40 +33,20 @@ void Main(array<String^>^ args)
 	Application::Run(%form);
 }
 
-inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
-{
-	IsProcessing = true;
-	double v = TBrightness->Value;
-	double s = TSaturation->Value;
-	if (v < 20) {
-		v /= 20;
-	}
-	else if (v > 20) {
-		v /= 20;
-	}
-	else {
-		v = 1;
-	}
-	if (s < 20) {
-		s /= 20;
-	}
-	else if (s > 20) {
-		s = 1 + (s / 20);
-	}
-	else {
-		s = 1;
-	}
-	Filters::ChangeHSVValue(*BMPimage, 1, v, s);
-	TBrightness->Value = 20;
-	TSaturation->Value = 20;
-}
-
 // BackgroundWorker-Completed-Event
 
 void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
 	IsProcessing = false;
 	ProgressBar->Visible = false;
+}
+
+// BackgroundWorker for the HSV-Value-Change-Process
+
+inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	Filters::ChangeHSVValue(*BMPimage, 1, ValueFactor, SaturationFactor);
+	UpdatePicture();
 }
 
 // BackgroundWorker for the Sobel-Filter-Process
@@ -211,54 +191,46 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
-inline System::Void BMPBildverarbeitung::MainFrame::backgroundWorker1_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
-	
-}
-
-inline System::Void BMPBildverarbeitung::MainFrame::applyWorker_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e) {
-
-}
+// Button-Click-Event for the Button "Anwenden"
 
 System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	//if (!IsProcessing) {
-	//	BackgroundWorker^ bw = gcnew BackgroundWorker();
-	//	bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
-	//	bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
-	//	bw->RunWorkerAsync();
-	//	IsProcessing = true;
-	//}
-
 	if (!IsProcessing) {
-		applyWorker->RunWorkerAsync();
-	}
+		IsProcessing = true;
+		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
 
-	msclr::interop::marshal_context context;
-	double v = TBrightness->Value;
-	double s = TSaturation->Value;
-	if (v < 20) {
-		v /= 20;
-	}
-	else if (v > 20) {
-		v /= 20;
-	}
-	else {
-		v = 1;
-	}
-	if (s < 20) {
-		s /= 20;
-	}
-	else if (s > 20) {
-		s /= 20;
+		ValueFactor = TBrightness->Value;
+		SaturationFactor = TSaturation->Value;
+		if (ValueFactor < 20) {
+			ValueFactor /= 20;
+		}
+		else if (ValueFactor > 20) {
+			ValueFactor /= 20;
+		}
+		else {
+			ValueFactor = 1;
+		}
+		if (SaturationFactor < 20) {
+			SaturationFactor /= 20;
+		}
+		else if (SaturationFactor > 20) {
+			SaturationFactor /= 20;
+		}
+		else {
+			SaturationFactor = 1;
+		}
 
-	}
-	else {
-		s = 1;
-	}
-	Filters::ChangeHSVValue(*BMPimage, 1, s, v);
-	TBrightness->Value = 20;
-	TSaturation->Value = 20;
-	UpdatePicture();
+		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+		bw->RunWorkerAsync();
+
+		TBrightness->Value = 20;
+		TSaturation->Value = 20;
+		
+	}	
 }
 
 // Loading an image
