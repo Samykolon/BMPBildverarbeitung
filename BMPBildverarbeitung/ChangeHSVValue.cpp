@@ -4,7 +4,7 @@
 #include "HSVandBack.h"
 #include "TurnGrayScale.h"
 
-void Filters::ChangeHSVValue(BMP& image, double hueFactor, double saturationFactor, double valueFactor)
+void Filters::ChangeHSVValue(BMP& image, double hueFactor, double valueFactor, double saturationFactor)
 {
 	HSVpixel hsvPixel;
 	RGBApixel startPixel;
