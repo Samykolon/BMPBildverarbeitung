@@ -98,6 +98,17 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 	
 }
 
+// BackgroundWorker for the Undo-Process
+
+void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	auto s = Stopwatch::StartNew();
+	BMPimage = new BMP(*UndoImage);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Undo-Process: " + s->Elapsed.ToString() + Environment::NewLine);
+	UpdatePicture();
+}
+
 // Button-Click-Event for the Button "Sobel-Filter"
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
@@ -108,6 +119,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		new(UndoImage) BMP(*BMPimage);
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -125,8 +137,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		new(UndoImage) BMP(*BMPimage);
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
-		// Copy BMPimage in UndoImage
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
@@ -153,7 +165,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
-			// Copy BMPimage in UndoImage
+			UndoImage = new BMP(*BMPimage);
 			BackgroundWorker^ bw = gcnew BackgroundWorker();
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -174,7 +186,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Obj
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
-		// Copy BMPimage in UndoImage
+		new(UndoImage) BMP(*BMPimage);
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGreyScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
@@ -232,7 +244,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 			SaturationFactor = 1;
 		}
 
-		// Copy BMPimage in UndoImage
+		new(UndoImage) BMP(*BMPimage);
 
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
@@ -245,11 +257,20 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 	}	
 }
 
+// Button-Click-Event for the Button "Rückgängig"
+
 System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	// Copy UndoBMP in BMPimage
-	UpdatePicture();
-	BUndo->Enabled = false;
+	if (!IsProcessing) {
+		IsProcessing = true;
+		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
+		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwUndo_DoWork);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+		bw->RunWorkerAsync();
+	}
 }
 
 // Loading an image
@@ -270,6 +291,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 
 			UpdatePicture();
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
+			BUndo->Enabled = false;
 		}
 	}
 	catch (Exception^ ex)

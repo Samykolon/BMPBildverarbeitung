@@ -48,10 +48,10 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::PictureBox^  PBOriginal;
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::ProgressBar^  ProgressBar;
+	private: System::Windows::Forms::Button^  BUndo;
 			
 			 String^ FilePath;
 			 Boolean IsProcessing;
-	private: System::Windows::Forms::Button^  BUndo;
 			 BMP *BMPimage;
 			 BMP *UndoImage;
 			 property int ScaleNewWidth;
@@ -488,6 +488,7 @@ namespace BMPBildverarbeitung {
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGreyScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwUndo_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
