@@ -11,6 +11,7 @@
 #include "ApplyGaussRGB.h"
 #include "ScaleWithNN.h"
 #include "BMPScale.h"
+#include "DarkenSIMD.h"
 
 // Utilities
 #include "Utilities.h"
@@ -74,15 +75,15 @@ void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, Sys
 	UpdatePicture();
 }
 
-// BackgroundWorker for the GreyScale-Process
+// BackgroundWorker for the GrayScale-Process
 
-void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	
 	auto s = Stopwatch::StartNew();
-	Filters::TurnToGrayScaleOptimized(*BMPimage);
+	Filters::DarkenSIMD(*BMPimage);
 	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Greyscale: " + s->Elapsed.ToString() + Environment::NewLine);
+	File::AppendAllText((String^)L"out.txt", "Grayscale: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -178,7 +179,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 
 // Button-Click-Event for the Button "Graustufe"
 
-inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
+inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	if (!IsProcessing) {
 		BUndo->Enabled = true;
@@ -188,7 +189,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGreyScale_Click(System::Obj
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		UndoImage = new BMP(*BMPimage);
-		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGreyScale_DoWork);
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGrayScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 	}

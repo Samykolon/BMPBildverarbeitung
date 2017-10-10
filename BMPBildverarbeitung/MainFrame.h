@@ -103,8 +103,9 @@ namespace BMPBildverarbeitung {
 
 	private: System::Windows::Forms::Button^  BSobel;
 	private: System::Windows::Forms::Button^  BGauss;
+	private: System::Windows::Forms::Button^  BGrayScale;
 
-	private: System::Windows::Forms::Button^  BGreyScale;
+
 	private: System::Windows::Forms::Button^  BScale;
 
 
@@ -135,7 +136,7 @@ namespace BMPBildverarbeitung {
 			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
-			this->BGreyScale = (gcnew System::Windows::Forms::Button());
+			this->BGrayScale = (gcnew System::Windows::Forms::Button());
 			this->BScale = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->TBrightness = (gcnew System::Windows::Forms::TrackBar());
@@ -257,16 +258,16 @@ namespace BMPBildverarbeitung {
 			this->BGauss->UseVisualStyleBackColor = true;
 			this->BGauss->Click += gcnew System::EventHandler(this, &MainFrame::BGauss_Click);
 			// 
-			// BGreyScale
+			// BGrayScale
 			// 
-			this->BGreyScale->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BGreyScale->Location = System::Drawing::Point(1145, 57);
-			this->BGreyScale->Name = L"BGreyScale";
-			this->BGreyScale->Size = System::Drawing::Size(100, 23);
-			this->BGreyScale->TabIndex = 5;
-			this->BGreyScale->Text = L"Graustufe";
-			this->BGreyScale->UseVisualStyleBackColor = true;
-			this->BGreyScale->Click += gcnew System::EventHandler(this, &MainFrame::BGreyScale_Click);
+			this->BGrayScale->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BGrayScale->Location = System::Drawing::Point(1145, 57);
+			this->BGrayScale->Name = L"BGrayScale";
+			this->BGrayScale->Size = System::Drawing::Size(100, 23);
+			this->BGrayScale->TabIndex = 5;
+			this->BGrayScale->Text = L"Graustufe";
+			this->BGrayScale->UseVisualStyleBackColor = true;
+			this->BGrayScale->Click += gcnew System::EventHandler(this, &MainFrame::BGrayScale_Click);
 			// 
 			// BScale
 			// 
@@ -460,7 +461,7 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->TBrightness);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->BScale);
-			this->Controls->Add(this->BGreyScale);
+			this->Controls->Add(this->BGrayScale);
 			this->Controls->Add(this->BGauss);
 			this->Controls->Add(this->BSobel);
 			this->Controls->Add(this->PBMain);
@@ -486,7 +487,7 @@ namespace BMPBildverarbeitung {
 	private: void bwHSV_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwSobel_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
-	private: void bwGreyScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwGrayScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwUndo_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
@@ -494,7 +495,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void BSobel_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BGauss_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BScale_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void BGreyScale_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BGrayScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BUndo_Click(System::Object^  sender, System::EventArgs^  e);
 

@@ -141,6 +141,9 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="DarkenSIMD.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="HSVandBack.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -175,6 +178,7 @@
     <ClInclude Include="ApplyGaussRGB.h" />
     <ClInclude Include="ApplyGaussFilterBW.h" />
     <ClInclude Include="ChangeHSVValue.h" />
+    <ClInclude Include="DarkenSIMD.h" />
     <ClInclude Include="HSVandBack.h" />
     <ClInclude Include="ApplySobel.h" />
     <ClInclude Include="BMPScale.h">

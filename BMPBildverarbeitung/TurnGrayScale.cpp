@@ -27,11 +27,8 @@ void Filters::TurnToGrayScale(BMP& in)
 
 void Filters::TurnToGrayScaleOptimized(BMP& in)
 {
-
 	const int width = in.TellWidth();
 	const int height = in.TellHeight();
-	
-
 	//SIMD test
 	RGBApixel pixel2;
 	pixel2.Red = 'r';
@@ -39,7 +36,7 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 	pixel2.Blue = 'b';
 	pixel2.Alpha = 'a';
 				
-	const __m128i singlePixel = _mm_set1_epi32(*(const int*)&pixel2); //Set entire register to pixel2
+	//const __m128i singlePixel = _mm_set1_epi32(*(const int*)&pixel2); //Set entire register to pixel2
 	
 	//for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
 	//	for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
@@ -53,9 +50,6 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 			*p = pixel2;
 		}
 	}
-
-	
-	
-	
+		
 
 }
