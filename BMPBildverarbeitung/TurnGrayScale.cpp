@@ -41,18 +41,18 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 				
 	const __m128i singlePixel = _mm_set1_epi32(*(const int*)&pixel2); //Set entire register to pixel2
 	
-	for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
-		for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
-			_mm_storeu_si128(p, singlePixel); //set all pixels to pixel2, storeu because the pixels are unaligned
-		}
-	}
-	
-
-	//for (int i = 0; i < width; i++) { //Iterate through every line because memory is not contiguous
-	//	for (RGBApixel* p = in.Pixels[i], *end = &(in.Pixels[i][height]); p < end; p++) { //Iterate through memory directly because it's faster
-	//		*p = pixel2;
+	//for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
+	//	for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
+	//		_mm_storeu_si128(p, singlePixel); //set all pixels to pixel2, storeu because the pixels are unaligned
 	//	}
 	//}
+	//
+
+	for (int i = 0; i < width; i++) { //Iterate through every line because memory is not contiguous
+		for (RGBApixel* p = in.Pixels[i], *end = &(in.Pixels[i][height]); p < end; p++) { //Iterate through memory directly because it's faster
+			*p = pixel2;
+		}
+	}
 
 	
 	
