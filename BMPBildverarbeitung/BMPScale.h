@@ -24,6 +24,8 @@ namespace BMPBildverarbeitung {
 		property double Height;
 		property double Proportions;
 		property Boolean IsLoaded;
+		property Boolean EditWidth;
+		property Boolean EditHeight;
 		
 		BMPScale(void)
 		{
@@ -40,7 +42,9 @@ namespace BMPBildverarbeitung {
 			Width = System::Convert::ToDouble(TBWidth->Text);
 			Height = System::Convert::ToDouble(TBHeight->Text);
 			Proportions = Width / Height; 
-			IsLoaded = true;			
+			IsLoaded = true;
+			EditWidth = false;
+			EditHeight = false;
 		}
 
 	protected:
@@ -112,6 +116,8 @@ namespace BMPBildverarbeitung {
 			this->TBWidth->Size = System::Drawing::Size(100, 20);
 			this->TBWidth->TabIndex = 2;
 			this->TBWidth->TextChanged += gcnew System::EventHandler(this, &BMPScale::TBWidth_TextChanged);
+			this->TBWidth->Enter += gcnew System::EventHandler(this, &BMPScale::TBWidth_Enter);
+			this->TBWidth->Leave += gcnew System::EventHandler(this, &BMPScale::TBWidth_Leave);
 			// 
 			// TBHeight
 			// 
@@ -120,6 +126,8 @@ namespace BMPBildverarbeitung {
 			this->TBHeight->Size = System::Drawing::Size(100, 20);
 			this->TBHeight->TabIndex = 3;
 			this->TBHeight->TextChanged += gcnew System::EventHandler(this, &BMPScale::TBHeight_TextChanged);
+			this->TBHeight->Enter += gcnew System::EventHandler(this, &BMPScale::TBHeight_Enter);
+			this->TBHeight->Leave += gcnew System::EventHandler(this, &BMPScale::TBHeight_Leave);
 			// 
 			// CBProportions
 			// 
@@ -177,6 +185,9 @@ namespace BMPBildverarbeitung {
 	private: System::Void CBProportions_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void TBWidth_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void TBHeight_TextChanged(System::Object^  sender, System::EventArgs^  e);
-
+	private: System::Void TBWidth_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TBWidth_Leave(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TBHeight_Enter(System::Object^  sender, System::EventArgs^  e);
+    private: System::Void TBHeight_Leave(System::Object^  sender, System::EventArgs^  e);
 };
 }
