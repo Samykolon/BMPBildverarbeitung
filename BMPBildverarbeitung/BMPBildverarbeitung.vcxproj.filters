@@ -52,7 +52,7 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Utilities.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Headerdateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToDo.txt" />
+    <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="InitialImage.bmp">

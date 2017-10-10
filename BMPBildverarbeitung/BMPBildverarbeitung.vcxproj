@@ -211,6 +211,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="out.txt" />
     <Text Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
 #include "MainFrame.h"
-
 #include <msclr\marshal.h>
 #include <chrono>
 #include <math.h>
@@ -22,6 +21,7 @@ using namespace System::Windows::Forms;
 using namespace BMPBildverarbeitung;
 using namespace System::Diagnostics;
 using namespace std::chrono;
+using namespace System::IO;
 
 [STAThread]
 void Main(array<String^>^ args)
@@ -45,7 +45,10 @@ void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWork
 
 inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
+	auto s = Stopwatch::StartNew();
 	Filters::ChangeHSVValue(*BMPimage, 1, ValueFactor, SaturationFactor);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "HSV-Change: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -53,7 +56,10 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
+	auto s = Stopwatch::StartNew();
 	Filters::ApplySobel(*BMPimage);	
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Sobel: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -61,7 +67,10 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
+	auto s = Stopwatch::StartNew();
 	Filters::ApplyGaussFilterRGB(*BMPimage);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Gauss: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -69,8 +78,11 @@ void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
+	
+	auto s = Stopwatch::StartNew();
 	Filters::TurnToGrayScaleOptimized(*BMPimage);
-	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Greyscale: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -78,7 +90,10 @@ void BMPBildverarbeitung::MainFrame::bwGreyScale_DoWork(System::Object ^ sender,
 
 void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
+	auto s = Stopwatch::StartNew();
 	Filters::ScaleWithNN(*BMPimage, ScaleNewHeight, ScaleNewWidth);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Scaling: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 	
 }
