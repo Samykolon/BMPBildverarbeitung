@@ -66,14 +66,15 @@ inline void MainFrame::bwHSV_RunWorkerCompleted(Object^ sender, RunWorkerComplet
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	
 	Filters::ApplySobel(*BMPimage);
+	
 }
 
 void BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted(Object ^ sender, RunWorkerCompletedEventArgs ^ e)
 {
 	UpdatePicture();
 	IsProcessing = false;
+	progressBar1->Visible = false;
 }
 
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
@@ -98,12 +99,13 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 	
 	if (!IsProcessing) {
 		IsProcessing = true;
+		progressBar1->Visible = true;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwSobel_RunWorkerCompleted);
 		bw->RunWorkerAsync();	
-		groupBox1->Text = "Sobel-Filter";
-		BApply->Enabled = true;
+		
+
 	}	
 	
 		
@@ -117,8 +119,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::bwGauss_RunWorkerCompleted);
 		bw->RunWorkerAsync();
-		groupBox1->Text = "Gauß-Filter";
-		BApply->Enabled = true;
+
 	}
 
 	
@@ -127,8 +128,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 
 inline System::Void BMPBildverarbeitung::MainFrame::BHelligkeit_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
-	groupBox1->Text = "Helligkeit";
-	BApply->Enabled = true;
+
 	//Test to measure method time
 	Utilities::Benchmark bench = Utilities::Benchmark();
 	bench.StartTimer("TurnGrayScale");
@@ -160,8 +160,6 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSkalierung_Click(System::Ob
 
 inline System::Void BMPBildverarbeitung::MainFrame::BSaettigung_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
-	groupBox1->Text = "Sättigung";
-	BApply->Enabled = true;
 	Filters::TurnToGrayScaleOptimized(*BMPimage);
 	UpdatePicture();
 	//Filters::ApplyGaussFilterBW("BestesBild.bmp");
@@ -202,7 +200,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 		value /= 20;
 	}
 	else if (value > 20) {
-		value = 1 + (value / 20);
+		value /= 20;
 	}
 	else {
 		value = 1;
@@ -218,6 +216,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply2_Click(System::Object ^ send
 		s = 1;
 	}
 	Filters::ChangeHSVValue(*BMPimage, 1, s, value);
+	THelligkeit->Value = 20;
+	TSaturation->Value = 20;
 	UpdatePicture();
 }
 
@@ -235,6 +235,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 			BMPimage->ReadFromFile(context.marshal_as<const char*>(FilePath));
 
 			pictureBox1->Image = ConvertBitmap::ToBitmap(BMPimage);
+			POriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 		}
 	}
 	catch (Exception^ ex)

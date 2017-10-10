@@ -6,7 +6,7 @@
 
 void Filters::ApplySobel(BMP& image)
 {
-
+	
 	TurnToGrayScale(image);
 	BMP out(image);
 	int width = image.TellWidth();
