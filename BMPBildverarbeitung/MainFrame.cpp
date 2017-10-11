@@ -63,7 +63,6 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Sobel: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
-	delete BMPimage;
 }
 
 // BackgroundWorker for the Gauss-Filter-Process

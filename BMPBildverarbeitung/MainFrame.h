@@ -66,8 +66,7 @@ namespace BMPBildverarbeitung {
 		MainFrame(void)
 		{
 			InitializeComponent();
-			//PBMain->Image = safe_cast<Image^>(rm->GetObject("InitialImage"));
-
+	
 			BMPimage = new BMP();
 			BMPimage->ReadFromFile("Initialimage.bmp");
 			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);

@@ -62,3 +62,18 @@ Grayscale: 00:00:00.0070414
 Grayscale: 00:00:17.3669284
 Grayscale: 00:00:00.0159336
 Grayscale: 00:00:00.0123542
+Grayscale: 00:00:00.0140941
+Undo-Process: 00:00:00.0484108
+Reference Scale: 0.093s
+SIMD Scale: 0.089s
+Grayscale: 00:00:00.0077680
+Gauss: 00:00:01.1026357
+Undo-Process: 00:00:00.0489134
+Undo-Process: 00:00:00.0479058
+Sobel: 00:00:00.4227203
+Sobel: 00:00:00.3991912
+Gauss: 00:00:01.1675130
+Sobel: 00:00:00.3971872
+Sobel: 00:00:00.4023037
+Sobel: 00:00:00.3988863
+Sobel: 00:00:00.4106875
