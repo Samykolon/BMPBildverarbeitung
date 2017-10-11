@@ -12,6 +12,7 @@
 #include "ScaleWithNN.h"
 #include "BMPScale.h"
 #include "DarkenSIMD.h"
+#include "AlphaBlend.h"
 
 // Utilities
 #include "Utilities.h"
@@ -82,7 +83,12 @@ void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender,
 {
 
 	auto s = Stopwatch::StartNew();
-	Filters::DarkenSIMD(*BMPimage);
+	RGBApixel colorToBlend;
+	colorToBlend.Alpha = 127;
+	colorToBlend.Blue = 0;
+	colorToBlend.Green = 0;
+	colorToBlend.Red = 255;
+	Filters::AlphaBlend(*BMPimage, colorToBlend);
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Grayscale: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();

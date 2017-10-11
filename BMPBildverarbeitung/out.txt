@@ -52,3 +52,13 @@ Grayscale: 00:00:00.0054546
 Reference Scale: 0.011s
 SIMD Scale: 0.021s
 Grayscale: 00:00:00.0056487
+Grayscale: 00:00:00.0070629
+Grayscale: 00:00:00.0076120
+Grayscale: 00:00:00.0076065
+Grayscale: 00:00:00.0070107
+Grayscale: 00:00:00.0074695
+Grayscale: 00:00:00.0070405
+Grayscale: 00:00:00.0070414
+Grayscale: 00:00:17.3669284
+Grayscale: 00:00:00.0159336
+Grayscale: 00:00:00.0123542

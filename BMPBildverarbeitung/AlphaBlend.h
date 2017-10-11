@@ -2,5 +2,5 @@
 #include "EasyBMP.h"
 
 namespace Filters {
-	void AlphaBlend(BMP& image);
+	void AlphaBlend(BMP & image, RGBApixel bp);
 }
