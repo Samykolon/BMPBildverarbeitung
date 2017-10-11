@@ -158,6 +158,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		if (UndoImage != nullptr)
+			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
@@ -176,6 +178,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		if (UndoImage != nullptr)
+			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
@@ -227,6 +231,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Obj
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
+		if (UndoImage != nullptr)
+			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGrayScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -284,7 +290,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 		else {
 			SaturationFactor = 1;
 		}
-
+		if (UndoImage != nullptr)
+			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
 
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
