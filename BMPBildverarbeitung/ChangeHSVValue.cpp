@@ -16,7 +16,7 @@ void Filters::ChangeHSVValue(BMP& image, double hueFactor, double valueFactor, d
 
 			startPixel = image.GetPixel(i, j);
 			hsvPixel = RgbToHsv(startPixel);
-			
+
 			double newHue = hsvPixel.Hue * hueFactor;
 			if (newHue > 255) {
 				hsvPixel.Hue = 255;
@@ -40,11 +40,11 @@ void Filters::ChangeHSVValue(BMP& image, double hueFactor, double valueFactor, d
 			else {
 				hsvPixel.Value = newValue;
 			}
-					
+
 
 			RGBApixel finalPixel = HsvToRgb(hsvPixel);
 			*image(i, j) = finalPixel;
 
 		}
-	}	
+	}
 }

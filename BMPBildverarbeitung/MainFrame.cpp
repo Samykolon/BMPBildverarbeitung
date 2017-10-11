@@ -58,7 +58,7 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	auto s = Stopwatch::StartNew();
-	Filters::ApplySobel(*BMPimage);	
+	Filters::ApplySobel(*BMPimage);
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Sobel: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
@@ -79,7 +79,7 @@ void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	
+
 	auto s = Stopwatch::StartNew();
 	Filters::DarkenSIMD(*BMPimage);
 	s->Stop();
@@ -96,7 +96,7 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Scaling: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
-	
+
 }
 
 // BackgroundWorker for the Undo-Process
@@ -112,11 +112,11 @@ void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, Syst
 
 // Button-Click-Event for the Button "Sobel-Filter"
 
-inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e) 
-{	
+inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
 	if (!IsProcessing) {
 		BUndo->Enabled = true;
-		IsProcessing = true;		
+		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
@@ -125,13 +125,13 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
-		bw->RunWorkerAsync();	
-	}			
+		bw->RunWorkerAsync();
+	}
 }
 
 // Button-Click-Event for the Button "Gauß-Filter"
 
-inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e) 
+inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
 		BUndo->Enabled = true;
@@ -153,7 +153,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 
 	BMPScale^ sc = gcnew BMPScale((BMPimage->TellWidth()).ToString(), (BMPimage->TellHeight()).ToString());
 	double oldWidth, oldHeight;
-		
+
 	if (!IsProcessing) {
 
 		if (sc->ShowDialog(this) == ::DialogResult::OK)
@@ -172,9 +172,9 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
-		}	
+		}
 	}
-	
+
 }
 
 // Button-Click-Event for the Button "Graustufe"
@@ -199,7 +199,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Obj
 
 inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 {
-	int PBWidht = PBMain->Size.Width;                                 
+	int PBWidht = PBMain->Size.Width;
 	int PBHeight = PBMain->Size.Height;
 	int PictureWidth = BMPimage->TellWidth();
 	int PictureHeight = BMPimage->TellHeight();
@@ -255,8 +255,8 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 
 		TBrightness->Value = 20;
 		TSaturation->Value = 20;
-		
-	}	
+
+	}
 }
 
 // Button-Click-Event for the Button "Rückgängig"
@@ -278,7 +278,7 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 // Loading an image
 
 System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+
 	OpenFileDialog->FileName = "";
 	OpenFileDialog->DefaultExt = L".bmp";
 	OpenFileDialog->AddExtension;
@@ -300,7 +300,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 	{
 		MessageBox::Show("Ungültiges Dateiformat/Datei konnte nicht gelesen werden");
 	}
-	
+
 }
 
 // Saving an image

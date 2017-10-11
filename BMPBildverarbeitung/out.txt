@@ -45,3 +45,6 @@ Grayscale: 00:00:00.0056124
 Grayscale: 00:00:00.0055424
 Grayscale: 00:00:00.0060447
 Grayscale: 00:00:00.0061452
+Grayscale: 00:00:00.0054932
+Grayscale: 00:00:00.0061081
+Grayscale: 00:00:00.0061014
