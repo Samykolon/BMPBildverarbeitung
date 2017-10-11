@@ -62,6 +62,7 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Sobel: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
+	delete BMPimage;
 }
 
 // BackgroundWorker for the Gauss-Filter-Process
@@ -94,7 +95,7 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 	// Speed "improvement" demo
 		// Spoiler the reference is faster
 	Utilities::Benchmark bench;
-
+	
 	BMP* image1 = new BMP(*BMPimage);
 	BMP* image2 = new BMP(*BMPimage);
 
@@ -133,10 +134,12 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	auto s = Stopwatch::StartNew();
+	delete BMPimage;
 	BMPimage = new BMP(*UndoImage);
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Undo-Process: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
+	delete UndoImage;
 }
 
 // Button-Click-Event for the Button "Sobel-Filter"
@@ -150,7 +153,6 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
 		UndoImage = new BMP(*BMPimage);
-
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -196,6 +198,8 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
+			if (UndoImage != nullptr)
+				delete UndoImage;
 			UndoImage = new BMP(*BMPimage);
 			BackgroundWorker^ bw = gcnew BackgroundWorker();
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
@@ -301,6 +305,7 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwUndo_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		BUndo->Enabled = false;
 	}
 }
 

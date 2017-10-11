@@ -54,6 +54,7 @@ namespace BMPBildverarbeitung {
 			 Boolean IsProcessing;
 			 BMP *BMPimage;
 			 BMP *UndoImage;
+			 BMP *TempImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
 			 property double ValueFactor;
