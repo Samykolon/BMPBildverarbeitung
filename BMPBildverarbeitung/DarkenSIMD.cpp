@@ -1,13 +1,13 @@
 #include "DarkenSIMD.h"
 
-void Filters::DarkenSIMD(BMP & image)
+void Filters::DarkenSIMD(BMP & image, unsigned char brightness)
 {
+	//For the brightness: 255 means maintain brightness, everything lower means darken
 
 	const int width = image.TellWidth();
 	const int height = image.TellHeight();
-
-	unsigned char b = 244; //255 means maintain brightness, everything lower means darken
-	const __m128i brightnessFactor = _mm_set1_epi16(b); //set the unsigned char every second byte, 8 bits are always free
+	 
+	const __m128i brightnessFactor = _mm_set1_epi16(brightness); //set the unsigned char every second byte, 8 bits are always free
 	const __m128i zero = _mm_setzero_si128();
 
 	for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous

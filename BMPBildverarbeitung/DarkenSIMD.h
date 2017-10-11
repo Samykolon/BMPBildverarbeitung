@@ -2,6 +2,6 @@
 #include "EasyBMP.h"
 
 namespace Filters {
-	void DarkenSIMD(BMP& image);
+	void DarkenSIMD(BMP& image, unsigned char brightness);
 
 }

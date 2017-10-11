@@ -1,21 +1,9 @@
-Algorithmen:
-
-Sobel
-Gauß-Filter
-Helligkeit
-Sättigung
-Skalieren
-
-....
-in Schwarzweiß umwandeln
-Verschwimmen lassen
-Negativ erstellen
-
-Funktionen:
-Laden per Drag-n-Drop
-GUI-Textfeld/Filepicker, das es ermöglicht, den Speicherpfad festzulegen
-(?)Möglichkeit, Bildspeicherpfad im Explorer zu öffnen
-
-Implementierung:
-Marshalling von EasyBMP-Bitmap zu .NET-Bitmap (eher schwer)
-SIMD (auch schwer)
+TODO:
+-Buttons für AlphaBlend, CalculateNegative und DarkenSIMD
+-Projektdokumentation
+-ScaleWithNNSIMD crasht immer noch, wenn man kleine Bilder sehr groß macht
+-TurnToGrayScaleOptimized löschen, sofern nicht noch jemand diese Herkulesaufgabe in Angriff nehmen möchte (wohl eher nicht)
+-ChangeHSVValue optimieren, da dort alle zu hohen Werte bei 255 abgeschnitten werden, was womöglich zu den pixeligen Resultaten führt <- vielleicht war das auch der Grund, wieso das beim anderen HSV-Algorithmus so mies aussah.
+-Der Bearbeiten-Button macht nichts, also ihn wahrscheinlich löschen
+-Unter Hilfe ein "Über..."-Feld einführen
+-Müssten beim "Skalieren"-Popup nicht Ok und Abbrechen vertauscht werden? Das sieht momentan etwas merkwürdig aus.
