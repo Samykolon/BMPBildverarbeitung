@@ -140,6 +140,9 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="CalculateNegative.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="ChangeHSVValue.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
@@ -181,6 +184,7 @@
     <ClInclude Include="ApplyConvolutionRGB.h" />
     <ClInclude Include="ApplyGaussRGB.h" />
     <ClInclude Include="ApplyGaussFilterBW.h" />
+    <ClInclude Include="CalculateNegative.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="DarkenSIMD.h" />
     <ClInclude Include="HSVandBack.h" />
