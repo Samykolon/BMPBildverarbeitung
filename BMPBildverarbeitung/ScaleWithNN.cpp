@@ -17,7 +17,7 @@ void Filters::ScaleWithNN(BMP& image, int newHeight, int newWidth)
 		for (int j = 0; j < newHeight; j++)
 		{
 
-			*out(i, j) = *image(i / xMult + 0.5, j / yMult + 0.5);
+			*out(i, j) = *image((int)(i / xMult + 0.5),(int)(j / yMult + 0.5));
 
 		}
 	}
@@ -33,23 +33,25 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	out.SetSize(newWidth, newHeight);
 
 	int newWidth4 = (newWidth / 4) * 4 - 4;
-	
-	int newHeight4 = (newHeight / 4) * 4 - 4;
-	
-	
-	// Comment to enable SIMD
-	//newWidth4 = 0;
-	//newHeight4 = 0;
 
-	double xMult = newWidth / (double)image.TellWidth();
-	double yMult = newHeight / (double)image.TellHeight();
+	int newHeight4 = (newHeight / 4) * 4 - 4;
+
+	// Define SIMD to enable SIMD
+#define SIMD
+#ifndef SIMD
+	newWidth4 = 0;
+	newHeight4 = 0;
+#endif
+#undef SIMD
+
+	float xMult = newWidth / (float)image.TellWidth();
+	float yMult = newHeight / (float)image.TellHeight();
 
 	// Multiplier vector
 	__m128 xMultiplier = _mm_set1_ps(xMult);
 	__m128 yMultiplier = _mm_set1_ps(yMult);
 
 	__m128 counter = _mm_setr_ps(0, 1, 2, 3);
-	__m128 halfAdder = _mm_set1_ps(0.5);
 
 	// Buffer Contains for every position in the new image the position in the old image 
 	_int32 *bufferX = new _int32[newWidth];
@@ -58,7 +60,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	// Generate Lookup for X direction with SIMD instructions
 	for (int x = 0; x < newWidth4; x += 4)
 	{
-		// 128bit vector with 4 * 32bit x variables initilized
+		// 128bit vector with 4 * 32bit x variables initialized
 		__m128 coordsX = _mm_set1_ps(x);
 
 		// Add iteration + 0..3
@@ -68,8 +70,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		coordsX = _mm_div_ps(coordsX, xMultiplier);
 
 		// position + 0.5 and converted to integer vector
-		//__m128i coordsXi = _mm_cvtps_epi32(_mm_add_ps(coordsX, halfAdder));
-		__m128i coordsXi = _mm_cvtps_epi32(coordsX);
+		__m128i coordsXi = _mm_cvttps_epi32(coordsX);
 
 		// Store in buffer
 		_mm_storeu_si128((__m128i*)(&bufferX[x]), coordsXi);
@@ -84,7 +85,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	// Generate Lookup for Y direction with SIMD instructions
 	for (int y = 0; y < newHeight4; y += 4)
 	{
-		// 128bit vector with 4 * 32bit x variables initilized
+		// 128bit vector with 4 * 32bit x variables initialized
 		__m128 coordsY = _mm_set1_ps(y);
 
 		// Add iteration + 0..3
@@ -94,8 +95,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		coordsY = _mm_div_ps(coordsY, yMultiplier);
 
 		// position + 0.5 and converted to integer vector
-		//__m128i coordsYi = _mm_cvtps_epi32(_mm_add_ps(coordsY, halfAdder));
-		__m128i coordsYi = _mm_cvtps_epi32(coordsY);
+		__m128i coordsYi = _mm_cvttps_epi32(coordsY);
 
 		// Store in buffer
 		_mm_storeu_si128((__m128i*)(&bufferY[y]), coordsYi);
@@ -107,24 +107,23 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		bufferY[y] = y / yMult;
 	}
 
-	for (int y = 0; y < newHeight; y++)
+	for (int x = 0; x < newWidth; x++)
 	{
-		/*
-		int Y = bufferY[y];
-		for (int x = 0; x < newWidth4; x += 4)
-		{
-		__m128i pixels = _mm_set_epi32(*(__int32*)&image.Pixels[bufferX[x+0]][Y],
-		*(__int32*)&image.Pixels[bufferX[x+1]][Y],
-		*(__int32*)&image.Pixels[bufferX[x+2]][Y],
-		*(__int32*)&image.Pixels[bufferX[x+3]][Y]);
+		int X = bufferX[x];
 
-		__m128i* store = (__m128i*)(&(out.Pixels[x][y]));
-		_mm_storeu_si128(store, pixels);
-		}
-		*/
-		for (int x = 0; x < newWidth; x++)
+		__m128i* store = (__m128i*)(out.Pixels[x]);
+		for (int y = 0; y < newHeight4; y += 4, store++)
 		{
-			out.Pixels[x][y] = image.Pixels[bufferX[x]][bufferY[y]];
+			__m128i pixels = _mm_set_epi32(*(__int32*)&image.Pixels[X][bufferY[y]],
+				*(__int32*)&image.Pixels[X][bufferY[y + 1]],
+				*(__int32*)&image.Pixels[X][bufferY[y + 2]],
+				*(__int32*)&image.Pixels[X][bufferY[y + 3]]);
+			_mm_storeu_si128(store, pixels);
+		}
+
+		for (int y = newHeight4; y < newHeight; y++)
+		{
+			out.Pixels[x][y] = image.Pixels[X][bufferY[y]];
 		}
 	}
 	delete bufferX;
