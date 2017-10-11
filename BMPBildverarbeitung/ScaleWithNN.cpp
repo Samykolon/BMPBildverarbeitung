@@ -1,7 +1,7 @@
 #include "ScaleWithNN.h"
 #include "EasyBMP.h"
 
-
+// Scale with nearest neighbor
 void Filters::ScaleWithNN(BMP& image, int newHeight, int newWidth)
 {
 
@@ -41,8 +41,8 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	//newWidth4 = 0;
 	//newHeight4 = 0;
 
-	double xMult = (double)image.TellWidth() / newWidth;
-	double yMult = (double)image.TellHeight() / newHeight;
+	double xMult = newWidth / (double)image.TellWidth();
+	double yMult = newHeight / (double)image.TellHeight();
 
 	// Multiplier vector
 	__m128 xMultiplier = _mm_set1_ps(xMult);
@@ -64,11 +64,12 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		// Add iteration + 0..3
 		coordsX = _mm_add_ps(coordsX, counter);
 
-		// position * multiplier
-		coordsX = _mm_mul_ps(coordsX, xMultiplier);
+		// position / multiplier
+		coordsX = _mm_div_ps(coordsX, xMultiplier);
 
 		// position + 0.5 and converted to integer vector
-		__m128i coordsXi = _mm_cvtps_epi32(_mm_add_ps(coordsX, halfAdder));
+		//__m128i coordsXi = _mm_cvtps_epi32(_mm_add_ps(coordsX, halfAdder));
+		__m128i coordsXi = _mm_cvtps_epi32(coordsX);
 
 		// Store in buffer
 		_mm_storeu_si128((__m128i*)(&bufferX[x]), coordsXi);
@@ -77,7 +78,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	// Iterate through the rest of x
 	for (int x = newWidth4; x < newWidth; x++)
 	{
-		bufferX[x] = x * xMult + 0.5;
+		bufferX[x] = x / xMult;
 	}
 
 	// Generate Lookup for Y direction with SIMD instructions
@@ -89,11 +90,12 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		// Add iteration + 0..3
 		coordsY = _mm_add_ps(coordsY, counter);
 
-		// position * multiplier
-		coordsY = _mm_mul_ps(coordsY, yMultiplier);
+		// position / multiplier
+		coordsY = _mm_div_ps(coordsY, yMultiplier);
 
 		// position + 0.5 and converted to integer vector
-		__m128i coordsYi = _mm_cvtps_epi32(_mm_add_ps(coordsY, halfAdder));
+		//__m128i coordsYi = _mm_cvtps_epi32(_mm_add_ps(coordsY, halfAdder));
+		__m128i coordsYi = _mm_cvtps_epi32(coordsY);
 
 		// Store in buffer
 		_mm_storeu_si128((__m128i*)(&bufferY[y]), coordsYi);
@@ -102,7 +104,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	// Iterate through the rest of y
 	for (int y = newHeight4; y < newHeight; y++)
 	{
-		bufferY[y] = y * yMult + 0.5;
+		bufferY[y] = y / yMult;
 	}
 
 	for (int y = 0; y < newHeight; y++)
