@@ -1,7 +1,4 @@
 TODO:
--Buttons für AlphaBlend, CalculateNegative und DarkenSIMD
 -Projektdokumentation
--ScaleWithNNSIMD crasht immer noch (, aber relativ unregelmäßig) und die veränderten Bilder sehen nicht ganz richtig aus
--TurnToGrayScaleOptimized fertig stellen (versuchen)
 -ChangeHSVValue optimieren, da dort alle zu hohen Werte bei 255 abgeschnitten werden, was womöglich zu den pixeligen Resultaten führt <- vielleicht war das auch der Grund, wieso das beim anderen HSV-Algorithmus so mies aussah.
 -Wieso ist die selbe Konvertierfunktion in Convert.h und Utilities.h enthalten?

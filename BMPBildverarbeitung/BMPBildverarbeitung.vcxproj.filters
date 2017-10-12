@@ -51,9 +51,6 @@
     <ClCompile Include="BMPScale.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities.cpp">
-      <Filter>Headerdateien</Filter>
-    </ClCompile>
     <ClCompile Include="DarkenSIMD.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="DarkerForm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
