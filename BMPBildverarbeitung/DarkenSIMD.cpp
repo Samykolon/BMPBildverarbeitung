@@ -27,9 +27,9 @@ void Filters::DarkenSIMD(BMP & image, unsigned char brightness)
 		}
 		for (int j = divisibleHeight; j < height; j++) //Iterate through the rest of the image that isn't divisible by four
 		{
-			image(i, j)->Blue *= brightness / 256; //256 to optimize
-			image(i, j)->Green *= brightness / 256;
-			image(i, j)->Red *= brightness / 256;
+			image(i, j)->Blue = (int)image(i, j)->Blue * brightness / 256; //256 to optimize
+			image(i, j)->Green = (int)image(i, j)->Green * brightness / 256;
+			image(i, j)->Red = (int)image(i, j)->Red * brightness / 256;
 		}
 	}
 }
