@@ -2,3 +2,4 @@ TODO:
 -Projektdokumentation
 -ChangeHSVValue optimieren, da dort alle zu hohen Werte bei 255 abgeschnitten werden, was womöglich zu den pixeligen Resultaten führt <- vielleicht war das auch der Grund, wieso das beim anderen HSV-Algorithmus so mies aussah.
 -Wieso ist die selbe Konvertierfunktion in Convert.h und Utilities.h enthalten?
+-SIMD-Funktionen für bestimmte Bilder fixen
