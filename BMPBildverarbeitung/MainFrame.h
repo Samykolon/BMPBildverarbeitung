@@ -221,13 +221,7 @@ namespace BMPBildverarbeitung {
 			// überToolStripMenuItem
 			// 
 			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-<<<<<<< HEAD
-
-			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-
-=======
 			this->überToolStripMenuItem->Size = System::Drawing::Size(108, 22);
->>>>>>> b3871eaf8781427ca761af0bf563fcb444f3741b
 			this->überToolStripMenuItem->Text = L"Über...";
 			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
