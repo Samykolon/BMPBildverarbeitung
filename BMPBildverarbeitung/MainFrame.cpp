@@ -98,40 +98,13 @@ void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender,
 
 void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	// Speed "improvement" demo
-		// Spoiler the reference is faster
 	Utilities::Benchmark bench;
 	
-	BMP* image1 = new BMP(*BMPimage);
-	BMP* image2 = new BMP(*BMPimage);
-
-	bench.StartTimer("Reference Scale");
-	Filters::ScaleWithNN(*image1, ScaleNewHeight, ScaleNewWidth);
-	bench.StopTimer();
-
-	
 	bench.StartTimer("SIMD Scale");
-	Filters::ScaleWithNNSIMD(*image2, ScaleNewHeight, ScaleNewWidth);
+	Filters::ScaleWithNNSIMD(*BMPimage, ScaleNewHeight, ScaleNewWidth);
 	bench.StopTimer();
-
-	/*
-	if (!Utilities::compareImage(image1, image1))
-	{
-		MessageBox::Show("Unlike each other");
-	}*/
-	
-	delete image1;
-	delete BMPimage;
-	BMPimage = image2;
 	
 	UpdatePicture();
-	/*
-	auto s = Stopwatch::StartNew();
-	Filters::ScaleWithNN(*BMPimage, ScaleNewHeight, ScaleNewWidth);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Scaling: " + s->Elapsed.ToString() + Environment::NewLine);
-	UpdatePicture();
-	*/
 
 }
 
