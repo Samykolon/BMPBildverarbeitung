@@ -119,6 +119,21 @@ void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, Sy
 	UpdatePicture();
 }
 
+void BMPBildverarbeitung::MainFrame::bwAlphaBlend_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	auto s = Stopwatch::StartNew();
+	RGBApixel AlphaBlendPixel;
+	Color c = CDAlphaBlend->Color;
+	AlphaBlendPixel.Alpha = c.A;
+	AlphaBlendPixel.Blue = c.B;
+	AlphaBlendPixel.Green = c.G;
+	AlphaBlendPixel.Red = c.R;
+	Filters::AlphaBlend(*BMPimage, AlphaBlendPixel);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "DarkenSIMD: " + s->Elapsed.ToString() + Environment::NewLine);
+	UpdatePicture();
+}
+
 // BackgroundWorker for the Undo-Process
 
 void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
@@ -247,6 +262,7 @@ Void BMPBildverarbeitung::MainFrame::DisableButtons()
 	BGauss->Enabled = false;
 	BGrayScale->Enabled = false;
 	BScale->Enabled = false;
+	BAlphaBlend->Enabled = false;
 	label9->Visible = false;
 	TSaturation->Value = 20;
 	TBrightness->Value = 20;
@@ -262,6 +278,7 @@ Void BMPBildverarbeitung::MainFrame::EnableButtons()
 	BGauss->Enabled = true;
 	BGrayScale->Enabled = true;
 	BScale->Enabled = true;
+	BAlphaBlend->Enabled = true;
 	label9->Visible = true;
 	TSaturation->Enabled = true;
 	TBrightness->Enabled = true;
@@ -355,6 +372,32 @@ System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender
 			UndoImage = new BMP(*BMPimage);
 			BackgroundWorker^ bw = gcnew BackgroundWorker();
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwDarker_DoWork);
+			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+			bw->RunWorkerAsync();
+		}
+	}
+}
+
+// Button-Click-Event for the Button "Alpha-Blending"
+
+System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if (!IsProcessing) {
+
+		if (CDAlphaBlend->ShowDialog() == ::DialogResult::OK)
+		{
+			BUndo->Enabled = true;
+			IsProcessing = true;
+			ProgressBar->Visible = true;
+			ProgressBar->Style = ProgressBarStyle::Continuous;
+			ProgressBar->Style = ProgressBarStyle::Marquee;
+
+			if (UndoImage != nullptr)
+				delete UndoImage;
+
+			UndoImage = new BMP(*BMPimage);
+			BackgroundWorker^ bw = gcnew BackgroundWorker();
+			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwAlphaBlend_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
 		}

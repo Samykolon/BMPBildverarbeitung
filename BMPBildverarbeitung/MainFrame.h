@@ -5,7 +5,7 @@
 #include "HSVPixel.h"
 #include <iostream>
 #include "Convert.h"
-
+#include "EasyBMP.h"
 
 
 namespace BMPBildverarbeitung {
@@ -51,6 +51,8 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Button^  BUndo;
 	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 	private: System::Windows::Forms::Button^  BDark;
+	private: System::Windows::Forms::Button^  BAlphaBlend;
+	private: System::Windows::Forms::ColorDialog^  CDAlphaBlend;
 			
 			 String^ FilePath;
 			 Boolean IsProcessing;
@@ -61,11 +63,11 @@ namespace BMPBildverarbeitung {
 			 property int ScaleNewHeight;
 			 property double ValueFactor;
 			 property double SaturationFactor;
-			 property unsigned char DarkenFactor;
-			 
-			 
+			 property unsigned char DarkenFactor;		 
 
 	public:
+
+
 		MainFrame(void)
 		{
 			InitializeComponent();
@@ -159,6 +161,8 @@ namespace BMPBildverarbeitung {
 			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->BUndo = (gcnew System::Windows::Forms::Button());
 			this->BDark = (gcnew System::Windows::Forms::Button());
+			this->BAlphaBlend = (gcnew System::Windows::Forms::Button());
+			this->CDAlphaBlend = (gcnew System::Windows::Forms::ColorDialog());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -458,11 +462,23 @@ namespace BMPBildverarbeitung {
 			this->BDark->UseVisualStyleBackColor = true;
 			this->BDark->Click += gcnew System::EventHandler(this, &MainFrame::BDark_Click);
 			// 
+			// BAlphaBlend
+			// 
+			this->BAlphaBlend->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BAlphaBlend->Location = System::Drawing::Point(1252, 87);
+			this->BAlphaBlend->Name = L"BAlphaBlend";
+			this->BAlphaBlend->Size = System::Drawing::Size(100, 23);
+			this->BAlphaBlend->TabIndex = 24;
+			this->BAlphaBlend->Text = L"Alpha Blending";
+			this->BAlphaBlend->UseVisualStyleBackColor = true;
+			this->BAlphaBlend->Click += gcnew System::EventHandler(this, &MainFrame::BAlphaBlend_Click);
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->Controls->Add(this->BAlphaBlend);
 			this->Controls->Add(this->BDark);
 			this->Controls->Add(this->BUndo);
 			this->Controls->Add(this->ProgressBar);
@@ -509,6 +525,7 @@ namespace BMPBildverarbeitung {
 	private: void bwGrayScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwDarker_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwAlphaBlend_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwUndo_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -519,6 +536,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BUndo_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BDark_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BAlphaBlend_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 	private: Void DisableButtons();
@@ -529,5 +547,6 @@ namespace BMPBildverarbeitung {
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+
 };
 }
