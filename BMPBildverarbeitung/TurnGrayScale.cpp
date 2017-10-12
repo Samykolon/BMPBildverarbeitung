@@ -44,10 +44,23 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 	//}
 
 
-	const __m128i weigths = _mm_set1_epi64x(0x00FF004C0096001C);
+	const __m128i weigths = _mm_set1_epi64x(0x0000001C0096004C);
+	const __m128i zeroes = _mm_setzero_si128();
 
 	for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
 		for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
+			const __m128i currentPixels = _mm_lddqu_si128(p);
+			const __m128i pixelsLow16 = _mm_unpacklo_epi8(currentPixels, zeroes); //unpacked registers contain 2 pixels
+			const __m128i pixelsHigh16 = _mm_unpackhi_epi8(currentPixels, zeroes);
+			__m128i resultLow16 = _mm_mullo_epi16(pixelsLow16, weigths);
+			__m128i resultHigh16 = _mm_mullo_epi16(pixelsHigh16, weigths);
+			resultLow16 = _mm_srli_epi16(resultLow16, 8); //Values, with weigths adjusted
+			resultHigh16 = _mm_srli_epi16(resultHigh16, 8);
+			__m128i grayvalue = _mm_hadd_epi16(resultLow16, resultHigh16);
+			grayvalue = _mm_hadd_epi16(grayvalue, zeroes);
+
+			
+		
 			
 		}
 	}

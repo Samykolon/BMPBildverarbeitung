@@ -88,7 +88,7 @@ void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender,
 	colorToBlend.Blue = 0;
 	colorToBlend.Green = 0;
 	colorToBlend.Red = 255;
-	Filters::CalculateNegative(*BMPimage);
+	Filters::TurnToGrayScaleOptimized(*BMPimage);
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Grayscale: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
