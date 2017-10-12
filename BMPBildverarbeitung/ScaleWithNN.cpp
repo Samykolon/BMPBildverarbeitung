@@ -114,10 +114,10 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		__m128i* store = (__m128i*)(out.Pixels[x]);
 		for (int y = 0; y < newHeight4; y += 4, store++)
 		{
-			__m128i pixels = _mm_set_epi32(*(__int32*)&image.Pixels[X][bufferY[y]],
-				*(__int32*)&image.Pixels[X][bufferY[y + 1]],
+			__m128i pixels = _mm_set_epi32(*(__int32*)&image.Pixels[X][bufferY[y + 3]],
 				*(__int32*)&image.Pixels[X][bufferY[y + 2]],
-				*(__int32*)&image.Pixels[X][bufferY[y + 3]]);
+				*(__int32*)&image.Pixels[X][bufferY[y + 1]],
+				*(__int32*)&image.Pixels[X][bufferY[y]]);
 			_mm_storeu_si128(store, pixels);
 		}
 
