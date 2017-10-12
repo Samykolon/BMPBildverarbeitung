@@ -1,7 +1,6 @@
 #include "TurnGrayScale.h"
 #include <iostream>
 #include <emmintrin.h>
-typedef unsigned char BYTE;
 
 void Filters::TurnToGrayScale(BMP& in)
 {
@@ -16,9 +15,9 @@ void Filters::TurnToGrayScale(BMP& in)
 			double Temp = 0.30*(in(i, j)->Red) +
 				0.59*(in(i, j)->Green) +
 				0.11*(in(i, j)->Blue);
-			in(i, j)->Red = (BYTE)Temp;
-			in(i, j)->Green = (BYTE)Temp;
-			in(i, j)->Blue = (BYTE)Temp;
+			in(i, j)->Red = (unsigned char)Temp;
+			in(i, j)->Green = (unsigned char)Temp;
+			in(i, j)->Blue = (unsigned char)Temp;
 		}
 	}
 	in.SetBitDepth(8);
@@ -37,19 +36,23 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 	pixel2.Alpha = 'a';
 
 	//const __m128i singlePixel = _mm_set1_epi32(*(const int*)&pixel2); //Set entire register to pixel2
-
-	//for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
-	//	for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
-	//		_mm_storeu_si128(p, singlePixel); //set all pixels to pixel2, storeu because the pixels are unaligned
+		
+	//for (int i = 0; i < width; i++) { //Iterate through every line because memory is not contiguous
+	//	for (RGBApixel* p = in.Pixels[i], *end = &(in.Pixels[i][height]); p < end; p++) { //Iterate through memory directly because it's faster
+	//		*p = pixel2;
 	//	}
 	//}
-	//
 
-	for (int i = 0; i < width; i++) { //Iterate through every line because memory is not contiguous
-		for (RGBApixel* p = in.Pixels[i], *end = &(in.Pixels[i][height]); p < end; p++) { //Iterate through memory directly because it's faster
-			*p = pixel2;
+
+	const __m128i weigths = _mm_set1_epi64x(0x00FF004C0096001C);
+
+	for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
+		for (__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]), *end = reinterpret_cast<__m128i*>(&(in.Pixels[i][height])); p < end; p++) { //Iterate through memory directly because it's faster
+			
 		}
 	}
+	
+
 
 
 }
