@@ -7,6 +7,4 @@
 namespace ConvertBitmap {
 
 	System::Drawing::Bitmap^ ToBitmap(BMP *bmp); //Converts an unmanaged BMP to a managed Bitmap
-	BMP ToBMP(System::Drawing::Bitmap^ bitmap); //Converts a managed Bitmap to an unmanaged BMP
-
 }
