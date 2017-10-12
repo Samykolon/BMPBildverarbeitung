@@ -370,7 +370,7 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 	}
 }
 
-// Button-Click-Event for the Button "Verdunklern"
+// Button-Click-Event for the Button "Verdunkeln"
 
 System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender, System::EventArgs ^ e)
 {

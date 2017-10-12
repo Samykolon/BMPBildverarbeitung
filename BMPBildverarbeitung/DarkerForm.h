@@ -141,7 +141,7 @@ namespace BMPBildverarbeitung {
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"DarkerForm";
-			this->Text = L"Verdunklern";
+			this->Text = L"Verdunkeln";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TDarker))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();

@@ -461,7 +461,7 @@ namespace BMPBildverarbeitung {
 			this->BDark->Name = L"BDark";
 			this->BDark->Size = System::Drawing::Size(100, 23);
 			this->BDark->TabIndex = 23;
-			this->BDark->Text = L"Verdunklern";
+			this->BDark->Text = L"Verdunkeln";
 			this->BDark->UseVisualStyleBackColor = true;
 			this->BDark->Click += gcnew System::EventHandler(this, &MainFrame::BDark_Click);
 			// 
