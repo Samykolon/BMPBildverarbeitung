@@ -123,13 +123,10 @@ void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, Sy
 
 void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	delete BMPimage;
-	BMPimage = new BMP(*UndoImage);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Undo-Process: " + s->Elapsed.ToString() + Environment::NewLine);
+	BMPimage = UndoImage;
+	UndoImage = nullptr;
 	UpdatePicture();
-	delete UndoImage;
 }
 
 // Button-Click-Event for the Button "Sobel-Filter"
