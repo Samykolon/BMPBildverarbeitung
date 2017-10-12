@@ -1,4 +1,5 @@
 #include "MainFrame.h"
+#include "AboutForm.h"
 #include <msclr\marshal.h>
 #include <chrono>
 #include <math.h>
@@ -340,6 +341,14 @@ System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click
 		}
 
 	}
+}
+
+// Click-Event for the "Über..." Menulistitem
+
+System::Void BMPBildverarbeitung::MainFrame::überToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	AboutForm^ AF = gcnew AboutForm();
+	AF->ShowDialog();
 }
 
 // Closing form

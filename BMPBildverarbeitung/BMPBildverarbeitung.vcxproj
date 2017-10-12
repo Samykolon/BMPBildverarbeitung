@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AboutForm.cpp" />
     <ClCompile Include="AlphaBlend.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
@@ -179,6 +180,9 @@
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="AlphaBlend.h" />
     <ClInclude Include="ApplyConvolutionBW.h" />
     <ClInclude Include="ApplyConvolutionRGB.h" />
@@ -213,6 +217,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageResources.resx" />
     <EmbeddedResource Include="MainFrame.resx">
       <DependentUpon>MainFrame.h</DependentUpon>

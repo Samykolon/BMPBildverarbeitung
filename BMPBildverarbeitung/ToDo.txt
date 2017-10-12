@@ -4,8 +4,5 @@ TODO:
 -ScaleWithNNSIMD crasht immer noch (, aber relativ unregelmäßig) und die veränderten Bilder sehen nicht ganz richtig aus
 -TurnToGrayScaleOptimized löschen, sofern nicht noch jemand diese Herkulesaufgabe in Angriff nehmen möchte (wohl eher nicht)
 -ChangeHSVValue optimieren, da dort alle zu hohen Werte bei 255 abgeschnitten werden, was womöglich zu den pixeligen Resultaten führt <- vielleicht war das auch der Grund, wieso das beim anderen HSV-Algorithmus so mies aussah.
--Der Bearbeiten-Button macht nichts, also ihn wahrscheinlich löschen
--Unter Hilfe ein "Über..."-Feld einführen
--Müssten beim "Skalieren"-Popup nicht Ok und Abbrechen vertauscht werden? Das sieht momentan etwas merkwürdig aus.
 -ConvertBitmap::ToBMP löschen, falls das noch nicht irgendwo gebraucht wird
 -Wieso ist die selbe Konvertierfunktion in Convert.h und Utilities.h enthalten?

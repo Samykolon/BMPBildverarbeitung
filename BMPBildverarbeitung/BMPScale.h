@@ -92,7 +92,7 @@ namespace BMPBildverarbeitung {
 			// button1
 			// 
 			this->button1->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->button1->Location = System::Drawing::Point(12, 108);
+			this->button1->Location = System::Drawing::Point(144, 108);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
@@ -102,7 +102,7 @@ namespace BMPBildverarbeitung {
 			// button2
 			// 
 			this->button2->DialogResult = System::Windows::Forms::DialogResult::OK;
-			this->button2->Location = System::Drawing::Point(144, 108);
+			this->button2->Location = System::Drawing::Point(13, 108);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 1;

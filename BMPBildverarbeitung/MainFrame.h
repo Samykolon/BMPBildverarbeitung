@@ -54,6 +54,7 @@ namespace BMPBildverarbeitung {
 			 Boolean IsProcessing;
 			 BMP *BMPimage;
 			 BMP *UndoImage;
+	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 			 BMP *TempImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
@@ -96,7 +97,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::ToolStripMenuItem^  bMPSpeichernToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  schließenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  beendenToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  bearbeitenToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  hilfeToolStripMenuItem;
 
 	private: System::Windows::Forms::PictureBox^  PBMain;
@@ -131,7 +132,6 @@ namespace BMPBildverarbeitung {
 			this->bMPSpeichernToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->schließenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->bearbeitenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hilfeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
@@ -155,6 +155,7 @@ namespace BMPBildverarbeitung {
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->BUndo = (gcnew System::Windows::Forms::Button());
+			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -165,9 +166,9 @@ namespace BMPBildverarbeitung {
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->dateiToolStripMenuItem,
-					this->bearbeitenToolStripMenuItem, this->hilfeToolStripMenuItem
+					this->hilfeToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -212,14 +213,9 @@ namespace BMPBildverarbeitung {
 			this->beendenToolStripMenuItem->Text = L"Beenden";
 			this->beendenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::beendenToolStripMenuItem_Click);
 			// 
-			// bearbeitenToolStripMenuItem
-			// 
-			this->bearbeitenToolStripMenuItem->Name = L"bearbeitenToolStripMenuItem";
-			this->bearbeitenToolStripMenuItem->Size = System::Drawing::Size(75, 20);
-			this->bearbeitenToolStripMenuItem->Text = L"Bearbeiten";
-			// 
 			// hilfeToolStripMenuItem
 			// 
+			this->hilfeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->überToolStripMenuItem });
 			this->hilfeToolStripMenuItem->Name = L"hilfeToolStripMenuItem";
 			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
@@ -440,6 +436,13 @@ namespace BMPBildverarbeitung {
 			this->BUndo->UseVisualStyleBackColor = true;
 			this->BUndo->Click += gcnew System::EventHandler(this, &MainFrame::BUndo_Click);
 			// 
+			// überToolStripMenuItem
+			// 
+			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
+			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->überToolStripMenuItem->Text = L"Über...";
+			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -503,6 +506,6 @@ namespace BMPBildverarbeitung {
 
 	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-
+	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
