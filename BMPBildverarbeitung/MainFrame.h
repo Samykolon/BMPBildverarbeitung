@@ -95,7 +95,7 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::ToolStripMenuItem^  dateiToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  bMPLadenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  bMPSpeichernToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  schließenToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  beendenToolStripMenuItem;
 
 	private: System::Windows::Forms::ToolStripMenuItem^  hilfeToolStripMenuItem;
@@ -130,9 +130,9 @@ namespace BMPBildverarbeitung {
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bMPLadenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bMPSpeichernToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->schließenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hilfeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
@@ -155,7 +155,6 @@ namespace BMPBildverarbeitung {
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->BUndo = (gcnew System::Windows::Forms::Button());
-			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -178,9 +177,9 @@ namespace BMPBildverarbeitung {
 			// 
 			// dateiToolStripMenuItem
 			// 
-			this->dateiToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+			this->dateiToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->bMPLadenToolStripMenuItem,
-					this->bMPSpeichernToolStripMenuItem, this->schließenToolStripMenuItem, this->beendenToolStripMenuItem
+					this->bMPSpeichernToolStripMenuItem, this->beendenToolStripMenuItem
 			});
 			this->dateiToolStripMenuItem->Name = L"dateiToolStripMenuItem";
 			this->dateiToolStripMenuItem->Size = System::Drawing::Size(46, 20);
@@ -200,12 +199,6 @@ namespace BMPBildverarbeitung {
 			this->bMPSpeichernToolStripMenuItem->Text = L"BMP speichern...";
 			this->bMPSpeichernToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::bMPSpeichernToolStripMenuItem_Click);
 			// 
-			// schließenToolStripMenuItem
-			// 
-			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
-			this->schließenToolStripMenuItem->Text = L"Schließen";
-			// 
 			// beendenToolStripMenuItem
 			// 
 			this->beendenToolStripMenuItem->Name = L"beendenToolStripMenuItem";
@@ -219,6 +212,13 @@ namespace BMPBildverarbeitung {
 			this->hilfeToolStripMenuItem->Name = L"hilfeToolStripMenuItem";
 			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
+			// 
+			// überToolStripMenuItem
+			// 
+			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
+			this->überToolStripMenuItem->Size = System::Drawing::Size(108, 22);
+			this->überToolStripMenuItem->Text = L"Über...";
+			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
 			// PBMain
 			// 
@@ -435,13 +435,6 @@ namespace BMPBildverarbeitung {
 			this->BUndo->Text = L"Rückgängig";
 			this->BUndo->UseVisualStyleBackColor = true;
 			this->BUndo->Click += gcnew System::EventHandler(this, &MainFrame::BUndo_Click);
-			// 
-			// überToolStripMenuItem
-			// 
-			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->überToolStripMenuItem->Text = L"Über...";
-			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
 			// MainFrame
 			// 
