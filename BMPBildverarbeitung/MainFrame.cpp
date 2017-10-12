@@ -1,5 +1,6 @@
 #include "MainFrame.h"
 #include "AboutForm.h"
+#include "DarkerForm.h"
 #include <msclr\marshal.h>
 #include <chrono>
 #include <math.h>
@@ -107,6 +108,15 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 	
 	UpdatePicture();
 
+}
+
+void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	auto s = Stopwatch::StartNew();
+	Filters::DarkenSIMD(*BMPimage, DarkenFactor);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "DarkenSIMD: " + s->Elapsed.ToString() + Environment::NewLine);
+	UpdatePicture();
 }
 
 // BackgroundWorker for the Undo-Process
@@ -290,6 +300,35 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = false;
+	}
+}
+
+// Button-Click-Event for the Button "Verdunklern"
+
+System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	DarkerForm^ DF = gcnew DarkerForm();
+	
+	if (!IsProcessing) {
+
+		if (DF->ShowDialog(this) == ::DialogResult::OK)
+		{
+			BUndo->Enabled = true;
+			DarkenFactor = DF->TValue;
+			IsProcessing = true;
+			ProgressBar->Visible = true;
+			ProgressBar->Style = ProgressBarStyle::Continuous;
+			ProgressBar->Style = ProgressBarStyle::Marquee;
+			
+			if (UndoImage != nullptr)
+				delete UndoImage;
+
+			UndoImage = new BMP(*BMPimage);
+			BackgroundWorker^ bw = gcnew BackgroundWorker();
+			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwDarker_DoWork);
+			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+			bw->RunWorkerAsync();
+		}
 	}
 }
 

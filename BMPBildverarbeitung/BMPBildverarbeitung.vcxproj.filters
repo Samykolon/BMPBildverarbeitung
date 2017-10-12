@@ -66,6 +66,9 @@
     <ClCompile Include="AboutForm.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="DarkerForm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyBMP.h">
@@ -132,6 +135,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="AboutForm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkerForm.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
