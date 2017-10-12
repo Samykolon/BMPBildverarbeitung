@@ -9,7 +9,9 @@ System::Void BMPBildverarbeitung::DarkerForm::TDarker_Scroll(System::Object ^ se
 {
 	double value;
 	value = TDarker->Value;
+	value -= 255;
 	value /= 2.55;
+	value *= -1;
 	value = floor(value);
 	TTTrackbar->SetToolTip(TDarker, (value.ToString()) + "%");
 }

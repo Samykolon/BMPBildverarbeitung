@@ -99,11 +99,13 @@ namespace BMPBildverarbeitung {
 			this->TDarker->Location = System::Drawing::Point(12, 13);
 			this->TDarker->Maximum = 255;
 			this->TDarker->Name = L"TDarker";
+			this->TDarker->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
 			this->TDarker->Size = System::Drawing::Size(260, 45);
 			this->TDarker->SmallChange = 5;
 			this->TDarker->TabIndex = 2;
 			this->TDarker->TickFrequency = 5;
 			this->TDarker->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->TDarker->Value = 255;
 			this->TDarker->Scroll += gcnew System::EventHandler(this, &DarkerForm::TDarker_Scroll);
 			this->TDarker->ValueChanged += gcnew System::EventHandler(this, &DarkerForm::TDarker_ValueChanged);
 			// 
