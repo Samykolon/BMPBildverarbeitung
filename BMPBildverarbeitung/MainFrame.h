@@ -226,7 +226,7 @@ namespace BMPBildverarbeitung {
 			// überToolStripMenuItem
 			// 
 			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->überToolStripMenuItem->Size = System::Drawing::Size(108, 22);
 			this->überToolStripMenuItem->Text = L"Über...";
 			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
@@ -448,6 +448,7 @@ namespace BMPBildverarbeitung {
 			// 
 			// BDark
 			// 
+			this->BDark->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->BDark->Location = System::Drawing::Point(1145, 87);
 			this->BDark->Name = L"BDark";
 			this->BDark->Size = System::Drawing::Size(100, 23);
