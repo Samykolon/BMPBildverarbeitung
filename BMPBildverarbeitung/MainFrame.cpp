@@ -238,6 +238,35 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
+Void BMPBildverarbeitung::MainFrame::DisableButtons()
+{
+	BDark->Enabled = false;
+	BApply->Enabled = false;
+	BUndo->Enabled = false;
+	BSobel->Enabled = false;
+	BGauss->Enabled = false;
+	BGrayScale->Enabled = false;
+	BScale->Enabled = false;
+	label9->Visible = false;
+	TSaturation->Value = 20;
+	TBrightness->Value = 20;
+	TSaturation->Enabled = false;
+	TBrightness->Enabled = false;
+}
+
+Void BMPBildverarbeitung::MainFrame::EnableButtons()
+{
+	BDark->Enabled = true;
+	BApply->Enabled = true;
+	BSobel->Enabled = true;
+	BGauss->Enabled = true;
+	BGrayScale->Enabled = true;
+	BScale->Enabled = true;
+	label9->Visible = true;
+	TSaturation->Enabled = true;
+	TBrightness->Enabled = true;
+}
+
 
 
 // Button-Click-Event for the Button "Anwenden"
@@ -351,6 +380,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 			UpdatePicture();
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 			BUndo->Enabled = false;
+			EnableButtons();
 		}
 	}
 	catch (Exception^ ex)
@@ -385,6 +415,13 @@ System::Void BMPBildverarbeitung::MainFrame::überToolStripMenuItem_Click(System:
 {
 	AboutForm^ AF = gcnew AboutForm();
 	AF->ShowDialog();
+}
+
+System::Void BMPBildverarbeitung::MainFrame::schließenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	PBMain->Image = nullptr;
+	PBOriginal->Image = nullptr;
+	DisableButtons();
 }
 
 // Closing form

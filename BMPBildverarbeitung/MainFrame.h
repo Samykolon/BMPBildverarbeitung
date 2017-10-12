@@ -207,7 +207,8 @@ namespace BMPBildverarbeitung {
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
 			this->schließenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
-			this->schließenToolStripMenuItem->Text = L"Schließen";
+			this->schließenToolStripMenuItem->Text = L"BMP Schließen";
+			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
 			// 
 			// beendenToolStripMenuItem
 			// 
@@ -520,10 +521,13 @@ namespace BMPBildverarbeitung {
 	private: System::Void BDark_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
+	private: Void DisableButtons();
+	private: Void EnableButtons();
+
 
 	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-
+	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
