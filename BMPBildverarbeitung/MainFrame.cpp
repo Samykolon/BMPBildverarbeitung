@@ -110,6 +110,8 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 
 }
 
+// BackgroundWorker for the Darken-Process
+
 void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	auto s = Stopwatch::StartNew();
@@ -119,18 +121,31 @@ void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, Sy
 	UpdatePicture();
 }
 
+// BackgroundWorker for the Alpha-Blending-Process
+
 void BMPBildverarbeitung::MainFrame::bwAlphaBlend_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
 	auto s = Stopwatch::StartNew();
 	RGBApixel AlphaBlendPixel;
 	Color c = CDAlphaBlend->Color;
-	AlphaBlendPixel.Alpha = c.A;
+	AlphaBlendPixel.Alpha = 78;
 	AlphaBlendPixel.Blue = c.B;
 	AlphaBlendPixel.Green = c.G;
 	AlphaBlendPixel.Red = c.R;
 	Filters::AlphaBlend(*BMPimage, AlphaBlendPixel);
 	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "DarkenSIMD: " + s->Elapsed.ToString() + Environment::NewLine);
+	File::AppendAllText((String^)L"out.txt", "AlphaBlend: " + s->Elapsed.ToString() + Environment::NewLine);
+	UpdatePicture();
+}
+
+// BackgroundWorker for the Picture-Negative-Process
+
+void BMPBildverarbeitung::MainFrame::bwNegative_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
+{
+	auto s = Stopwatch::StartNew();
+	Filters::CalculateNegative(*BMPimage);
+	s->Stop();
+	File::AppendAllText((String^)L"out.txt", "Negative: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -253,6 +268,8 @@ inline Void BMPBildverarbeitung::MainFrame::UpdatePicture()
 	PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 }
 
+// Disable Buttons
+
 Void BMPBildverarbeitung::MainFrame::DisableButtons()
 {
 	BDark->Enabled = false;
@@ -263,12 +280,15 @@ Void BMPBildverarbeitung::MainFrame::DisableButtons()
 	BGrayScale->Enabled = false;
 	BScale->Enabled = false;
 	BAlphaBlend->Enabled = false;
+	BNegative->Enabled = false;
 	label9->Visible = false;
 	TSaturation->Value = 20;
 	TBrightness->Value = 20;
 	TSaturation->Enabled = false;
 	TBrightness->Enabled = false;
 }
+
+// Enable Buttons
 
 Void BMPBildverarbeitung::MainFrame::EnableButtons()
 {
@@ -279,6 +299,7 @@ Void BMPBildverarbeitung::MainFrame::EnableButtons()
 	BGrayScale->Enabled = true;
 	BScale->Enabled = true;
 	BAlphaBlend->Enabled = true;
+	BNegative->Enabled = true;
 	label9->Visible = true;
 	TSaturation->Enabled = true;
 	TBrightness->Enabled = true;
@@ -401,6 +422,28 @@ System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ 
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
 		}
+	}
+}
+
+// Button-Click-Event for the Button "Negativ"
+
+System::Void BMPBildverarbeitung::MainFrame::BNegative_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if (!IsProcessing) {
+		BUndo->Enabled = true;
+		IsProcessing = true;
+		ProgressBar->Visible = true;
+		ProgressBar->Style = ProgressBarStyle::Continuous;
+		ProgressBar->Style = ProgressBarStyle::Marquee;
+		BackgroundWorker^ bw = gcnew BackgroundWorker();
+
+		if (UndoImage != nullptr)
+			delete UndoImage;
+
+		UndoImage = new BMP(*BMPimage);
+		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwNegative_DoWork);
+		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
+		bw->RunWorkerAsync();
 	}
 }
 

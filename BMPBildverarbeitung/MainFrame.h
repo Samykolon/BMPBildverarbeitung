@@ -58,6 +58,8 @@ namespace BMPBildverarbeitung {
 			 Boolean IsProcessing;
 			 BMP *BMPimage;
 			 BMP *UndoImage;
+	private: System::Windows::Forms::Button^  BNegative;
+
 			 BMP *TempImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
@@ -163,6 +165,7 @@ namespace BMPBildverarbeitung {
 			this->BDark = (gcnew System::Windows::Forms::Button());
 			this->BAlphaBlend = (gcnew System::Windows::Forms::Button());
 			this->CDAlphaBlend = (gcnew System::Windows::Forms::ColorDialog());
+			this->BNegative = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -295,7 +298,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(1150, 141);
+			this->label1->Location = System::Drawing::Point(1150, 167);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(50, 13);
 			this->label1->TabIndex = 8;
@@ -304,7 +307,7 @@ namespace BMPBildverarbeitung {
 			// TBrightness
 			// 
 			this->TBrightness->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->TBrightness->Location = System::Drawing::Point(1153, 157);
+			this->TBrightness->Location = System::Drawing::Point(1153, 183);
 			this->TBrightness->Maximum = 40;
 			this->TBrightness->Name = L"TBrightness";
 			this->TBrightness->Size = System::Drawing::Size(194, 45);
@@ -316,7 +319,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(1150, 225);
+			this->label2->Location = System::Drawing::Point(1150, 251);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(52, 13);
 			this->label2->TabIndex = 10;
@@ -325,7 +328,7 @@ namespace BMPBildverarbeitung {
 			// TSaturation
 			// 
 			this->TSaturation->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->TSaturation->Location = System::Drawing::Point(1153, 241);
+			this->TSaturation->Location = System::Drawing::Point(1153, 267);
 			this->TSaturation->Maximum = 40;
 			this->TSaturation->Name = L"TSaturation";
 			this->TSaturation->Size = System::Drawing::Size(193, 45);
@@ -337,7 +340,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(1150, 185);
+			this->label3->Location = System::Drawing::Point(1150, 211);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(36, 13);
 			this->label3->TabIndex = 12;
@@ -347,7 +350,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(1242, 185);
+			this->label4->Location = System::Drawing::Point(1242, 211);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(21, 13);
 			this->label4->TabIndex = 13;
@@ -357,7 +360,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(1313, 185);
+			this->label5->Location = System::Drawing::Point(1313, 211);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(39, 13);
 			this->label5->TabIndex = 14;
@@ -366,7 +369,7 @@ namespace BMPBildverarbeitung {
 			// BApply
 			// 
 			this->BApply->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BApply->Location = System::Drawing::Point(1153, 331);
+			this->BApply->Location = System::Drawing::Point(1153, 357);
 			this->BApply->Name = L"BApply";
 			this->BApply->Size = System::Drawing::Size(193, 23);
 			this->BApply->TabIndex = 15;
@@ -378,7 +381,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(1150, 273);
+			this->label6->Location = System::Drawing::Point(1150, 299);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(36, 13);
 			this->label6->TabIndex = 16;
@@ -388,7 +391,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(1242, 273);
+			this->label7->Location = System::Drawing::Point(1242, 299);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(21, 13);
 			this->label7->TabIndex = 17;
@@ -398,7 +401,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->label8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(1313, 273);
+			this->label8->Location = System::Drawing::Point(1313, 299);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(39, 13);
 			this->label8->TabIndex = 18;
@@ -431,7 +434,7 @@ namespace BMPBildverarbeitung {
 			// ProgressBar
 			// 
 			this->ProgressBar->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->ProgressBar->Location = System::Drawing::Point(1153, 360);
+			this->ProgressBar->Location = System::Drawing::Point(1153, 386);
 			this->ProgressBar->MarqueeAnimationSpeed = 20;
 			this->ProgressBar->Name = L"ProgressBar";
 			this->ProgressBar->Size = System::Drawing::Size(193, 21);
@@ -443,7 +446,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->BUndo->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->BUndo->Enabled = false;
-			this->BUndo->Location = System::Drawing::Point(1153, 302);
+			this->BUndo->Location = System::Drawing::Point(1153, 328);
 			this->BUndo->Name = L"BUndo";
 			this->BUndo->Size = System::Drawing::Size(193, 23);
 			this->BUndo->TabIndex = 22;
@@ -473,11 +476,23 @@ namespace BMPBildverarbeitung {
 			this->BAlphaBlend->UseVisualStyleBackColor = true;
 			this->BAlphaBlend->Click += gcnew System::EventHandler(this, &MainFrame::BAlphaBlend_Click);
 			// 
+			// BNegative
+			// 
+			this->BNegative->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->BNegative->Location = System::Drawing::Point(1146, 117);
+			this->BNegative->Name = L"BNegative";
+			this->BNegative->Size = System::Drawing::Size(100, 23);
+			this->BNegative->TabIndex = 25;
+			this->BNegative->Text = L"Negativ";
+			this->BNegative->UseVisualStyleBackColor = true;
+			this->BNegative->Click += gcnew System::EventHandler(this, &MainFrame::BNegative_Click);
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->Controls->Add(this->BNegative);
 			this->Controls->Add(this->BAlphaBlend);
 			this->Controls->Add(this->BDark);
 			this->Controls->Add(this->BUndo);
@@ -526,6 +541,7 @@ namespace BMPBildverarbeitung {
 	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwDarker_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwAlphaBlend_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwNegative_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwUndo_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -537,6 +553,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void BUndo_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BDark_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BAlphaBlend_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BNegative_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 	private: Void DisableButtons();
@@ -547,6 +564,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+
 
 };
 }
