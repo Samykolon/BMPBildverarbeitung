@@ -58,10 +58,10 @@ void Filters::TurnToGrayScaleOptimized(BMP& in)
 			resultHigh16 = _mm_srli_epi16(resultHigh16, 8);
 			__m128i grayvalue = _mm_hadd_epi16(resultLow16, resultHigh16);
 			grayvalue = _mm_hadd_epi16(grayvalue, zeroes);
-
-			
-		
-			
+			grayvalue = _mm_packus_epi16(grayvalue, grayvalue);
+			grayvalue = _mm_unpacklo_epi8(grayvalue, grayvalue);
+			grayvalue = _mm_unpacklo_epi8(grayvalue, grayvalue);
+			_mm_storeu_si128(p, grayvalue);						
 		}
 	}
 	
