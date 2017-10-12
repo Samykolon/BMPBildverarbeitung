@@ -49,17 +49,19 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::ProgressBar^  ProgressBar;
 	private: System::Windows::Forms::Button^  BUndo;
+	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
+	private: System::Windows::Forms::Button^  BDark;
 			
 			 String^ FilePath;
 			 Boolean IsProcessing;
 			 BMP *BMPimage;
 			 BMP *UndoImage;
-	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 			 BMP *TempImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
 			 property double ValueFactor;
 			 property double SaturationFactor;
+			 property unsigned char DarkenFactor;
 			 
 			 
 
@@ -133,6 +135,7 @@ namespace BMPBildverarbeitung {
 			this->schließenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hilfeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->PBMain = (gcnew System::Windows::Forms::PictureBox());
 			this->BSobel = (gcnew System::Windows::Forms::Button());
 			this->BGauss = (gcnew System::Windows::Forms::Button());
@@ -155,7 +158,7 @@ namespace BMPBildverarbeitung {
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->ProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->BUndo = (gcnew System::Windows::Forms::Button());
-			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->BDark = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -219,6 +222,13 @@ namespace BMPBildverarbeitung {
 			this->hilfeToolStripMenuItem->Name = L"hilfeToolStripMenuItem";
 			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
+			// 
+			// überToolStripMenuItem
+			// 
+			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
+			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->überToolStripMenuItem->Text = L"Über...";
+			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
 			// PBMain
 			// 
@@ -436,18 +446,22 @@ namespace BMPBildverarbeitung {
 			this->BUndo->UseVisualStyleBackColor = true;
 			this->BUndo->Click += gcnew System::EventHandler(this, &MainFrame::BUndo_Click);
 			// 
-			// überToolStripMenuItem
+			// BDark
 			// 
-			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->überToolStripMenuItem->Text = L"Über...";
-			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
+			this->BDark->Location = System::Drawing::Point(1145, 87);
+			this->BDark->Name = L"BDark";
+			this->BDark->Size = System::Drawing::Size(100, 23);
+			this->BDark->TabIndex = 23;
+			this->BDark->Text = L"Verdunklern";
+			this->BDark->UseVisualStyleBackColor = true;
+			this->BDark->Click += gcnew System::EventHandler(this, &MainFrame::BDark_Click);
 			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1359, 731);
+			this->Controls->Add(this->BDark);
 			this->Controls->Add(this->BUndo);
 			this->Controls->Add(this->ProgressBar);
 			this->Controls->Add(this->label9);
@@ -492,6 +506,7 @@ namespace BMPBildverarbeitung {
 	private: void bwGauss_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwGrayScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwScale_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
+	private: void bwDarker_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	private: void bwUndo_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e);
 	
 	private: System::Void beendenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -501,11 +516,13 @@ namespace BMPBildverarbeitung {
 	private: System::Void BGrayScale_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BApply_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void BUndo_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void BDark_Click(System::Object^  sender, System::EventArgs^  e);
 
 	private: Void UpdatePicture();
 
 	private: System::Void bMPLadenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMPSpeichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+
 };
 }

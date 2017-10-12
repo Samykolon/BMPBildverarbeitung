@@ -151,6 +151,7 @@
     <ClCompile Include="DarkenSIMD.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="DarkerForm.cpp" />
     <ClCompile Include="HSVandBack.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -191,6 +192,9 @@
     <ClInclude Include="CalculateNegative.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="DarkenSIMD.h" />
+    <ClInclude Include="DarkerForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="HSVandBack.h" />
     <ClInclude Include="ApplySobel.h" />
     <ClInclude Include="BMPScale.h">
@@ -219,6 +223,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DarkerForm.resx">
+      <DependentUpon>DarkerForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageResources.resx" />
     <EmbeddedResource Include="MainFrame.resx">
