@@ -569,6 +569,21 @@ System::Void BMPBildverarbeitung::MainFrame::TSaturation_Scroll(System::Object ^
 	TT->SetToolTip(TSaturation, (value.ToString()) + "%");
 }
 
+// Control PictureBox SizeMode
+
+System::Void BMPBildverarbeitung::MainFrame::MainFrame_SizeChanged(System::Object ^ sender, System::EventArgs ^ e)
+{
+	int PBWidht = PBMain->Size.Width;
+	int PBHeight = PBMain->Size.Height;
+	int PictureWidth = BMPimage->TellWidth();
+	int PictureHeight = BMPimage->TellHeight();
+
+	if ((PictureWidth > PBWidht) || (PictureHeight > PBHeight))             // Preventing the PictureBox-Zoom from zooming an image smaller than the PictureBox itself
+		PBMain->SizeMode = PictureBoxSizeMode::Zoom;
+	else
+		PBMain->SizeMode = PictureBoxSizeMode::Normal;
+}
+
 // Closing form
 
 inline System::Void BMPBildverarbeitung::MainFrame::beendenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)

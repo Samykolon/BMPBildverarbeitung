@@ -517,6 +517,7 @@ namespace BMPBildverarbeitung {
 			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"BMP - Bildverarbeitung";
+			this->SizeChanged += gcnew System::EventHandler(this, &MainFrame::MainFrame_SizeChanged);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->EndInit();
@@ -563,5 +564,6 @@ namespace BMPBildverarbeitung {
 
 	private: System::Void TBrightness_Scroll(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void TSaturation_Scroll(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void MainFrame_SizeChanged(System::Object^  sender, System::EventArgs^  e);
 };
 }
