@@ -75,11 +75,9 @@ namespace BMPBildverarbeitung {
 			PBMain->Visible = false;
 			PBOriginal->Visible = false;
 			DisableButtons();
-			//BMPimage->ReadFromFile("Initialimage.bmp");
 			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 			Saved = true;
-			//FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
 			ProgressBar->Visible = false;
 
@@ -475,7 +473,7 @@ namespace BMPBildverarbeitung {
 			// BNegative
 			// 
 			this->BNegative->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->BNegative->Location = System::Drawing::Point(1146, 117);
+			this->BNegative->Location = System::Drawing::Point(1145, 117);
 			this->BNegative->Name = L"BNegative";
 			this->BNegative->Size = System::Drawing::Size(100, 23);
 			this->BNegative->TabIndex = 25;
