@@ -32,10 +32,11 @@ void Filters::TurnToGrayScaleOptimized(BMP& in) {
 	const __m128i zeroes = _mm_setzero_si128();
 	int height4 = (height / 4) * 4;
 
-
-	for (int i = 0; i < width; i++) { //Iterate through every line because memory of RGBApixel** Pixels is not contiguous
+	//Iterate through every line because memory of RGBApixel** Pixels is not contiguous
+	for (int i = 0; i < width; i++) { 
 		__m128i* p = reinterpret_cast<__m128i*>(in.Pixels[i]);
-		for (int j = 0; j < height4; j += 4, p++) { //Iterate through memory directly because it's faster
+		//Iterate through memory directly because it's faster
+		for (int j = 0; j < height4; j += 4, p++) { 
 			const __m128i currentPixels = _mm_lddqu_si128(p);
 			const __m128i pixelsLow16 = _mm_unpacklo_epi8(currentPixels, zeroes); //unpacked registers contain 2 pixels
 			const __m128i pixelsHigh16 = _mm_unpackhi_epi8(currentPixels, zeroes);
