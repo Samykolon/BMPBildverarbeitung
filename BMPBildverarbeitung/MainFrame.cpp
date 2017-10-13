@@ -21,6 +21,8 @@
 // Utilities
 #include "Utilities.h"
 
+//#define BENCHMARK
+
 
 using namespace System;
 using namespace System::Windows::Forms;

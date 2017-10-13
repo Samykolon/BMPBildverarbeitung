@@ -35,7 +35,7 @@ void Filters::ApplySobel(BMP& image)
 		}
 	}
 
-	image.~BMP(); //Thanks goes out to EasyBMP for not having a copy constructor
+	image.~BMP(); 
 	new(&image) BMP(out);	
 	
 }
