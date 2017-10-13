@@ -61,7 +61,7 @@ namespace BMPBildverarbeitung {
 			 property int ScaleNewHeight;
 			 property double ValueFactor;
 			 property double SaturationFactor;
-			 property unsigned char DarkenFactor;		 
+			 property unsigned char DarkenFactor;
 
 	public:
 

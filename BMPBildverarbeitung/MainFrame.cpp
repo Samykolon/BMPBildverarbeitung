@@ -328,7 +328,6 @@ Void BMPBildverarbeitung::MainFrame::EnableButtons()
 System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
-		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
@@ -336,6 +335,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 		this->Cursor = Cursors::AppStarting;
 		ValueFactor = TBrightness->Value;
 		SaturationFactor = TSaturation->Value;
+		DisableButtons();
 		if (ValueFactor < 20) {
 			ValueFactor /= 20;
 		}
