@@ -5,9 +5,7 @@
 namespace Filters {
 	template<size_t rows>
 	void ApplyConvolutionRGB(BMP& image, double(&convolution)[rows][rows]) {
-
-
-
+		
 		BMP out(image);
 
 		int edgeGap = (rows - 1) / 2; //the width of the edge that is not considered

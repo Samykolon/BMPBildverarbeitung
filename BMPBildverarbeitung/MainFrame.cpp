@@ -148,7 +148,10 @@ void BMPBildverarbeitung::MainFrame::bwNegative_DoWork(System::Object ^ sender, 
 	Filters::CalculateNegative(*BMPimage);
 	s->Stop();
 	File::AppendAllText((String^)L"out.txt", "Negative: " + s->Elapsed.ToString() + Environment::NewLine);
+	s->Start();
 	UpdatePicture();
+	File::AppendAllText((String^)L"out.txt", "UpdatePicture: " + s->Elapsed.ToString() + Environment::NewLine);
+
 }
 
 // BackgroundWorker for the Undo-Process
