@@ -21,5 +21,4 @@ void Filters::CalculateNegative(BMP & image)
 			image(i, j)->Green = 255 - image(i, j)->Green;
 		}
 	}
-
 }

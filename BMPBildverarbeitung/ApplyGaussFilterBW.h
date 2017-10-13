@@ -1,8 +1,6 @@
 #pragma once
 #include "EasyBMP.h"
 
-namespace Filters {	
-	
+namespace Filters {		
 	void ApplyGaussFilterBW(BMP& image);
-
 }
