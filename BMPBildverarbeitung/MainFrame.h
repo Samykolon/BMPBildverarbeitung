@@ -207,7 +207,7 @@ namespace BMPBildverarbeitung {
 			// 
 			this->schlieﬂenToolStripMenuItem->Name = L"schlieﬂenToolStripMenuItem";
 			this->schlieﬂenToolStripMenuItem->Size = System::Drawing::Size(162, 22);
-			this->schlieﬂenToolStripMenuItem->Text = L"BMP Schlieﬂen";
+			this->schlieﬂenToolStripMenuItem->Text = L"BMP schlieﬂen";
 			this->schlieﬂenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schlieﬂenToolStripMenuItem_Click);
 			// 
 			// beendenToolStripMenuItem
