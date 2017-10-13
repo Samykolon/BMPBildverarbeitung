@@ -62,6 +62,7 @@ namespace BMPBildverarbeitung {
 			 property double ValueFactor;
 			 property double SaturationFactor;
 			 property unsigned char DarkenFactor;
+			 property Boolean Saved;
 
 	public:
 
@@ -77,7 +78,7 @@ namespace BMPBildverarbeitung {
 			//BMPimage->ReadFromFile("Initialimage.bmp");
 			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
-			
+			Saved = true;
 			//FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
 			ProgressBar->Visible = false;

@@ -141,6 +141,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="BMPClosePrompt.cpp" />
     <ClCompile Include="CalculateNegative.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
@@ -189,6 +190,9 @@
     <ClInclude Include="ApplyConvolutionRGB.h" />
     <ClInclude Include="ApplyGaussRGB.h" />
     <ClInclude Include="ApplyGaussFilterBW.h" />
+    <ClInclude Include="BMPClosePrompt.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="CalculateNegative.h" />
     <ClInclude Include="ChangeHSVValue.h" />
     <ClInclude Include="DarkenSIMD.h" />
@@ -223,6 +227,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BMPClosePrompt.resx">
+      <DependentUpon>BMPClosePrompt.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DarkerForm.resx">
       <DependentUpon>DarkerForm.h</DependentUpon>

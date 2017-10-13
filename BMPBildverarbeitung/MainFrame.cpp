@@ -1,6 +1,7 @@
 #include "MainFrame.h"
 #include "AboutForm.h"
 #include "DarkerForm.h"
+#include "BMPClosePrompt.h"
 #include <msclr\marshal.h>
 #include <chrono>
 #include <math.h>
@@ -183,6 +184,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = true;
+		Saved = false;
 	}
 }
 
@@ -204,6 +206,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		Saved = false;
 	}
 }
 
@@ -236,6 +239,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
 			BUndo->Enabled = true;
+			Saved = false;
 		}
 	}
 
@@ -260,6 +264,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Obj
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = true;
+		Saved = false;
 	}
 }
 
@@ -363,6 +368,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = true;
+		Saved = false;
 		TBrightness->Value = 20;
 		TSaturation->Value = 20;
 
@@ -384,6 +390,7 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = false;
+		Saved = true;
 	}
 }
 
@@ -414,6 +421,7 @@ System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
 			BUndo->Enabled = true;
+			Saved = false;
 		}
 	}
 }
@@ -442,6 +450,7 @@ System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ 
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
 			BUndo->Enabled = true;
+			Saved = false;
 		}
 	}
 }
@@ -467,6 +476,7 @@ System::Void BMPBildverarbeitung::MainFrame::BNegative_Click(System::Object ^ se
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
 		BUndo->Enabled = true;
+		Saved = false;
 	}
 }
 
@@ -515,6 +525,7 @@ System::Void BMPBildverarbeitung::MainFrame::bMPSpeichernToolStripMenuItem_Click
 			FilePath = SaveFileDialog->FileName;
 			msclr::interop::marshal_context context;
 			BMPimage->WriteToFile(context.marshal_as<const char*>(FilePath));
+			Saved = true;
 		}
 
 	}
@@ -532,9 +543,45 @@ System::Void BMPBildverarbeitung::MainFrame::überToolStripMenuItem_Click(System:
 
 System::Void BMPBildverarbeitung::MainFrame::schließenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	PBMain->Image = nullptr;
-	PBOriginal->Image = nullptr;
-	DisableButtons();
+	if (Saved) {
+		PBMain->Image = nullptr;
+		PBOriginal->Image = nullptr;
+		DisableButtons();
+	}
+	else {
+
+		BMPClosePrompt^ CP = gcnew BMPClosePrompt();
+		CP->ShowDialog();
+		if (CP->DialogResult == ::DialogResult::Yes) {
+
+			SaveFileDialog->DefaultExt = L".bmp";
+			SaveFileDialog->AddExtension;
+			SaveFileDialog->Filter = L"BMP-Datei (*.bmp)|*.bmp";
+			if (SaveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				if (BMPimage != nullptr)
+				{
+					FilePath = SaveFileDialog->FileName;
+					msclr::interop::marshal_context context;
+					BMPimage->WriteToFile(context.marshal_as<const char*>(FilePath));
+					Saved = true;
+					PBMain->Image = nullptr;
+					PBOriginal->Image = nullptr;
+					DisableButtons();
+				}
+			}
+		}
+		
+		else if (CP->DialogResult == ::DialogResult::No) {
+
+			PBMain->Image = nullptr;
+			PBOriginal->Image = nullptr;
+			DisableButtons();
+
+		}
+
+
+	}
 }
 
 // Tooltip for the Trackbar "Helligkeit"
