@@ -206,6 +206,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object 
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGauss_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		BUndo->Enabled = true;
 		Saved = false;
 	}
 }
