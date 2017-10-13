@@ -203,6 +203,7 @@
     <ClInclude Include="BMPScale.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ScaleWithNN.h" />
     <ClInclude Include="TurnGrayScale.h" />
     <ClInclude Include="Convert.h" />
@@ -243,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Icon.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
