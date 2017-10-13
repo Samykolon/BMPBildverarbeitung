@@ -123,6 +123,7 @@ namespace BMPBildverarbeitung {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainFrame::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bMPLadenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -510,10 +511,10 @@ namespace BMPBildverarbeitung {
 			this->Controls->Add(this->BSobel);
 			this->Controls->Add(this->PBMain);
 			this->Controls->Add(this->menuStrip1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->menuStrip1;
 			this->MinimumSize = System::Drawing::Size(600, 700);
 			this->Name = L"MainFrame";
-			this->ShowIcon = false;
 			this->Text = L"BMP - Bildverarbeitung";
 			this->SizeChanged += gcnew System::EventHandler(this, &MainFrame::MainFrame_SizeChanged);
 			this->menuStrip1->ResumeLayout(false);
