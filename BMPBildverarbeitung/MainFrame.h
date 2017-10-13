@@ -25,11 +25,7 @@ namespace BMPBildverarbeitung {
 	/// </summary>
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
-		Assembly^ assembly = Assembly::GetExecutingAssembly();
-		AssemblyName^ assemblyName = assembly->GetName();
-		ResourceManager^ rm = gcnew ResourceManager(assemblyName->Name + ".ImageResources", assembly);
 		
-
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::TrackBar^  TBrightness;
 
@@ -75,11 +71,14 @@ namespace BMPBildverarbeitung {
 			InitializeComponent();
 	
 			BMPimage = new BMP();
-			BMPimage->ReadFromFile("Initialimage.bmp");
+			PBMain->Visible = false;
+			PBOriginal->Visible = false;
+			DisableButtons();
+			//BMPimage->ReadFromFile("Initialimage.bmp");
 			PBMain->Image = ConvertBitmap::ToBitmap(BMPimage);
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 			
-			FilePath = L"Initialimage.bmp";
+			//FilePath = L"Initialimage.bmp";
 			IsProcessing = false;
 			ProgressBar->Visible = false;
 

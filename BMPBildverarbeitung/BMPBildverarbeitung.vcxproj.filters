@@ -146,7 +146,7 @@
     <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="InitialImage.bmp">
+    <Image Include="Image.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

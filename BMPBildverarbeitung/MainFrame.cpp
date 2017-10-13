@@ -490,6 +490,8 @@ System::Void BMPBildverarbeitung::MainFrame::bMPLadenToolStripMenuItem_Click(Sys
 			PBOriginal->Image = ConvertBitmap::ToBitmap(BMPimage);
 			BUndo->Enabled = false;
 			EnableButtons();
+			PBMain->Visible = true;
+			PBOriginal->Visible = true;
 		}
 	}
 	catch (Exception^ ex)

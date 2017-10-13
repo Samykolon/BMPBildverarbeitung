@@ -241,7 +241,7 @@
     <Text Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="InitialImage.bmp" />
+    <Image Include="Image.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
