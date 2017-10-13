@@ -179,6 +179,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwSobel_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		BUndo->Enabled = true;
 	}
 }
 
@@ -231,6 +232,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwScale_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
+			BUndo->Enabled = true;
 		}
 	}
 
@@ -254,6 +256,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Obj
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwGrayScale_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		BUndo->Enabled = true;
 	}
 }
 
@@ -356,7 +359,7 @@ System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sende
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwHSV_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
-
+		BUndo->Enabled = true;
 		TBrightness->Value = 20;
 		TSaturation->Value = 20;
 
@@ -407,6 +410,7 @@ System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwDarker_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
+			BUndo->Enabled = true;
 		}
 	}
 }
@@ -434,6 +438,7 @@ System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ 
 			bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwAlphaBlend_DoWork);
 			bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 			bw->RunWorkerAsync();
+			BUndo->Enabled = true;
 		}
 	}
 }
@@ -458,6 +463,7 @@ System::Void BMPBildverarbeitung::MainFrame::BNegative_Click(System::Object ^ se
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwNegative_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
 		bw->RunWorkerAsync();
+		BUndo->Enabled = true;
 	}
 }
 
