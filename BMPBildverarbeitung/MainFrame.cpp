@@ -55,10 +55,7 @@ void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWork
 
 inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	Filters::ChangeHSVValue(*BMPimage, 1, ValueFactor, SaturationFactor);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "HSV-Change: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -66,10 +63,7 @@ inline void MainFrame::bwHSV_DoWork(System::Object ^ sender, System::ComponentMo
 
 void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	Filters::ApplySobel(*BMPimage);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Sobel: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -77,10 +71,7 @@ void BMPBildverarbeitung::MainFrame::bwSobel_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	Filters::ApplyGaussFilterRGB(*BMPimage);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Gauss: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -88,16 +79,7 @@ void BMPBildverarbeitung::MainFrame::bwGauss_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-
-	auto s = Stopwatch::StartNew();
-	RGBApixel colorToBlend;
-	colorToBlend.Alpha = 127;
-	colorToBlend.Blue = 0;
-	colorToBlend.Green = 0;
-	colorToBlend.Red = 255;
 	Filters::TurnToGrayScaleOptimized(*BMPimage);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Grayscale: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -105,12 +87,7 @@ void BMPBildverarbeitung::MainFrame::bwGrayScale_DoWork(System::Object ^ sender,
 
 void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	Utilities::Benchmark bench;
-	
-	bench.StartTimer("SIMD Scale");
-	Filters::ScaleWithNNSIMD(*BMPimage, ScaleNewHeight, ScaleNewWidth);
-	bench.StopTimer();
-	
+	Filters::ScaleWithNNSIMD(*BMPimage, ScaleNewHeight, ScaleNewWidth);	
 	UpdatePicture();
 
 }
@@ -119,10 +96,7 @@ void BMPBildverarbeitung::MainFrame::bwScale_DoWork(System::Object ^ sender, Sys
 
 void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	Filters::DarkenSIMD(*BMPimage, DarkenFactor);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "DarkenSIMD: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -130,7 +104,6 @@ void BMPBildverarbeitung::MainFrame::bwDarker_DoWork(System::Object ^ sender, Sy
 
 void BMPBildverarbeitung::MainFrame::bwAlphaBlend_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	RGBApixel AlphaBlendPixel;
 	Color c = CDAlphaBlend->Color;
 	AlphaBlendPixel.Alpha = 78;
@@ -138,8 +111,6 @@ void BMPBildverarbeitung::MainFrame::bwAlphaBlend_DoWork(System::Object ^ sender
 	AlphaBlendPixel.Green = c.G;
 	AlphaBlendPixel.Red = c.R;
 	Filters::AlphaBlend(*BMPimage, AlphaBlendPixel);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "AlphaBlend: " + s->Elapsed.ToString() + Environment::NewLine);
 	UpdatePicture();
 }
 
@@ -147,13 +118,8 @@ void BMPBildverarbeitung::MainFrame::bwAlphaBlend_DoWork(System::Object ^ sender
 
 void BMPBildverarbeitung::MainFrame::bwNegative_DoWork(System::Object ^ sender, System::ComponentModel::DoWorkEventArgs ^ e)
 {
-	auto s = Stopwatch::StartNew();
 	Filters::CalculateNegative(*BMPimage);
-	s->Stop();
-	File::AppendAllText((String^)L"out.txt", "Negative: " + s->Elapsed.ToString() + Environment::NewLine);
-	s->Start();
 	UpdatePicture();
-	File::AppendAllText((String^)L"out.txt", "UpdatePicture: " + s->Elapsed.ToString() + Environment::NewLine);
 
 }
 
