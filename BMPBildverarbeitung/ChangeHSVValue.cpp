@@ -1,7 +1,6 @@
 #include "ChangeHSVValue.h"
 #include "EasyBMP.h"
 #include "HSVPixel.h"
-#include "HSVandBack.h"
 #include "TurnGrayScale.h"
 
 void Filters::ChangeHSVValue(BMP& image, double hueFactor, double valueFactor, double saturationFactor)

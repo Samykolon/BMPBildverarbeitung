@@ -27,9 +27,6 @@
     <ClCompile Include="HSVPixel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="HSVandBack.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ChangeHSVValue.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
     <ClInclude Include="HSVPixel.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="HSVandBack.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="ChangeHSVValue.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -148,18 +142,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ToDo.txt" />
-    <Text Include="out.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Image.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ImageResources.resx">
-      <Filter>Ressourcendateien</Filter>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainFrame.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
@@ -170,6 +152,9 @@
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="DarkerForm.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BMPClosePrompt.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
   </ItemGroup>

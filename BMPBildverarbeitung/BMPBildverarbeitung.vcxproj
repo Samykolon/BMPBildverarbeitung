@@ -157,10 +157,6 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="DarkerForm.cpp" />
-    <ClCompile Include="HSVandBack.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
-    </ClCompile>
     <ClCompile Include="HSVPixel.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
@@ -203,7 +199,6 @@
     <ClInclude Include="DarkerForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="HSVandBack.h" />
     <ClInclude Include="ApplySobel.h" />
     <ClInclude Include="BMPScale.h">
       <FileType>CppForm</FileType>
@@ -238,7 +233,6 @@
     <EmbeddedResource Include="DarkerForm.resx">
       <DependentUpon>DarkerForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageResources.resx" />
     <EmbeddedResource Include="MainFrame.resx">
       <DependentUpon>MainFrame.h</DependentUpon>
       <SubType>Designer</SubType>
@@ -246,13 +240,6 @@
     <EmbeddedResource Include="BMPScale.resx">
       <DependentUpon>BMPScale.h</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="out.txt" />
-    <Text Include="ToDo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Image.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

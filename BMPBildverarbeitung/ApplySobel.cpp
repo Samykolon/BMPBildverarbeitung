@@ -12,7 +12,8 @@ void Filters::ApplySobel(BMP& image)
 	int width = image.TellWidth();
 	int height = image.TellHeight();
 
-	for (int i = 1; i < width - 1; i++) //Iterate through all image pixels without edges
+	//Iterate through all image pixels without edges
+	for (int i = 1; i < width - 1; i++) 
 	{
 		for (int j = 1; j < height - 1; j++)
 		{
@@ -35,7 +36,7 @@ void Filters::ApplySobel(BMP& image)
 		}
 	}
 
-	image.~BMP(); //Thanks goes out to EasyBMP for not having a copy constructor
+	image.~BMP(); 
 	new(&image) BMP(out);	
 	
 }

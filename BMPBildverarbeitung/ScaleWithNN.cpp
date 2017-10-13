@@ -8,17 +8,15 @@ void Filters::ScaleWithNN(BMP& image, int newHeight, int newWidth)
 	BMP out;
 	out.SetSize(newWidth, newHeight);
 
-	double xMult = newWidth / (double)image.TellWidth();
-	double yMult = newHeight / (double)image.TellHeight();
+	double xScale = newWidth / (double)image.TellWidth();
+	double yScale = newHeight / (double)image.TellHeight();
 
 
 	for (int i = 0; i < newWidth; i++)
 	{
 		for (int j = 0; j < newHeight; j++)
 		{
-
-			*out(i, j) = *image((int)(i / xMult + 0.5),(int)(j / yMult + 0.5));
-
+			*out(i, j) = *image((int)(i / xScale), (int)(j / yScale));
 		}
 	}
 	image.~BMP();
@@ -32,24 +30,24 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	BMP out;
 	out.SetSize(newWidth, newHeight);
 
-	int newWidth4 = (newWidth / 4) * 4 - 4;
+	int newDivisibleWidth = (newWidth / 4) * 4 - 4;
 
-	int newHeight4 = (newHeight / 4) * 4 - 4;
+	int newDivisibleHeight = (newHeight / 4) * 4 - 4;
 
 	// Define SIMD to enable SIMD
 #define SIMD
 #ifndef SIMD
-	newWidth4 = 0;
-	newHeight4 = 0;
+	newDivisibleWidth = 0;
+	newDivisibleHeight = 0;
 #endif
 #undef SIMD
 
-	float xMult = newWidth / (float)image.TellWidth();
-	float yMult = newHeight / (float)image.TellHeight();
+	float xScale = newWidth / (float)image.TellWidth();
+	float yScale = newHeight / (float)image.TellHeight();
 
 	// Multiplier vector
-	__m128 xMultiplier = _mm_set1_ps(xMult);
-	__m128 yMultiplier = _mm_set1_ps(yMult);
+	__m128 xScale128 = _mm_set1_ps(xScale);
+	__m128 yScale128 = _mm_set1_ps(yScale);
 
 	__m128 counter = _mm_setr_ps(0, 1, 2, 3);
 
@@ -58,7 +56,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	_int32 *bufferY = new _int32[newHeight];
 
 	// Generate Lookup for X direction with SIMD instructions
-	for (int x = 0; x < newWidth4; x += 4)
+	for (int x = 0; x < newDivisibleWidth; x += 4)
 	{
 		// 128bit vector with 4 * 32bit x variables initialized
 		__m128 coordsX = _mm_set1_ps(x);
@@ -66,10 +64,10 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		// Add iteration + 0..3
 		coordsX = _mm_add_ps(coordsX, counter);
 
-		// position / multiplier
-		coordsX = _mm_div_ps(coordsX, xMultiplier);
+		// position / xscale
+		coordsX = _mm_div_ps(coordsX, xScale128);
 
-		// position + 0.5 and converted to integer vector
+		// Convert to integer vector
 		__m128i coordsXi = _mm_cvttps_epi32(coordsX);
 
 		// Store in buffer
@@ -77,13 +75,13 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	}
 
 	// Iterate through the rest of x
-	for (int x = newWidth4; x < newWidth; x++)
+	for (int x = newDivisibleWidth; x < newWidth; x++)
 	{
-		bufferX[x] = x / xMult;
+		bufferX[x] = x / xScale;
 	}
 
 	// Generate Lookup for Y direction with SIMD instructions
-	for (int y = 0; y < newHeight4; y += 4)
+	for (int y = 0; y < newDivisibleHeight; y += 4)
 	{
 		// 128bit vector with 4 * 32bit x variables initialized
 		__m128 coordsY = _mm_set1_ps(y);
@@ -91,10 +89,10 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 		// Add iteration + 0..3
 		coordsY = _mm_add_ps(coordsY, counter);
 
-		// position / multiplier
-		coordsY = _mm_div_ps(coordsY, yMultiplier);
+		// position / yscale
+		coordsY = _mm_div_ps(coordsY, yScale128);
 
-		// position + 0.5 and converted to integer vector
+		// converted to integer vector
 		__m128i coordsYi = _mm_cvttps_epi32(coordsY);
 
 		// Store in buffer
@@ -102,17 +100,16 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 	}
 
 	// Iterate through the rest of y
-	for (int y = newHeight4; y < newHeight; y++)
+	for (int y = newDivisibleHeight; y < newHeight; y++)
 	{
-		bufferY[y] = y / yMult;
+		bufferY[y] = y / yScale;
 	}
 
 	for (int x = 0; x < newWidth; x++)
 	{
 		int X = bufferX[x];
-
 		__m128i* store = (__m128i*)(out.Pixels[x]);
-		for (int y = 0; y < newHeight4; y += 4, store++)
+		for (int y = 0; y < newDivisibleHeight; y += 4, store++)
 		{
 			__m128i pixels = _mm_set_epi32(*(__int32*)&image.Pixels[X][bufferY[y + 3]],
 				*(__int32*)&image.Pixels[X][bufferY[y + 2]],
@@ -121,7 +118,7 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 			_mm_storeu_si128(store, pixels);
 		}
 
-		for (int y = newHeight4; y < newHeight; y++)
+		for (int y = newDivisibleHeight; y < newHeight; y++)
 		{
 			out.Pixels[x][y] = image.Pixels[X][bufferY[y]];
 		}
