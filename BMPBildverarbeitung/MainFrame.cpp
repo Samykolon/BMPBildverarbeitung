@@ -44,6 +44,8 @@ void BMPBildverarbeitung::MainFrame::RunWorkerCompleted(Object ^ sender, RunWork
 {
 	IsProcessing = false;
 	ProgressBar->Visible = false;
+	this->Cursor = Cursors::Default;
+	EnableButtons();
 }
 
 // BackgroundWorker for the HSV-Value-Change-Process
@@ -164,11 +166,12 @@ void BMPBildverarbeitung::MainFrame::bwUndo_DoWork(System::Object ^ sender, Syst
 inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
-		BUndo->Enabled = true;
+		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		this->Cursor = Cursors::AppStarting;
 		if (UndoImage != nullptr)
 			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
@@ -184,11 +187,12 @@ inline System::Void BMPBildverarbeitung::MainFrame::BSobel_Click(System::Object 
 inline System::Void BMPBildverarbeitung::MainFrame::BGauss_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
-		BUndo->Enabled = true;
+		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		this->Cursor = Cursors::AppStarting;
 		if (UndoImage != nullptr)
 			delete UndoImage;
 		UndoImage = new BMP(*BMPimage);
@@ -210,7 +214,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 
 		if (sc->ShowDialog(this) == ::DialogResult::OK)
 		{
-			BUndo->Enabled = true;
+			DisableButtons();
 			oldWidth = floor(sc->Width);
 			oldHeight = floor(sc->Height);
 			ScaleNewWidth = System::Convert::ToInt32(oldWidth);
@@ -219,6 +223,7 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
+			this->Cursor = Cursors::AppStarting;
 			if (UndoImage != nullptr)
 				delete UndoImage;
 			UndoImage = new BMP(*BMPimage);
@@ -236,11 +241,12 @@ inline System::Void BMPBildverarbeitung::MainFrame::BScale_Click(System::Object 
 inline System::Void BMPBildverarbeitung::MainFrame::BGrayScale_Click(System::Object ^ sender, System::EventArgs ^ e) {
 
 	if (!IsProcessing) {
-		BUndo->Enabled = true;
+		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		this->Cursor = Cursors::AppStarting;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		if (UndoImage != nullptr)
 			delete UndoImage;
@@ -279,6 +285,8 @@ Void BMPBildverarbeitung::MainFrame::DisableButtons()
 	BGauss->Enabled = false;
 	BGrayScale->Enabled = false;
 	BScale->Enabled = false;
+	bMPSpeichernToolStripMenuItem->Enabled = false;
+	schließenToolStripMenuItem->Enabled = false;
 	BAlphaBlend->Enabled = false;
 	BNegative->Enabled = false;
 	label9->Visible = false;
@@ -303,6 +311,8 @@ Void BMPBildverarbeitung::MainFrame::EnableButtons()
 	label9->Visible = true;
 	TSaturation->Enabled = true;
 	TBrightness->Enabled = true;
+	bMPSpeichernToolStripMenuItem->Enabled = true;
+	schließenToolStripMenuItem->Enabled = true;
 }
 
 
@@ -312,12 +322,12 @@ Void BMPBildverarbeitung::MainFrame::EnableButtons()
 System::Void BMPBildverarbeitung::MainFrame::BApply_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
-		BUndo->Enabled = true;
+		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
-
+		this->Cursor = Cursors::AppStarting;
 		ValueFactor = TBrightness->Value;
 		SaturationFactor = TSaturation->Value;
 		if (ValueFactor < 20) {
@@ -362,6 +372,7 @@ System::Void BMPBildverarbeitung::MainFrame::BUndo_Click(System::Object ^ sender
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		this->Cursor = Cursors::AppStarting;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 		bw->DoWork += gcnew DoWorkEventHandler(this, &MainFrame::bwUndo_DoWork);
 		bw->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &BMPBildverarbeitung::MainFrame::RunWorkerCompleted);
@@ -380,13 +391,14 @@ System::Void BMPBildverarbeitung::MainFrame::BDark_Click(System::Object ^ sender
 
 		if (DF->ShowDialog(this) == ::DialogResult::OK)
 		{
-			BUndo->Enabled = true;
+			DisableButtons();
 			DarkenFactor = DF->TValue;
 			IsProcessing = true;
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
-			
+			this->Cursor = Cursors::AppStarting;
+
 			if (UndoImage != nullptr)
 				delete UndoImage;
 
@@ -407,11 +419,12 @@ System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ 
 
 		if (CDAlphaBlend->ShowDialog() == ::DialogResult::OK)
 		{
-			BUndo->Enabled = true;
+			DisableButtons();
 			IsProcessing = true;
 			ProgressBar->Visible = true;
 			ProgressBar->Style = ProgressBarStyle::Continuous;
 			ProgressBar->Style = ProgressBarStyle::Marquee;
+			this->Cursor = Cursors::AppStarting;
 
 			if (UndoImage != nullptr)
 				delete UndoImage;
@@ -430,11 +443,12 @@ System::Void BMPBildverarbeitung::MainFrame::BAlphaBlend_Click(System::Object ^ 
 System::Void BMPBildverarbeitung::MainFrame::BNegative_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (!IsProcessing) {
-		BUndo->Enabled = true;
+		DisableButtons();
 		IsProcessing = true;
 		ProgressBar->Visible = true;
 		ProgressBar->Style = ProgressBarStyle::Continuous;
 		ProgressBar->Style = ProgressBarStyle::Marquee;
+		this->Cursor = Cursors::AppStarting;
 		BackgroundWorker^ bw = gcnew BackgroundWorker();
 
 		if (UndoImage != nullptr)
@@ -503,11 +517,47 @@ System::Void BMPBildverarbeitung::MainFrame::überToolStripMenuItem_Click(System:
 	AF->ShowDialog();
 }
 
+// Click-Event for the "BMP schließen" Menulistitem
+
 System::Void BMPBildverarbeitung::MainFrame::schließenToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	PBMain->Image = nullptr;
 	PBOriginal->Image = nullptr;
 	DisableButtons();
+}
+
+// Tooltip for the Trackbar "Helligkeit"
+
+System::Void BMPBildverarbeitung::MainFrame::TBrightness_Scroll(System::Object ^ sender, System::EventArgs ^ e)
+{
+	double value;
+	value = TBrightness->Value;
+	if (value > 20 || value < 20) {
+		value -= 20;
+		value *= 5;
+	}	
+	else
+		value = 0;
+
+	value = floor(value);
+	TT->SetToolTip(TBrightness, (value.ToString()) + "%");
+}
+
+// Tooltip for the Trackbar "Sättigung"
+
+System::Void BMPBildverarbeitung::MainFrame::TSaturation_Scroll(System::Object ^ sender, System::EventArgs ^ e)
+{
+	double value;
+	value = TSaturation->Value;
+	if (value > 20 || value < 20) {
+		value -= 20;
+		value *= 5;
+	}
+	else
+		value = 0;
+
+	value = floor(value);
+	TT->SetToolTip(TSaturation, (value.ToString()) + "%");
 }
 
 // Closing form

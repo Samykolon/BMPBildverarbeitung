@@ -53,13 +53,13 @@ namespace BMPBildverarbeitung {
 	private: System::Windows::Forms::Button^  BDark;
 	private: System::Windows::Forms::Button^  BAlphaBlend;
 	private: System::Windows::Forms::ColorDialog^  CDAlphaBlend;
+	private: System::Windows::Forms::Button^  BNegative;
+	private: System::Windows::Forms::ToolTip^  TT;
 			
 			 String^ FilePath;
 			 Boolean IsProcessing;
 			 BMP *BMPimage;
-			 BMP *UndoImage;
-	private: System::Windows::Forms::Button^  BNegative;
-
+	         BMP *UndoImage;
 			 BMP *TempImage;
 			 property int ScaleNewWidth;
 			 property int ScaleNewHeight;
@@ -86,7 +86,7 @@ namespace BMPBildverarbeitung {
 		}
 
 	protected:
-		/// <summary>
+		/// <summary> 
 		/// Verwendete Ressourcen bereinigen.
 		/// </summary>
 		~MainFrame()
@@ -114,16 +114,8 @@ namespace BMPBildverarbeitung {
 
 
 	private: System::Windows::Forms::Button^  BScale;
+	private: System::ComponentModel::IContainer^  components;
 
-
-
-
-
-	private:
-		/// <summary>
-		/// Erforderliche Designervariable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -132,6 +124,7 @@ namespace BMPBildverarbeitung {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bMPLadenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -166,6 +159,7 @@ namespace BMPBildverarbeitung {
 			this->BAlphaBlend = (gcnew System::Windows::Forms::Button());
 			this->CDAlphaBlend = (gcnew System::Windows::Forms::ColorDialog());
 			this->BNegative = (gcnew System::Windows::Forms::Button());
+			this->TT = (gcnew System::Windows::Forms::ToolTip(this->components));
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PBMain))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBrightness))->BeginInit();
@@ -314,6 +308,7 @@ namespace BMPBildverarbeitung {
 			this->TBrightness->TabIndex = 9;
 			this->TBrightness->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->TBrightness->Value = 20;
+			this->TBrightness->Scroll += gcnew System::EventHandler(this, &MainFrame::TBrightness_Scroll);
 			// 
 			// label2
 			// 
@@ -335,6 +330,7 @@ namespace BMPBildverarbeitung {
 			this->TSaturation->TabIndex = 11;
 			this->TSaturation->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->TSaturation->Value = 20;
+			this->TSaturation->Scroll += gcnew System::EventHandler(this, &MainFrame::TSaturation_Scroll);
 			// 
 			// label3
 			// 
@@ -565,6 +561,7 @@ namespace BMPBildverarbeitung {
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 
-
+	private: System::Void TBrightness_Scroll(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TSaturation_Scroll(System::Object^  sender, System::EventArgs^  e);
 };
 }
