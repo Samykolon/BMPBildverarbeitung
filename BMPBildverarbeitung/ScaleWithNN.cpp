@@ -126,8 +126,8 @@ void Filters::ScaleWithNNSIMD(BMP &image, int newHeight, int newWidth)
 			out.Pixels[x][y] = image.Pixels[X][bufferY[y]];
 		}
 	}
-	delete bufferX;
-	delete bufferY;
+	delete[] bufferX;
+	delete[] bufferY;
 
 	image.~BMP();
 	new(&image) BMP(out);
